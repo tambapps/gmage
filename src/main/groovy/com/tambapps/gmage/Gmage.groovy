@@ -1,6 +1,7 @@
 package com.tambapps.gmage
 
 import com.tambapps.gmage.pixel.Pixel
+import com.tambapps.gmage.transformer.PixelTransformer
 
 class Gmage {
 
@@ -22,7 +23,7 @@ class Gmage {
     this.width = width
     this.height = height
     this.pixels = new Pixel[width * height]
-    for (i in pixels.indices) {
+    for (i in 0..<pixels.length) {
       this.pixels[i] = new Pixel()
     }
   }
@@ -48,5 +49,15 @@ class Gmage {
       throw new IllegalArgumentException("Indexes are not within bounds")
     }
     return getIndex(x, y)
+  }
+
+  void apply(PixelTransformer transformer) {
+    for (i in 0..<pixels.length) {
+      transformer.apply(this.pixels[i])
+    }
+  }
+
+  void leftShift(PixelTransformer transformer) {
+    apply(transformer)
   }
 }
