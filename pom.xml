@@ -16,10 +16,10 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.codehaus.groovy</groupId>
-      <artifactId>groovy-all</artifactId>
-      <version>2.4.20</version>
-      <!-- <type>pom</type>  required JUST since Groovy 2.5.0 -->
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.16</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -27,32 +27,14 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+
+    <!-- to test good integration with Groovy -->
+    <dependency>
+      <groupId>org.codehaus.groovy</groupId>
+      <artifactId>groovy-all</artifactId>
+      <version>2.4.20</version>
+      <scope>test</scope>
+      <!-- <type>pom</type>  required JUST since Groovy 2.5.0 -->
+    </dependency>
   </dependencies>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.gmavenplus</groupId>
-        <artifactId>gmavenplus-plugin</artifactId>
-        <version>1.8.1</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>addSources</goal>
-              <goal>addTestSources</goal>
-              <goal>generateStubs</goal>
-              <goal>compile</goal>
-              <goal>generateTestStubs</goal>
-              <goal>compileTests</goal>
-              <goal>removeStubs</goal>
-              <goal>removeTestStubs</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
 </project>
