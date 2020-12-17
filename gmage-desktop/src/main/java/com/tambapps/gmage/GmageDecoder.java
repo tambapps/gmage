@@ -42,35 +42,17 @@ public final class GmageDecoder {
   public static Gmage decode(BufferedImage image) {
     Raster raster = image.getData();
     int nbChannels = raster.getNumDataElements();
-    switch (nbChannels) {
-      case 1:
-        return decodeGrayImage(raster);
-      case 4:
-        return decodeRGBAImage(raster);
-      default:
-        return decodeRGBImage(raster);
+    if (nbChannels == 4) {
+      return decodeRGBAImage(image.getData());
     }
+    return decodeRGBImage(image);
   }
 
-  private static Gmage decodeGrayImage(Raster raster) {
-    Gmage gmage = new Gmage(raster.getWidth(), raster.getHeight());
-    int[] pixel = new int[1];
+  private static Gmage decodeRGBImage(BufferedImage image) {
+    Gmage gmage = new Gmage(image.getWidth(), image.getHeight());
     for (int y = 0; y < gmage.getHeight(); y++) {
       for (int x = 0; x < gmage.getWidth(); x++) {
-        raster.getPixel(x, y, pixel);
-        gmage.getAt(x, y).setRGB(pixel[0], pixel[0], pixel[0]);
-      }
-    }
-    return gmage;
-  }
-
-  private static Gmage decodeRGBImage(Raster raster) {
-    Gmage gmage = new Gmage(raster.getWidth(), raster.getHeight());
-    int[] pixel = new int[3];
-    for (int y = 0; y < gmage.getHeight(); y++) {
-      for (int x = 0; x < gmage.getWidth(); x++) {
-        raster.getPixel(x, y, pixel);
-        gmage.getAt(x, y).setRGB(pixel[0], pixel[1], pixel[2]);
+        gmage.getAt(x, y).setRGB(image.getRGB(x, y));
       }
     }
     return gmage;

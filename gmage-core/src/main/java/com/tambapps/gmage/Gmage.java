@@ -4,7 +4,10 @@ import com.tambapps.gmage.pixel.Pixel;
 import com.tambapps.gmage.transformer.PixelTransformer;
 import lombok.Getter;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 public class Gmage {
 
@@ -45,6 +48,10 @@ public class Gmage {
     pixels[checkedIndex(xy.get(0).intValue(), xy.get(1).intValue())].setARGB(value);
   }
 
+  public Stream<Pixel> pixels() {
+    return Arrays.stream(pixels);
+  }
+
   private int getIndex(int x, int y) {
     return y * width + x;
   }
@@ -62,6 +69,13 @@ public class Gmage {
     }
   }
 
+  // groovy methods
+  public void forEachPixel(Consumer<Pixel> consumer) {
+    for (int i = 0; i < pixels.length; i++) {
+      consumer.accept(pixels[i]);
+    }
+  }
+
   // groovy operator
   public void leftShift(PixelTransformer transformer) {
     apply(transformer);
@@ -70,7 +84,7 @@ public class Gmage {
   public Gmage and(Number number) {
     Gmage gmage = new Gmage(width, height, pixels);
     int filter = number.intValue();
-    gmage.apply((p) -> p.setARGB(p.toARGB() & filter));
+    gmage.apply((p) -> p.setARGB(p.getARGB() & filter));
     return gmage;
   }
 
