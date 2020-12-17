@@ -12,7 +12,7 @@ public class Gmage {
   @Getter final int height;
   private final Pixel[] pixels;
 
-  public Gmage(int width, int height, Pixel[] pixels) {
+  Gmage(int width, int height, Pixel[] pixels) {
     this.width = width;
     this.height = height;
     this.pixels = new Pixel[pixels.length];
@@ -22,7 +22,7 @@ public class Gmage {
     System.arraycopy(pixels, 0, this.pixels, 0, pixels.length);
   }
 
-  public Gmage(int width, int height) {
+  Gmage(int width, int height) {
     this.width = width;
     this.height = height;
     this.pixels = new Pixel[width * height];
@@ -35,11 +35,11 @@ public class Gmage {
     return pixels[checkedIndex(x.intValue(), y.intValue())];
   }
 
-  void putAt(List<Number> xy, Pixel value) {
+  public void putAt(List<Number> xy, Pixel value) {
     pixels[checkedIndex(xy.get(0).intValue(), xy.get(1).intValue())].set(value);
   }
 
-  void putAt(List<Number> xy, Number value) {
+  public void putAt(List<Number> xy, Number value) {
     pixels[checkedIndex(xy.get(0).intValue(), xy.get(1).intValue())].set(value);
   }
 
@@ -54,13 +54,13 @@ public class Gmage {
     return getIndex(x, y);
   }
 
-  void apply(PixelTransformer transformer) {
+  public void apply(PixelTransformer transformer) {
     for (int i = 0; i < pixels.length; i++) {
       transformer.apply(this.pixels[i]);
     }
   }
 
-  void leftShift(PixelTransformer transformer) {
+  public void leftShift(PixelTransformer transformer) {
     apply(transformer);
   }
 }
