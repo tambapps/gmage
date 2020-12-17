@@ -7,34 +7,43 @@
   <groupId>com.tambapps.gmage</groupId>
   <artifactId>gmage</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <name>Gmage</name>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>gmage-core</module>
+  </modules>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>1.18.16</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>3.8.1</version>
+        <scope>test</scope>
+      </dependency>
+
+      <!-- to test good integration with Groovy -->
+      <dependency>
+        <groupId>org.codehaus.groovy</groupId>
+        <artifactId>groovy-all</artifactId>
+        <version>2.4.20</version>
+        <scope>test</scope>
+        <!-- <type>pom</type>  required JUST since Groovy 2.5.0 -->
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
 
   <properties>
     <java.version>1.8</java.version>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
-
-  <dependencies>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>1.18.16</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-
-    <!-- to test good integration with Groovy -->
-    <dependency>
-      <groupId>org.codehaus.groovy</groupId>
-      <artifactId>groovy-all</artifactId>
-      <version>2.4.20</version>
-      <scope>test</scope>
-      <!-- <type>pom</type>  required JUST since Groovy 2.5.0 -->
-    </dependency>
-  </dependencies>
 </project>
