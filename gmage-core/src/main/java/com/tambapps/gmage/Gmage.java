@@ -2,12 +2,15 @@ package com.tambapps.gmage;
 
 import com.tambapps.gmage.pixel.Pixel;
 import com.tambapps.gmage.transformer.PixelTransformer;
+import lombok.Getter;
 
 import java.util.List;
 
 public class Gmage {
 
+  @Getter
   final int width;
+  @Getter
   final int height;
   private final Pixel[] pixels;
 
