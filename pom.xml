@@ -12,6 +12,7 @@
 
   <modules>
     <module>gmage-core</module>
+    <module>gmage-desktop</module>
   </modules>
 
   <dependencyManagement>
