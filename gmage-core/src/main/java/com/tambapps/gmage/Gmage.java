@@ -8,10 +8,8 @@ import java.util.List;
 
 public class Gmage {
 
-  @Getter
-  final int width;
-  @Getter
-  final int height;
+  @Getter final int width;
+  @Getter final int height;
   private final Pixel[] pixels;
 
   public Gmage(int width, int height, Pixel[] pixels) {
