@@ -8,9 +8,11 @@ import java.util.List;
 
 public class Gmage {
 
-  @Getter final int width;
-  @Getter final int height;
-  private final Pixel[] pixels;
+  @Getter
+  final int width;
+  @Getter
+  final int height;
+  final Pixel[] pixels;
 
   Gmage(int width, int height, Pixel[] pixels) {
     this.width = width;
@@ -62,5 +64,13 @@ public class Gmage {
 
   public void leftShift(PixelTransformer transformer) {
     apply(transformer);
+  }
+
+  public Gmage toUndoRedo() {
+    return toUndoRedo(10);
+  }
+
+  public URGmage toUndoRedo(int windowSize) {
+    return new URGmage(this, windowSize);
   }
 }
