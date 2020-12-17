@@ -7,36 +7,36 @@ import lombok.Data;
  */
 @Data // TODO ne stocker qu'un int argb et faire les conversion quand on requete r,g,b ou a
 public class Pixel {
-  private int a = 0xff;
-  private int r;
-  private int g;
-  private int b;
+  private int alpha = 0xff;
+  private int red;
+  private int green;
+  private int blue;
 
   public void setARGB(Number value) {
     // TODO
   }
 
   public void setRGB(Number red, Number green, Number blue) {
-    this.r = red.intValue();
-    this.g = green.intValue();
-    this.b = blue.intValue();
+    this.red = red.intValue();
+    this.green = green.intValue();
+    this.blue = blue.intValue();
   }
 
   public void setARGB(Number alpha, Number red, Number green, Number blue) {
-    this.a = alpha.intValue();
-    this.r = red.intValue();
-    this.g = green.intValue();
-    this.b = blue.intValue();
+    this.alpha = alpha.intValue();
+    this.red = red.intValue();
+    this.green = green.intValue();
+    this.blue = blue.intValue();
   }
 
   public void set(Pixel value) {
-    this.a = value.a;
-    this.r = value.r;
-    this.g = value.g;
-    this.b = value.b;
+    this.alpha = value.alpha;
+    this.red = value.red;
+    this.green = value.green;
+    this.blue = value.blue;
   }
 
   public int toARGB() {
-    return (a & 255) << 24 | (r & 255) << 16 | (g & 255) << 8 | (b & 255);
+    return (alpha & 255) << 24 | (red & 255) << 16 | (green & 255) << 8 | (blue & 255);
   }
 }

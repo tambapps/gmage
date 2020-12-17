@@ -9,9 +9,9 @@ class GmageTest extends GroovyTestCase {
     assertNotNull(gmage)
     Pixel pixel = gmage[0,0]
     assertNotNull(pixel)
-    assertEquals(0xff, pixel.r)
-    assertEquals(0xff, pixel.g)
-    assertEquals(0xff, pixel.b)
-    assertEquals(0xff, pixel.a)
+    assertEquals(0xff, pixel.red)
+    assertEquals(0xff, pixel.green)
+    assertEquals(0xff, pixel.blue)
+    assertEquals(0xff, pixel.alpha)
   }
 }
