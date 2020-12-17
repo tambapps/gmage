@@ -82,7 +82,7 @@ public final class GmageDecoder {
     for (int y = 0; y < gmage.getHeight(); y++) {
       for (int x = 0; x < gmage.getWidth(); x++) {
         raster.getPixel(x, y, pixel);
-        gmage.getAt(x, y).setRGBA(pixel[0], pixel[1], pixel[2], pixel[3]);
+        gmage.getAt(x, y).setARGB(pixel[3], pixel[0], pixel[1], pixel[2]);
       }
     }
     return gmage;

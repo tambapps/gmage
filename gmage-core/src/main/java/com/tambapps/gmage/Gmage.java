@@ -42,7 +42,7 @@ public class Gmage {
   }
 
   public void putAt(List<Number> xy, Number value) {
-    pixels[checkedIndex(xy.get(0).intValue(), xy.get(1).intValue())].set(value);
+    pixels[checkedIndex(xy.get(0).intValue(), xy.get(1).intValue())].setARGB(value);
   }
 
   private int getIndex(int x, int y) {
@@ -62,8 +62,16 @@ public class Gmage {
     }
   }
 
+  // groovy operator
   public void leftShift(PixelTransformer transformer) {
     apply(transformer);
+  }
+
+  public Gmage and(Number number) {
+    Gmage gmage = new Gmage(width, height, pixels);
+    int filter = number.intValue();
+    gmage.apply((p) -> p.setARGB(p.toARGB() & filter));
+    return gmage;
   }
 
   public Gmage toUndoRedo() {
