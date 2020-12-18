@@ -45,21 +45,36 @@ public class Gmage {
   public void putAt(List<Number> xy, Color value) {
     pixels[checkedIndex(xy.get(0).intValue(), xy.get(1).intValue())] = value;
   }
-
-  public void putAt(List<Number> xy, Number value) {
-    pixels[checkedIndex(xy.get(0).intValue(), xy.get(1).intValue())] = new Color(value);
-  }
-
-  public void putAt(List<Number> xy, Integer value) {
-    pixels[checkedIndex(xy.get(0).intValue(), xy.get(1).intValue())] = new Color(value);
-  }
-
   public Stream<Color> pixels() {
     return Arrays.stream(pixels);
   }
 
   public Gmage copy() {
     return new Gmage(this.width, this.height, this.pixels);
+  }
+
+
+  public void putAt(List<Number> xy, Number value) {
+    putAt(xy, new Color(value));
+  }
+
+  public void putAt(List<Number> xy, Integer value) {
+    putAt(xy, new Color(value));
+  }
+
+  public void set(Gmage gmage) {
+    if (width != gmage.width || height != gmage.height) {
+      throw new IllegalArgumentException("Cannot set from gmage with different size");
+    }
+    for (int i = 0; i < pixels.length; i++) {
+      pixels[i] = gmage.pixels[i];
+    }
+  }
+
+  public void apply(ColorTransformer transformer) {
+    for (int i = 0; i < pixels.length; i++) {
+      this.pixels[i] = transformer.apply(this.pixels[i]);
+    }
   }
 
   static int getIndex(int x, int y, int width) {
@@ -77,12 +92,6 @@ public class Gmage {
     return getIndex(x, y);
   }
 
-  public void apply(ColorTransformer transformer) {
-    for (int i = 0; i < pixels.length; i++) {
-      this.pixels[i] = transformer.apply(this.pixels[i]);
-    }
-  }
-
   // groovy methods
   public void forEachPixel(Consumer<Color> consumer) {
     for (int i = 0; i < pixels.length; i++) {
@@ -96,23 +105,15 @@ public class Gmage {
   }
 
   public Gmage and(Number number) {
-    Gmage gmage = new Gmage(width, height, pixels);
-    for (int i = 0; i < pixels.length; i++) {
-      pixels[i] = pixels[i].and(number);
-    }
-    return gmage;
+    return and(new Color(number));
   }
 
   public Gmage and(Integer number) {
-    Gmage gmage = new Gmage(width, height, pixels);
-    for (int i = 0; i < pixels.length; i++) {
-      pixels[i] = pixels[i].and(number);
-    }
-    return gmage;
+    return and(new Color(number));
   }
 
   public Gmage and(Color color) {
-    Gmage gmage = new Gmage(width, height, pixels);
+    Gmage gmage = copy();
     for (int i = 0; i < pixels.length; i++) {
       pixels[i] = pixels[i].and(color);
     }
@@ -120,23 +121,15 @@ public class Gmage {
   }
 
   public Gmage or(Number number) {
-    Gmage gmage = new Gmage(width, height, pixels);
-    for (int i = 0; i < pixels.length; i++) {
-      pixels[i] = pixels[i].or(number);
-    }
-    return gmage;
+    return or(new Color(number));
   }
 
   public Gmage or(Integer number) {
-    Gmage gmage = new Gmage(width, height, pixels);
-    for (int i = 0; i < pixels.length; i++) {
-      pixels[i] = pixels[i].or(number);
-    }
-    return gmage;
+    return or(new Color(number));
   }
 
   public Gmage or(Color color) {
-    Gmage gmage = new Gmage(width, height, pixels);
+    Gmage gmage = copy();
     for (int i = 0; i < pixels.length; i++) {
       pixels[i] = pixels[i].or(color);
     }
