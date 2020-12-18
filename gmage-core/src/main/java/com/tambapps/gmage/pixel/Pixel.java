@@ -68,8 +68,20 @@ public class Pixel {
     rgb = toRgb(red, getGreen(), getBlue());
   }
 
+  public void setRed(Number red) {
+    setRed(red.intValue());
+  }
+
+  public void setGreen(Number green) {
+    setGreen(green.intValue());
+  }
+
   public void setGreen(int green) {
     rgb = toRgb(getRed(), green, getBlue());
+  }
+
+  public void setBlue(Number blue) {
+    setBlue(blue.intValue());
   }
 
   public void setBlue(int blue) {
@@ -77,15 +89,11 @@ public class Pixel {
   }
 
   public void setAlpha(Number alpha) {
-    this.alpha = alpha.intValue() & 255;
+    setAlpha(alpha.intValue());
   }
 
   public void setAlpha(int alpha) {
     this.alpha = alpha & 255;
-  }
-
-  public void setRgb(Number red, Number green, Number blue) {
-    setRgb(red.intValue(), green.intValue(), blue.intValue());
   }
 
   public void setRgb(Number number) {
@@ -94,6 +102,10 @@ public class Pixel {
 
   public void setRgb(int number) {
     rgb = number & WHITE;
+  }
+
+  public void setRgb(Number red, Number green, Number blue) {
+    setRgb(red.intValue(), green.intValue(), blue.intValue());
   }
 
   public void setRgb(int red, int green, int blue) {
@@ -116,9 +128,9 @@ public class Pixel {
 
   public int toRgb(int red, int green, int blue) {
     int color = 0;
-    color |= red << 16;
-    color |= green << 8;
-    color |= blue;
+    color |= (red & 255) << 16;
+    color |= (green & 255) << 8;
+    color |= (blue & 255);
     return color;
   }
 

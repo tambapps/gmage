@@ -77,11 +77,11 @@ class PixelTest extends GroovyTestCase {
 
     void testValuesOutOfBounds() {
         def pixel = Pixel.black()
-        pixel.red = 12345
+        pixel.red = 0xffff
         assertEquals(255, pixel.red)
-        pixel.green = 12345
+        pixel.green = 0xffff
         assertEquals(255, pixel.green)
-        pixel.blue = 12345
+        pixel.blue = 0xffff
         assertEquals(255, pixel.blue)
     }
 }
