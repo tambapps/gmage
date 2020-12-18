@@ -52,7 +52,7 @@ public final class GmageDecoder {
     Gmage gmage = new Gmage(image.getWidth(), image.getHeight());
     for (int y = 0; y < gmage.getHeight(); y++) {
       for (int x = 0; x < gmage.getWidth(); x++) {
-        gmage.getAt(x, y).setRGB(image.getRGB(x, y));
+        gmage.getAt(x, y).setRgb(image.getRGB(x, y));
       }
     }
     return gmage;
@@ -64,7 +64,7 @@ public final class GmageDecoder {
     for (int y = 0; y < gmage.getHeight(); y++) {
       for (int x = 0; x < gmage.getWidth(); x++) {
         raster.getPixel(x, y, pixel);
-        gmage.getAt(x, y).setARGB(pixel[3], pixel[0], pixel[1], pixel[2]);
+        gmage.getAt(x, y).setArgb(pixel[3], pixel[0], pixel[1], pixel[2]);
       }
     }
     return gmage;

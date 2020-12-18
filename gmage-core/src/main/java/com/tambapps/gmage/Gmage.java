@@ -45,7 +45,7 @@ public class Gmage {
   }
 
   public void putAt(List<Number> xy, Number value) {
-    pixels[checkedIndex(xy.get(0).intValue(), xy.get(1).intValue())].setARGB(value);
+    pixels[checkedIndex(xy.get(0).intValue(), xy.get(1).intValue())].setArgb(value);
   }
 
   public Stream<Pixel> pixels() {
@@ -84,7 +84,7 @@ public class Gmage {
   public Gmage and(Number number) {
     Gmage gmage = new Gmage(width, height, pixels);
     int filter = number.intValue();
-    gmage.apply((p) -> p.setARGB(p.getARGB() & filter));
+    gmage.apply((p) -> p.setArgb(p.getArgb() & filter));
     return gmage;
   }
 

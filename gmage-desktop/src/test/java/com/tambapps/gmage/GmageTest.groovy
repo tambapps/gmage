@@ -26,8 +26,8 @@ class GmageTest extends GroovyTestCase {
       assertEquals(255, pixel.getRed())
       assertEquals(0, pixel.getGreen())
       assertEquals(0, pixel.getBlue())
-      assertEquals(0xff0000, pixel.getRGB())
-      assertEquals(0xffff0000, pixel.getARGB())
+      assertEquals(0xff0000, pixel.getRgb())
+      assertEquals(0xffff0000, pixel.getArgb())
     }
   }
 
@@ -38,8 +38,8 @@ class GmageTest extends GroovyTestCase {
       assertEquals(0, pixel.getRed())
       assertEquals(255, pixel.getGreen())
       assertEquals(0, pixel.getBlue())
-      assertEquals(0x00ff00, pixel.getRGB())
-      assertEquals(0xff00ff00, pixel.getARGB())
+      assertEquals(0x00ff00, pixel.getRgb())
+      assertEquals(0xff00ff00, pixel.getArgb())
     }
   }
 
@@ -50,8 +50,8 @@ class GmageTest extends GroovyTestCase {
       assertEquals(0, pixel.getRed())
       assertEquals(0, pixel.getGreen())
       assertEquals(255, pixel.getBlue())
-      assertEquals(0x0000ff, pixel.getRGB())
-      assertEquals(0xff0000ff, pixel.getARGB())
+      assertEquals(0x0000ff, pixel.getRgb())
+      assertEquals(0xff0000ff, pixel.getArgb())
     }
   }
 
