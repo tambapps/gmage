@@ -5,10 +5,10 @@ import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.image.BufferedImage
 
-class GmageTest extends GroovyTestCase {
+class GmageDecoderTest extends GroovyTestCase {
 
   void testParseStream() {
-    Gmage gmage = GmageDecoder.decode(GmageTest.class.getResource("/ronflex.jpg"))
+    Gmage gmage = GmageDecoder.decode(GmageDecoderTest.class.getResource("/ronflex.jpg"))
     assertNotNull(gmage)
     com.tambapps.gmage.pixel.Color pixel = gmage[0,0]
     assertNotNull(pixel)
