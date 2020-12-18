@@ -20,25 +20,47 @@ class GmageTest extends GroovyTestCase {
   }
 
   void testRedImage() {
-    Gmage gmage = filledImage(0xffff0000 as int)
+    Gmage gmage = filledImage(0xff0000)
     gmage.forEachPixel { Pixel pixel ->
-      assertEquals(pixel.getAlpha(), 0xff)
-      assertEquals(pixel.getRed(), 0xff)
-      assertEquals(pixel.getGreen(), 0)
-      assertEquals(pixel.getBlue(), 0)
-      // TODO these two last asserts don't work
-      assertEquals(pixel.getRGB(), 0xffffff)
-      assertEquals(pixel.getARGB(), 0xffffffff)
+      assertEquals(255, pixel.getAlpha())
+      assertEquals(255, pixel.getRed())
+      assertEquals(0, pixel.getGreen())
+      assertEquals(0, pixel.getBlue())
+      assertEquals(0xff0000, pixel.getRGB())
+      assertEquals(0xffff0000, pixel.getARGB())
     }
   }
 
-  // TODO use argument
-  private Gmage filledImage(int argb) {
+  void testGreenImage() {
+    Gmage gmage = filledImage(0x00ff00)
+    gmage.forEachPixel { Pixel pixel ->
+      assertEquals(255, pixel.getAlpha())
+      assertEquals(0, pixel.getRed())
+      assertEquals(255, pixel.getGreen())
+      assertEquals(0, pixel.getBlue())
+      assertEquals(0x00ff00, pixel.getRGB())
+      assertEquals(0xff00ff00, pixel.getARGB())
+    }
+  }
+
+  void testBlueImage() {
+    Gmage gmage = filledImage(0x0000ff)
+    gmage.forEachPixel { Pixel pixel ->
+      assertEquals(255, pixel.getAlpha())
+      assertEquals(0, pixel.getRed())
+      assertEquals(0, pixel.getGreen())
+      assertEquals(255, pixel.getBlue())
+      assertEquals(0x0000ff, pixel.getRGB())
+      assertEquals(0xff0000ff, pixel.getARGB())
+    }
+  }
+
+  private static Gmage filledImage(int rgb) {
     int width = 64
     int height = 64
     BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB)
     Graphics2D g = (Graphics2D) image.getGraphics()
-    g.setColor(Color.red)
+    g.setColor(new Color(rgb))
     g.fillRect(0, 0, width, height)
     return GmageDecoder.decode(image)
   }

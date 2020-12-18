@@ -32,7 +32,7 @@ public class Gmage {
     this.height = height;
     this.pixels = new Pixel[width * height];
     for (int i = 0; i < pixels.length; i++) {
-      this.pixels[i] = new Pixel();
+      this.pixels[i] = Pixel.black();
     }
   }
 

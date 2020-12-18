@@ -1,102 +1,131 @@
 package com.tambapps.gmage.pixel;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents the pixel of an image.
  * Alpha, red, green, blue value go from 0 to 255 included
  */
-@AllArgsConstructor
-@NoArgsConstructor
 public class Pixel {
 
   // note that white is actually -1
-  public static final int WHITE = 0xffffffff;
+  public static final int WHITE = 0xffffff;
 
-  private int argb = 0xff000000;
-
-  public void setARGB(Number value) {
-    this.argb = value.intValue();
+  public static Pixel black() {
+    return new Pixel(0);
   }
 
-  public int getAlpha() {
-    return (argb >> 24) & 255;
+  public static Pixel of(int rgb) {
+    return new Pixel(rgb);
+  }
+
+  public static long toARGB(int alpha, int red, int green, int blue) {
+    long color = 0;
+    color |= (long) alpha << 24;
+    color |= (long) red << 16;
+    color |= (long) green << 8;
+    color |= blue;
+    return color;
+  }
+
+  private int rgb;
+  @Getter
+  private int alpha;
+
+  private Pixel(int rgb, int alpha) {
+    this.rgb = rgb;
+    this.alpha = alpha;
+  }
+
+  private Pixel(int rgb) {
+    this(rgb, 255);
+  }
+
+  public void setARGB(Number value) {
+    long extractedAlpha = value.longValue() & 0xff000000;
+    this.alpha = (int) extractedAlpha;
+    this.rgb = (int) (value.longValue() & 0xffffff);
   }
 
   public int getRed() {
-    return (argb >> 16) & 255;
+    return (rgb >> 16) & 255;
   }
 
   public int getGreen() {
-    return (argb >> 8) & 255;
+    return (rgb >> 8) & 255;
   }
 
   public int getBlue() {
-    return argb & 255;
-  }
-
-  public void setAlpha(int alpha) {
-    argb = toARGB(alpha, getRed(), getGreen(), getBlue());
+    return rgb & 255;
   }
 
   public void setRed(int red) {
-    argb = toARGB(getAlpha(), red, getGreen(), getBlue());
+    rgb = toRGB(red, getGreen(), getBlue());
   }
 
   public void setGreen(int green) {
-    argb = toARGB(getAlpha(), getRed(), green, getBlue());
+    rgb = toRGB(getRed(), green, getBlue());
   }
 
   public void setBlue(int blue) {
-    argb = toARGB(getAlpha(), getRed(), getGreen(), blue);
+    rgb = toRGB(getRed(), getGreen(), blue);
+  }
+
+  public void setAlpha(Number alpha) {
+    this.alpha = alpha.intValue() & 255;
+  }
+
+  public void setAlpha(int alpha) {
+    this.alpha = alpha & 255;
   }
 
   public void setRGB(Number red, Number green, Number blue) {
-    argb = toARGB(getAlpha(), red.intValue(), green.intValue(), blue.byteValue());
+    rgb = toRGB(red.intValue(), green.intValue(), blue.byteValue());
   }
 
   public void setRGB(Number number) {
-    argb = 0xff000000 | number.intValue();
+    rgb = number.intValue() & WHITE;
   }
 
   public void setRGB(int number) {
-    argb = 0xff000000 | number;
+    rgb = number & WHITE;
   }
 
   public void setRGB(int red, int green, int blue) {
-    argb = toARGB(getAlpha(), red, green, blue);
+    rgb = toRGB(red, green, blue);
   }
 
   public void setARGB(Number alpha, Number red, Number green, Number blue) {
-    argb = toARGB(alpha.intValue(), red.intValue(), green.intValue(), blue.intValue());
+    this.alpha = alpha.intValue() & 255;
+    this.rgb = toRGB(red.intValue(), green.intValue(), blue.intValue());
   }
 
   public void setARGB(int alpha, int red, int green, int blue) {
-    argb = toARGB(alpha, red, green, blue);
+    this.alpha = alpha & 255;
+    this.rgb = toRGB(red, green, blue);
   }
 
   public void set(Pixel value) {
-    argb = value.argb;
+    rgb = value.rgb;
+    alpha = value.alpha;
   }
 
-  public int toARGB(int alpha, int red, int green, int blue) {
+  public int toRGB(int red, int green, int blue) {
     int color = 0;
-    color |= alpha << 24;
     color |= red << 16;
     color |= green << 8;
     color |= blue;
     return color;
   }
 
-  public int getARGB() {
+  public long getARGB() {
+    long argb = this.rgb;
+    argb |= ((long)alpha) << 24L;
     return argb;
   }
 
   public int getRGB() {
-    int rgb = getRed();
-    rgb = (rgb << 8) + getGreen();
-    rgb = (rgb << 8) + getBlue();
     return rgb;
   }
 
