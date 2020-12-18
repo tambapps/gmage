@@ -1,6 +1,5 @@
 package com.tambapps.gmage
 
-import com.tambapps.gmage.pixel.Pixel
 
 import java.awt.Color
 import java.awt.Graphics2D
@@ -11,7 +10,7 @@ class GmageTest extends GroovyTestCase {
   void testParseStream() {
     Gmage gmage = GmageDecoder.decode(GmageTest.class.getResource("/ronflex.jpg"))
     assertNotNull(gmage)
-    Pixel pixel = gmage[0,0]
+    com.tambapps.gmage.pixel.Color pixel = gmage[0,0]
     assertNotNull(pixel)
     assertEquals("alpha test", 0xff, pixel.alpha)
     assertEquals("red test", 0xff, pixel.red)
@@ -21,7 +20,7 @@ class GmageTest extends GroovyTestCase {
 
   void testRedImage() {
     Gmage gmage = filledImage(0xff0000)
-    gmage.forEachPixel { Pixel pixel ->
+    gmage.forEachPixel { com.tambapps.gmage.pixel.Color pixel ->
       assertEquals(255, pixel.getAlpha())
       assertEquals(255, pixel.getRed())
       assertEquals(0, pixel.getGreen())
@@ -33,7 +32,7 @@ class GmageTest extends GroovyTestCase {
 
   void testGreenImage() {
     Gmage gmage = filledImage(0x00ff00)
-    gmage.forEachPixel { Pixel pixel ->
+    gmage.forEachPixel { com.tambapps.gmage.pixel.Color pixel ->
       assertEquals(255, pixel.getAlpha())
       assertEquals(0, pixel.getRed())
       assertEquals(255, pixel.getGreen())
@@ -45,7 +44,7 @@ class GmageTest extends GroovyTestCase {
 
   void testBlueImage() {
     Gmage gmage = filledImage(0x0000ff)
-    gmage.forEachPixel { Pixel pixel ->
+    gmage.forEachPixel { com.tambapps.gmage.pixel.Color pixel ->
       assertEquals(255, pixel.getAlpha())
       assertEquals(0, pixel.getRed())
       assertEquals(0, pixel.getGreen())

@@ -1,7 +1,7 @@
 package com.tambapps.gmage;
 
-import com.tambapps.gmage.pixel.Pixel;
-import com.tambapps.gmage.transformer.PixelTransformer;
+import com.tambapps.gmage.pixel.Color;
+import com.tambapps.gmage.transformer.ColorTransformer;
 import lombok.Getter;
 
 import java.util.Arrays;
@@ -15,51 +15,55 @@ public class Gmage {
   final int width;
   @Getter
   final int height;
-  final Pixel[] pixels;
+  final Color[] pixels;
 
-  Gmage(int width, int height, Pixel[] pixels) {
+  Gmage(int width, int height, Color[] pixels) {
     this.width = width;
     this.height = height;
-    this.pixels = new Pixel[pixels.length];
+    this.pixels = new Color[pixels.length];
     if (pixels.length != width * height) {
       throw new IllegalArgumentException("pixels should have a size of width * height");
     }
     for (int i = 0; i < pixels.length; i++) {
-      this.pixels[i] = Pixel.copy(pixels[i]);
+      this.pixels[i] = Color.copy(pixels[i]);
     }
   }
 
   Gmage(int width, int height) {
     this.width = width;
     this.height = height;
-    this.pixels = new Pixel[width * height];
+    this.pixels = new Color[width * height];
     for (int i = 0; i < pixels.length; i++) {
-      this.pixels[i] = Pixel.BLACK;
+      this.pixels[i] = Color.BLACK;
     }
   }
 
-  public Pixel getAt(Number x, Number y) {
+  public Color getAt(Number x, Number y) {
     return pixels[checkedIndex(x.intValue(), y.intValue())];
   }
 
-  public void putAt(List<Number> xy, Pixel value) {
+  public void putAt(List<Number> xy, Color value) {
     pixels[checkedIndex(xy.get(0).intValue(), xy.get(1).intValue())] = value;
   }
 
   public void putAt(List<Number> xy, Number value) {
-    pixels[checkedIndex(xy.get(0).intValue(), xy.get(1).intValue())] = new Pixel(value);
+    pixels[checkedIndex(xy.get(0).intValue(), xy.get(1).intValue())] = new Color(value);
   }
 
   public void putAt(List<Number> xy, Integer value) {
-    pixels[checkedIndex(xy.get(0).intValue(), xy.get(1).intValue())] = new Pixel(value);
+    pixels[checkedIndex(xy.get(0).intValue(), xy.get(1).intValue())] = new Color(value);
   }
 
-  public Stream<Pixel> pixels() {
+  public Stream<Color> pixels() {
     return Arrays.stream(pixels);
   }
 
   public Gmage copy() {
     return new Gmage(this.width, this.height, this.pixels);
+  }
+
+  static int getIndex(int x, int y, int width) {
+    return y * width + x;
   }
 
   private int getIndex(int x, int y) {
@@ -73,21 +77,21 @@ public class Gmage {
     return getIndex(x, y);
   }
 
-  public void apply(PixelTransformer transformer) {
+  public void apply(ColorTransformer transformer) {
     for (int i = 0; i < pixels.length; i++) {
-      transformer.apply(this.pixels[i]);
+      this.pixels[i] = transformer.apply(this.pixels[i]);
     }
   }
 
   // groovy methods
-  public void forEachPixel(Consumer<Pixel> consumer) {
+  public void forEachPixel(Consumer<Color> consumer) {
     for (int i = 0; i < pixels.length; i++) {
       consumer.accept(pixels[i]);
     }
   }
 
   // groovy operator
-  public void leftShift(PixelTransformer transformer) {
+  public void leftShift(ColorTransformer transformer) {
     apply(transformer);
   }
 
@@ -107,10 +111,10 @@ public class Gmage {
     return gmage;
   }
 
-  public Gmage and(Pixel pixel) {
+  public Gmage and(Color color) {
     Gmage gmage = new Gmage(width, height, pixels);
     for (int i = 0; i < pixels.length; i++) {
-      pixels[i] = pixels[i].and(pixel);
+      pixels[i] = pixels[i].and(color);
     }
     return gmage;
   }
@@ -131,10 +135,10 @@ public class Gmage {
     return gmage;
   }
 
-  public Gmage or(Pixel pixel) {
+  public Gmage or(Color color) {
     Gmage gmage = new Gmage(width, height, pixels);
     for (int i = 0; i < pixels.length; i++) {
-      pixels[i] = pixels[i].or(pixel);
+      pixels[i] = pixels[i].or(color);
     }
     return gmage;
   }

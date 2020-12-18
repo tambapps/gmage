@@ -1,6 +1,6 @@
 package com.tambapps.gmage;
 
-import com.tambapps.gmage.transformer.PixelTransformer;
+import com.tambapps.gmage.transformer.ColorTransformer;
 
 import java.util.LinkedList;
 
@@ -24,7 +24,7 @@ public class URGmage extends Gmage {
   }
 
   @Override
-  public void apply(PixelTransformer transformer) {
+  public void apply(ColorTransformer transformer) {
     pushHistory();
     super.apply(transformer);
   }
