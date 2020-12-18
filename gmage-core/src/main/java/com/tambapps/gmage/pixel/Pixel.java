@@ -9,7 +9,8 @@ import lombok.Getter;
  */
 @EqualsAndHashCode
 public class Pixel {
-
+// TODO make me immutable
+//   add method Gmage.putAt(Number) put ARGB pixel, Gmage.putAt(Integer) put RGB pixel
   public static final int WHITE = 0xffffff;
 
   public static Pixel black() {
@@ -22,6 +23,10 @@ public class Pixel {
 
   public static Pixel of(int rgb, int alpha) {
     return new Pixel(rgb, alpha);
+  }
+
+  public static Pixel copy(Pixel pixel) {
+    return new Pixel(pixel.rgb, pixel.alpha);
   }
 
   public static long toARGB(int alpha, int red, int green, int blue) {

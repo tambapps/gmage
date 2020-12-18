@@ -24,7 +24,9 @@ public class Gmage {
     if (pixels.length != width * height) {
       throw new IllegalArgumentException("pixels should have a size of width * height");
     }
-    System.arraycopy(pixels, 0, this.pixels, 0, pixels.length);
+    for (int i = 0; i < pixels.length; i++) {
+      this.pixels[i] = Pixel.copy(pixels[i]);
+    }
   }
 
   Gmage(int width, int height) {
@@ -50,6 +52,10 @@ public class Gmage {
 
   public Stream<Pixel> pixels() {
     return Arrays.stream(pixels);
+  }
+
+  public Gmage copy() {
+    return new Gmage(this.width, this.height, this.pixels);
   }
 
   private int getIndex(int x, int y) {
@@ -81,6 +87,7 @@ public class Gmage {
     apply(transformer);
   }
 
+  // TODO make or function
   public Gmage and(Number number) {
     Gmage gmage = new Gmage(width, height, pixels);
     int filter = number.intValue();
