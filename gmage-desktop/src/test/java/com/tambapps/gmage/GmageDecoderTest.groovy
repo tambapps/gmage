@@ -1,23 +1,28 @@
 package com.tambapps.gmage
 
+import static org.junit.jupiter.api.Assertions.assertEquals
+import static org.junit.jupiter.api.Assertions.assertNotNull
 
 import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.image.BufferedImage
+import org.junit.jupiter.api.Test
 
-class GmageDecoderTest extends GroovyTestCase {
+class GmageDecoderTest {
 
+  @Test
   void testParseStream() {
     Gmage gmage = GmageDecoder.decode(GmageDecoderTest.class.getResource("/ronflex.jpg"))
     assertNotNull(gmage)
     com.tambapps.gmage.pixel.Color pixel = gmage[0,0]
     assertNotNull(pixel)
-    assertEquals("alpha test", 0xff, pixel.alpha)
-    assertEquals("red test", 0xff, pixel.red)
-    assertEquals("green test", 0xff, pixel.green)
-    assertEquals("blue test", 0xff, pixel.blue)
+    assertEquals(0xff, pixel.alpha, "alpha test")
+    assertEquals(0xff, pixel.red, "red test")
+    assertEquals(0xff, pixel.green, "green test")
+    assertEquals(0xff, pixel.blue, "blue test")
   }
 
+  @Test
   void testRedImage() {
     Gmage gmage = filledImage(0xff0000)
     gmage.forEachPixel { com.tambapps.gmage.pixel.Color pixel ->
@@ -30,6 +35,7 @@ class GmageDecoderTest extends GroovyTestCase {
     }
   }
 
+  @Test
   void testGreenImage() {
     Gmage gmage = filledImage(0x00ff00)
     gmage.forEachPixel { com.tambapps.gmage.pixel.Color pixel ->
@@ -42,6 +48,7 @@ class GmageDecoderTest extends GroovyTestCase {
     }
   }
 
+  @Test
   void testBlueImage() {
     Gmage gmage = filledImage(0x0000ff)
     gmage.forEachPixel { com.tambapps.gmage.pixel.Color pixel ->

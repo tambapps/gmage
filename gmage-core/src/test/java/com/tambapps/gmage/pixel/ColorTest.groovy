@@ -1,8 +1,12 @@
 package com.tambapps.gmage.pixel
 
-class ColorTest extends GroovyTestCase {
+import static org.junit.jupiter.api.Assertions.assertEquals
 
+import org.junit.jupiter.api.Test
 
+class ColorTest {
+
+    @Test
     void testBlackPixel() {
         Color pixel = new Color(0x000000)
         assertEquals(255, pixel.alpha)
@@ -14,6 +18,7 @@ class ColorTest extends GroovyTestCase {
         assertEquals(0xff000000, Color.toArgb(255, 0, 0, 0))
     }
 
+    @Test
     void testWhitePixel() {
         Color pixel = new Color(0xffffff)
         assertEquals(255, pixel.alpha)
@@ -25,6 +30,7 @@ class ColorTest extends GroovyTestCase {
         assertEquals(0xffffffff, pixel.argb, Color.toArgb(255, 255, 255, 255))
     }
 
+    @Test
     void testRedPixel() {
         Color pixel = new Color(0xff0000)
         assertEquals(255, pixel.alpha)
@@ -36,6 +42,7 @@ class ColorTest extends GroovyTestCase {
         assertEquals(0xffff0000, Color.toArgb(255, 255, 0, 0))
     }
 
+    @Test
     void testGreenPixel() {
         Color pixel = new Color(0x00ff00)
         assertEquals(255, pixel.alpha)
@@ -47,6 +54,7 @@ class ColorTest extends GroovyTestCase {
         assertEquals(0xff00ff00, Color.toArgb(255, 0, 255, 0))
     }
 
+    @Test
     void testBluePixel() {
         Color pixel = new Color(0x0000ff)
         assertEquals(255, pixel.alpha)
@@ -58,6 +66,7 @@ class ColorTest extends GroovyTestCase {
         assertEquals(0xff0000ff, Color.toArgb(255, 0, 0, 255))
     }
 
+    @Test
     void testSetters() {
         // test different constructors of Pixel
         /*
