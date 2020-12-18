@@ -140,7 +140,7 @@ public class Gmage {
     return toUndoRedo(10);
   }
 
-  public URGmage toUndoRedo(int windowSize) {
-    return new URGmage(this, windowSize);
+  public UndoRedoGmage toUndoRedo(int windowSize) {
+    return new UndoRedoGmage(this, windowSize);
   }
 }

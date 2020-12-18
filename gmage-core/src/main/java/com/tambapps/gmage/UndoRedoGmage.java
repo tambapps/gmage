@@ -8,15 +8,15 @@ import java.util.List;
 
 /**
  * Undo/Redo Gmage
- * This Gmage listens to all operations that modifying it to keep track
+ * This Gmage listens to all operations modifying itself to keep track
  * of any change, allowing to undo/redo an operation
  */
-public class URGmage extends Gmage {
+public class UndoRedoGmage extends Gmage {
 
   private final LinkedList<Gmage> history;
   private final int windowSize;
   private int currentIndex = 0;
-  URGmage(Gmage gmage, int windowSize) {
+  UndoRedoGmage(Gmage gmage, int windowSize) {
     super(gmage.width, gmage.height, gmage.pixels);
     this.windowSize = windowSize;
     if (windowSize <= 0) {
@@ -55,8 +55,8 @@ public class URGmage extends Gmage {
     return true;
   }
 
-  public URGmage copy() {
-    return new URGmage(this, windowSize);
+  public UndoRedoGmage copy() {
+    return new UndoRedoGmage(this, windowSize);
   }
 
   @Override
@@ -80,6 +80,4 @@ public class URGmage extends Gmage {
     history.clear();
   }
 
-  // TODO handle putAt
-  // TODO for each operation that modifies a gmage, handle history
 }
