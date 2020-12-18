@@ -1,35 +1,33 @@
 package com.tambapps.gmage.pixel;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.Value;
 
 /**
  * Represents the pixel of an image.
  * Alpha, red, green, blue value go from 0 to 255 included
+ * Default Integer values are interpreted as RGB values (alpha is considered as its maximum by default)
+ * other Number values are considered as ARGB
  */
-@EqualsAndHashCode
+@Value
 public class Pixel {
-// TODO make me immutable
-//   add method Gmage.putAt(Number) put ARGB pixel, Gmage.putAt(Integer) put RGB pixel
-  public static final int WHITE = 0xffffff;
 
-  public static Pixel black() {
-    return new Pixel(0);
-  }
-
-  public static Pixel of(int rgb) {
-    return new Pixel(rgb);
-  }
-
-  public static Pixel of(int rgb, int alpha) {
-    return new Pixel(rgb, alpha);
-  }
+  public static final Pixel BLACK  = new Pixel(0);
+  public static final Pixel WHITE  = new Pixel(0xffffff);
+  public static final Pixel CLEAR  = new Pixel(0L);
 
   public static Pixel copy(Pixel pixel) {
     return new Pixel(pixel.rgb, pixel.alpha);
   }
 
-  public static long toARGB(int alpha, int red, int green, int blue) {
+  public static int toRgb(int red, int green, int blue) {
+    int color = 0;
+    color |= (red & 255) << 16;
+    color |= (green & 255) << 8;
+    color |= (blue & 255);
+    return color;
+  }
+
+  public static long toArgb(int alpha, int red, int green, int blue) {
     long color = 0;
     color |= (long) alpha << 24;
     color |= (long) red << 16;
@@ -38,23 +36,38 @@ public class Pixel {
     return color;
   }
 
-  @Getter
-  private int rgb;
-  @Getter
-  private int alpha;
+  int rgb;
+  int alpha;
 
-  private Pixel(int rgb, int alpha) {
-    this.rgb = rgb & WHITE;
-    this.alpha = alpha & 255;
-  }
-
-  private Pixel(int rgb) {
+  public Pixel(int rgb) {
     this(rgb, 255);
   }
 
-  public void setArgb(Number value) {
-    this.alpha = (int) ((value.longValue() >> 24L) & 255L);
-    this.rgb = (int) (value.longValue() & WHITE);
+  public Pixel(int alpha, int red, int green, int blue) {
+    this.rgb = toRgb(red, green, blue);
+    this.alpha = alpha;
+  }
+
+  public Pixel(int red, int green, int blue) {
+    this(255, red, green, blue);
+  }
+
+  public Pixel(long rgb) {
+    this.alpha = (int) ((rgb >> 24L) & 255L);
+    this.rgb = (int) (rgb & 0xffffff);
+  }
+
+  public Pixel(Number rgb) {
+    this(rgb.longValue());
+  }
+
+  public Pixel(Integer rgb) {
+    this(rgb.intValue());
+  }
+
+  public Pixel(int rgb, int alpha) {
+    this.rgb = rgb & 0xffffff;
+    this.alpha = alpha & 255;
   }
 
   public int getRed() {
@@ -69,80 +82,34 @@ public class Pixel {
     return rgb & 255;
   }
 
-  public void setRed(int red) {
-    rgb = toRgb(red, getGreen(), getBlue());
-  }
-
-  public void setRed(Number red) {
-    setRed(red.intValue());
-  }
-
-  public void setGreen(Number green) {
-    setGreen(green.intValue());
-  }
-
-  public void setGreen(int green) {
-    rgb = toRgb(getRed(), green, getBlue());
-  }
-
-  public void setBlue(Number blue) {
-    setBlue(blue.intValue());
-  }
-
-  public void setBlue(int blue) {
-    rgb = toRgb(getRed(), getGreen(), blue);
-  }
-
-  public void setAlpha(Number alpha) {
-    setAlpha(alpha.intValue());
-  }
-
-  public void setAlpha(int alpha) {
-    this.alpha = alpha & 255;
-  }
-
-  public void setRgb(Number number) {
-    setRgb(number.intValue());
-  }
-
-  public void setRgb(int number) {
-    rgb = number & WHITE;
-  }
-
-  public void setRgb(Number red, Number green, Number blue) {
-    setRgb(red.intValue(), green.intValue(), blue.intValue());
-  }
-
-  public void setRgb(int red, int green, int blue) {
-    rgb = toRgb(red, green, blue);
-  }
-
-  public void setArgb(Number alpha, Number red, Number green, Number blue) {
-    setArgb(alpha.intValue(), red.intValue(), green.intValue(), blue.intValue());
-  }
-
-  public void setArgb(int alpha, int red, int green, int blue) {
-    this.alpha = alpha & 255;
-    this.rgb = toRgb(red, green, blue);
-  }
-
-  public void set(Pixel value) {
-    rgb = value.rgb;
-    alpha = value.alpha;
-  }
-
-  public int toRgb(int red, int green, int blue) {
-    int color = 0;
-    color |= (red & 255) << 16;
-    color |= (green & 255) << 8;
-    color |= (blue & 255);
-    return color;
-  }
-
   public long getArgb() {
     long argb = this.rgb;
     argb |= ((long)alpha) << 24L;
     return argb;
+  }
+
+  public Pixel and(Pixel pixel) {
+    return new Pixel(getArgb() & pixel.getArgb());
+  }
+
+  public Pixel and(Number number) {
+    return new Pixel(getArgb() & number.intValue());
+  }
+
+  public Pixel and(Integer number) {
+    return new Pixel(getArgb() & (number.longValue() | 0xff000000L));
+  }
+
+  public Pixel or(Pixel pixel) {
+    return new Pixel(getArgb() | pixel.getArgb());
+  }
+
+  public Pixel or(Number number) {
+    return new Pixel(getArgb() | number.intValue());
+  }
+
+  public Pixel or(Integer number) {
+    return new Pixel(getArgb() | number.longValue() | 0xff000000L);
   }
 
   @Override

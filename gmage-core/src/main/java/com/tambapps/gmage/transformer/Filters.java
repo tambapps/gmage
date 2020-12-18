@@ -6,7 +6,7 @@ public class Filters {
 
   static final PixelTransformer GRAY_SCALE = (Pixel p) -> {
     int gray = (p.getRed() + p.getGreen() + p.getBlue()) / 3;
-    p.setRgb(gray, gray, gray);
+    return new Pixel(gray, gray, gray);
   };
 
 }

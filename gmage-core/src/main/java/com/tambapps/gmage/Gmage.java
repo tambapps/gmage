@@ -34,7 +34,7 @@ public class Gmage {
     this.height = height;
     this.pixels = new Pixel[width * height];
     for (int i = 0; i < pixels.length; i++) {
-      this.pixels[i] = Pixel.black();
+      this.pixels[i] = Pixel.BLACK;
     }
   }
 
@@ -43,11 +43,15 @@ public class Gmage {
   }
 
   public void putAt(List<Number> xy, Pixel value) {
-    pixels[checkedIndex(xy.get(0).intValue(), xy.get(1).intValue())].set(value);
+    pixels[checkedIndex(xy.get(0).intValue(), xy.get(1).intValue())] = value;
   }
 
   public void putAt(List<Number> xy, Number value) {
-    pixels[checkedIndex(xy.get(0).intValue(), xy.get(1).intValue())].setArgb(value);
+    pixels[checkedIndex(xy.get(0).intValue(), xy.get(1).intValue())] = new Pixel(value);
+  }
+
+  public void putAt(List<Number> xy, Integer value) {
+    pixels[checkedIndex(xy.get(0).intValue(), xy.get(1).intValue())] = new Pixel(value);
   }
 
   public Stream<Pixel> pixels() {
@@ -87,11 +91,51 @@ public class Gmage {
     apply(transformer);
   }
 
-  // TODO make or function
   public Gmage and(Number number) {
     Gmage gmage = new Gmage(width, height, pixels);
-    int filter = number.intValue();
-    gmage.apply((p) -> p.setArgb(p.getArgb() & filter));
+    for (int i = 0; i < pixels.length; i++) {
+      pixels[i] = pixels[i].and(number);
+    }
+    return gmage;
+  }
+
+  public Gmage and(Integer number) {
+    Gmage gmage = new Gmage(width, height, pixels);
+    for (int i = 0; i < pixels.length; i++) {
+      pixels[i] = pixels[i].and(number);
+    }
+    return gmage;
+  }
+
+  public Gmage and(Pixel pixel) {
+    Gmage gmage = new Gmage(width, height, pixels);
+    for (int i = 0; i < pixels.length; i++) {
+      pixels[i] = pixels[i].and(pixel);
+    }
+    return gmage;
+  }
+
+  public Gmage or(Number number) {
+    Gmage gmage = new Gmage(width, height, pixels);
+    for (int i = 0; i < pixels.length; i++) {
+      pixels[i] = pixels[i].or(number);
+    }
+    return gmage;
+  }
+
+  public Gmage or(Integer number) {
+    Gmage gmage = new Gmage(width, height, pixels);
+    for (int i = 0; i < pixels.length; i++) {
+      pixels[i] = pixels[i].or(number);
+    }
+    return gmage;
+  }
+
+  public Gmage or(Pixel pixel) {
+    Gmage gmage = new Gmage(width, height, pixels);
+    for (int i = 0; i < pixels.length; i++) {
+      pixels[i] = pixels[i].or(pixel);
+    }
     return gmage;
   }
 
