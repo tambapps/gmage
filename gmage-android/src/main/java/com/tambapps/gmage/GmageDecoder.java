@@ -51,7 +51,7 @@ public final class GmageDecoder {
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width; x++) {
         int argb = image.getPixel(x, y);
-        int alpha = argb & 0xff000000;
+        int alpha = argb >>> 24;
         int rgb = argb & 0xffffff;
         colors[Gmage.getIndex(x, y, width)] = new Color(rgb, alpha);
       }
