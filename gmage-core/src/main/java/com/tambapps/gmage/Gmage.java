@@ -17,7 +17,7 @@ public class Gmage {
   final int height;
   final Color[] pixels;
 
-  Gmage(int width, int height, Color[] pixels) {
+  public Gmage(int width, int height, Color[] pixels) {
     this.width = width;
     this.height = height;
     this.pixels = new Color[pixels.length];
@@ -27,11 +27,11 @@ public class Gmage {
     System.arraycopy(pixels, 0, this.pixels, 0, pixels.length);
   }
 
-  Gmage(int width, int height) {
+  public Gmage(int width, int height) {
     this(width, height, Color.BLACK);
   }
 
-  Gmage(int width, int height, Color defaultColor) {
+  public Gmage(int width, int height, Color defaultColor) {
     this.width = width;
     this.height = height;
     this.pixels = new Color[width * height];
