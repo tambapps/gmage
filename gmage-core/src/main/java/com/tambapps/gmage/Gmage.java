@@ -56,6 +56,32 @@ public class Gmage {
     return new Gmage(this.width, this.height, this.pixels);
   }
 
+  public void setAt(Integer oneDIndex, Number value) {
+    setAt(oneDIndex.intValue(), new Color(value));
+  }
+
+  public void setAt(Integer oneDIndex, Integer value) {
+    setAt(oneDIndex.intValue(), new Color(value));
+  }
+
+  public void setAt(Integer oneDIndex, Color value) {
+    setAt(oneDIndex.intValue(), value);
+  }
+
+  public void setAt(int oneDIndex, Number value) {
+    setAt(oneDIndex, new Color(value));
+  }
+
+  public void setAt(int oneDIndex, Integer value) {
+    setAt(oneDIndex, new Color(value));
+  }
+
+  public void setAt(int oneDIndex, Color value) {
+    if (oneDIndex < 0 || oneDIndex >= pixels.length) {
+      throw new IllegalArgumentException(String.format("Index %d is not within bounds (length=%d)", oneDIndex, pixels.length));
+    }
+    pixels[oneDIndex] = value;
+  }
 
   public void putAt(List<Number> xy, Number value) {
     putAt(xy, new Color(value));
@@ -95,7 +121,36 @@ public class Gmage {
     return getIndex(x, y);
   }
 
-  // groovy methods
+  public Gmage padded(Number padLeft, Number padTop, Number padRight, Number padBottom) {
+    return padded(padLeft.intValue(), padTop.intValue(), padRight.intValue(), padBottom.intValue(), Color.BLACK);
+  }
+
+  public Gmage padded(Number padLeft, Number padTop, Number padRight, Number padBottom, Color backgroundColor) {
+    return padded(padLeft.intValue(), padTop.intValue(), padRight.intValue(), padBottom.intValue(), backgroundColor);
+  }
+
+  public Gmage padded(int padLeft, int padTop, int padRight, int padBottom) {
+    return padded(padLeft, padTop, padRight, padBottom, Color.BLACK);
+  }
+
+  public Gmage padded(int padLeft, int padTop, int padRight, int padBottom, Color backgroundColor) {
+    Gmage gmage = new Gmage(width + padLeft + padRight, height + padTop + padBottom, backgroundColor);
+    copyInto(gmage, padLeft, padBottom);
+    return gmage;
+  }
+
+  public void copyInto(Gmage gmage, Number startX, Number startY) {
+    copyInto(gmage, startX.intValue(), startY.intValue());
+  }
+
+  public void copyInto(Gmage gmage, int startX, int startY) {
+    for (int y = 0; y < height; y++) {
+      for (int x = 0; x < width; x++) {
+        gmage.pixels[gmage.getIndex(x + startX, y + startY)] = getAt(x, y);
+      }
+    }
+  }
+
   public void forEachPixel(Consumer<Color> consumer) {
     for (int i = 0; i < pixels.length; i++) {
       consumer.accept(pixels[i]);
