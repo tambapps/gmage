@@ -1,6 +1,6 @@
 package com.tambapps.gmage.transformer;
 
-import com.tambapps.gmage.pixel.Color;
+import com.tambapps.gmage.color.Color;
 
 public final class ColorTransformers {
 

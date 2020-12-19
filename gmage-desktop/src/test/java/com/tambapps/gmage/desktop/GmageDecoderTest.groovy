@@ -18,7 +18,7 @@ class GmageDecoderTest extends AbstractGmageTest {
   void testParseStream() {
     Gmage gmage = GmageDecoder.decode(GmageDecoderTest.class.getResource("/ronflex.jpg"))
     assertNotNull(gmage)
-    com.tambapps.gmage.pixel.Color pixel = gmage[0,0]
+    com.tambapps.gmage.color.Color pixel = gmage[0,0]
     assertNotNull(pixel)
     assertEquals(0xff, pixel.alpha, "alpha test")
     assertEquals(0xff, pixel.red, "red test")

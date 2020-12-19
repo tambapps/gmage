@@ -1,6 +1,6 @@
 package com.tambapps.gmage;
 
-import com.tambapps.gmage.pixel.Color;
+import com.tambapps.gmage.color.Color;
 import com.tambapps.gmage.transformer.ColorTransformer;
 import lombok.Getter;
 
@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
+// TODO add scaled and padded functions
 public class Gmage {
 
   @Getter

@@ -1,7 +1,7 @@
 package com.tambapps.gmage;
 
 import com.tambapps.gmage.exception.GmageDecodingException;
-import com.tambapps.gmage.pixel.Color;
+import com.tambapps.gmage.color.Color;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

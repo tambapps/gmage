@@ -1,4 +1,4 @@
-package com.tambapps.gmage.pixel;
+package com.tambapps.gmage.color;
 
 import lombok.Value;
 
