@@ -2,6 +2,9 @@ package com.tambapps.gmage.color;
 
 import lombok.Value;
 
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 /**
  * Represents a color
  * Alpha, red, green, blue value go from 0 to 255 included
@@ -93,11 +96,11 @@ public class Color {
   }
 
   public Color and(Number number) {
-    return new Color(getArgb() & number.intValue());
+    return and(new Color(number));
   }
 
   public Color and(Integer number) {
-    return new Color(getArgb() & (number.longValue() | 0xff000000L));
+    return and(new Color(number));
   }
 
   public Color or(Color color) {
@@ -105,17 +108,52 @@ public class Color {
   }
 
   public Color or(Number number) {
-    return new Color(getArgb() | number.intValue());
+    return or(new Color(number));
   }
 
   public Color or(Integer number) {
-    return new Color(getArgb() | number.longValue() | 0xff000000L);
+    return or(new Color(number));
+  }
+
+  public Color plus(Color color) {
+    return new Color(Math.min(255, getAlpha() + color.getAlpha()),
+        Math.min(255, getRed() + color.getRed()),
+        Math.min(255, getGreen() + color.getGreen()),
+        Math.min(255, getBlue() + color.getBlue()));
+  }
+
+  public Color plus(Number number) {
+    return plus(new Color(number));
+  }
+
+  public Color plus(Integer number) {
+    return plus(new Color(number));
+  }
+
+  public Color minus(Color color) {
+    return new Color(Math.max(0, getAlpha() - color.getAlpha()),
+        Math.max(0, getRed() - color.getRed()),
+        Math.max(0, getGreen() - color.getGreen()),
+        Math.max(0, getBlue() - color.getBlue()));
+  }
+
+  public Color minus(Number number) {
+    return minus(new Color(number));
+  }
+
+  public Color minus(Integer number) {
+    return minus(new Color(number));
   }
 
   @Override
   public String toString() {
-    return "#" + componentString(getAlpha()) + componentString(getRed()) + componentString(
-        getGreen()) + componentString(getBlue());
+    return String.format("Color(A=%d, R=%d, G=%d, B=%d)", getAlpha(), getRed(), getGreen(), getBlue());
+  }
+
+  public String toHexString() {
+    return "#" + Stream.of(getAlpha(), getRed(), getGreen(), getBlue())
+        .map(this::componentString)
+        .collect(Collectors.joining());
   }
 
   private String componentString(int value) {
