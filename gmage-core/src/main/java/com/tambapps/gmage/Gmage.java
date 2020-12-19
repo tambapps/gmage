@@ -11,6 +11,14 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 // TODO add scaled and padded functions
+
+
+/**
+ * Represent an image
+ * (0, 0) is the top left corner. That means
+ * X-axis goes from left to right
+ * Y-axis goes from top to bottom
+ */
 @EqualsAndHashCode
 public class Gmage {
 
@@ -64,30 +72,31 @@ public class Gmage {
     return new Gmage(this.width, this.height, this.pixels);
   }
 
-  public void setAt(Integer oneDIndex, Number value) {
-    setAt(oneDIndex.intValue(), new Color(value));
+  public void putAt(Integer oneDIndex, Number value) {
+    putAt(oneDIndex.intValue(), new Color(value));
   }
 
-  public void setAt(Integer oneDIndex, Integer value) {
-    setAt(oneDIndex.intValue(), new Color(value));
+  public void putAt(Integer oneDIndex, Integer value) {
+    putAt(oneDIndex.intValue(), new Color(value));
   }
 
-  public void setAt(Integer oneDIndex, Color value) {
-    setAt(oneDIndex.intValue(), value);
+  public void putAt(Integer oneDIndex, Color value) {
+    putAt(oneDIndex.intValue(), value);
   }
 
-  public void setAt(int oneDIndex, Number value) {
-    setAt(oneDIndex, new Color(value));
+  public void putAt(int oneDIndex, Number value) {
+    putAt(oneDIndex, new Color(value));
   }
 
-  public void setAt(int oneDIndex, Integer value) {
-    setAt(oneDIndex, new Color(value));
+  public void putAt(int oneDIndex, Integer value) {
+    putAt(oneDIndex, new Color(value));
   }
 
-  public void setAt(int oneDIndex, Color value) {
+  public void putAt(int oneDIndex, Color value) {
     pixels[checkedIndex(oneDIndex)] = value;
   }
 
+  // used when there is 2 arguments
   public void putAt(List<Number> xy, Number value) {
     putAt(xy, new Color(value));
   }
@@ -145,7 +154,7 @@ public class Gmage {
 
   public Gmage padded(int padLeft, int padTop, int padRight, int padBottom, Color backgroundColor) {
     Gmage gmage = new Gmage(width + padLeft + padRight, height + padTop + padBottom, backgroundColor);
-    copyInto(gmage, padLeft, padBottom);
+    copyInto(gmage, padLeft, padTop);
     return gmage;
   }
 
@@ -183,7 +192,7 @@ public class Gmage {
   public Gmage and(Color color) {
     Gmage gmage = copy();
     for (int i = 0; i < pixels.length; i++) {
-      pixels[i] = pixels[i].and(color);
+      gmage.pixels[i] = pixels[i].and(color);
     }
     return gmage;
   }
@@ -199,7 +208,7 @@ public class Gmage {
   public Gmage or(Color color) {
     Gmage gmage = copy();
     for (int i = 0; i < pixels.length; i++) {
-      pixels[i] = pixels[i].or(color);
+      gmage.pixels[i] = pixels[i].or(color);
     }
     return gmage;
   }
