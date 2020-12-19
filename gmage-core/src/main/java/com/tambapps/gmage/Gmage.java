@@ -24,18 +24,18 @@ public class Gmage {
     if (pixels.length != width * height) {
       throw new IllegalArgumentException("pixels should have a size of width * height");
     }
-    for (int i = 0; i < pixels.length; i++) {
-      this.pixels[i] = Color.copy(pixels[i]);
-    }
+    System.arraycopy(pixels, 0, this.pixels, 0, pixels.length);
   }
 
   Gmage(int width, int height) {
+    this(width, height, Color.BLACK);
+  }
+
+  Gmage(int width, int height, Color defaultColor) {
     this.width = width;
     this.height = height;
     this.pixels = new Color[width * height];
-    for (int i = 0; i < pixels.length; i++) {
-      this.pixels[i] = Color.BLACK;
-    }
+    Arrays.fill(pixels, defaultColor);
   }
 
   public Color getAt(Number x, Number y) {
