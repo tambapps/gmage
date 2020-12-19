@@ -1,20 +1,52 @@
 package com.tambapps.gmage
 
-import com.tambapps.gmage.pixel.Color
+import com.tambapps.gmage.color.Color
 
-import static org.junit.jupiter.api.Assertions.assertNotNull
+import static org.junit.jupiter.api.Assertions.assertEquals
 
 import org.junit.jupiter.api.Test
 
-class GmageTest extends AbstractGmageTest {
+class GmageTest {
 
     @Test
-    void test() {
-        Gmage gmage = new Gmage(2, 2)
-        assertNotNull(gmage)
+    void testRedImage() {
+        Gmage gmage = filledImage(0xff0000)
+        gmage.forEachPixel { Color pixel ->
+            assertEquals(255, pixel.getAlpha())
+            assertEquals(255, pixel.getRed())
+            assertEquals(0, pixel.getGreen())
+            assertEquals(0, pixel.getBlue())
+            assertEquals(0xff0000, pixel.getRgb())
+            assertEquals(0xffff0000, pixel.getArgb())
+        }
     }
 
-    @Override
+    @Test
+    void testGreenImage() {
+        Gmage gmage = filledImage(0x00ff00)
+        gmage.forEachPixel { Color pixel ->
+            assertEquals(255, pixel.getAlpha())
+            assertEquals(0, pixel.getRed())
+            assertEquals(255, pixel.getGreen())
+            assertEquals(0, pixel.getBlue())
+            assertEquals(0x00ff00, pixel.getRgb())
+            assertEquals(0xff00ff00, pixel.getArgb())
+        }
+    }
+
+    @Test
+    void testBlueImage() {
+        Gmage gmage = filledImage(0x0000ff)
+        gmage.forEachPixel { Color pixel ->
+            assertEquals(255, pixel.getAlpha())
+            assertEquals(0, pixel.getRed())
+            assertEquals(0, pixel.getGreen())
+            assertEquals(255, pixel.getBlue())
+            assertEquals(0x0000ff, pixel.getRgb())
+            assertEquals(0xff0000ff, pixel.getArgb())
+        }
+    }
+
     protected Gmage filledImage(int rgb) {
         int width = 64
         int height = 64

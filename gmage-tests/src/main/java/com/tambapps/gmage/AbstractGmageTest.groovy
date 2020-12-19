@@ -1,6 +1,6 @@
 package com.tambapps.gmage
 
-import com.tambapps.gmage.pixel.Color
+import com.tambapps.gmage.color.Color
 
 import static org.junit.jupiter.api.Assertions.assertEquals
 
