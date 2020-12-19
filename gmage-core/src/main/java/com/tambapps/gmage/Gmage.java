@@ -1,6 +1,7 @@
 package com.tambapps.gmage;
 
 import com.tambapps.gmage.color.Color;
+import com.tambapps.gmage.scaling.Scaling;
 import com.tambapps.gmage.transformer.ColorTransformer;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -58,7 +59,11 @@ public class Gmage {
   }
 
   public Color getAt(Number x, Number y) {
-    return pixels[checkedIndex(x.intValue(), y.intValue())];
+    return getAt(x.intValue(), y.intValue());
+  }
+
+  public Color getAt(int x, int y) {
+    return pixels[checkedIndex(x, y)];
   }
 
   public void putAt(List<Number> xy, Color value) {
@@ -118,6 +123,31 @@ public class Gmage {
     }
   }
 
+
+  public Gmage scaleBy(Scaling scaling, Float factor) {
+    return scaleBy(scaling, factor.floatValue());
+  }
+
+  public Gmage scaleBy(Scaling scaling, float factor) {
+    return scaleBy(scaling, factor, factor);
+  }
+
+  public Gmage scaleBy(Scaling scaling, Number widthFactor, Number heightFactor) {
+    return scaleBy(scaling, widthFactor.floatValue(), heightFactor.floatValue());
+  }
+
+  public Gmage scaleBy(Scaling scaling, float widthFactor, float heightFactor) {
+    return scale(scaling, (int) (widthFactor * width), (int) (heightFactor * height));
+  }
+
+  public Gmage scale(Scaling scaling, Number newWidth, Number newHeight) {
+    return scale(scaling, newWidth.intValue(), newHeight.intValue());
+  }
+
+  public Gmage scale(Scaling scaling, int newWidth, int newHeight) {
+    return scaling.scale(this, newWidth, newHeight);
+  }
+
   static int getIndex(int x, int y, int width) {
     return y * width + x;
   }
@@ -128,7 +158,7 @@ public class Gmage {
 
   private int checkedIndex(int x, int y) {
     if (x < 0 || x >= width || y < 0 || y >= height) {
-      throw new IllegalArgumentException("Indexes are not within bounds");
+      throw new IllegalArgumentException(String.format("Indexes (%d, %d) are not within bounds (width=%d, height=%d)", x, y, width, height));
     }
     return getIndex(x, y);
   }
