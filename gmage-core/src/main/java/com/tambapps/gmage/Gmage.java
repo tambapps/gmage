@@ -11,9 +11,6 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
-// TODO add scaled and padded functions
-
-
 /**
  * Represent an image
  * (0, 0) is the top left corner. That means
