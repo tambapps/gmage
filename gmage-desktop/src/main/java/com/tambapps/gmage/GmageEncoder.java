@@ -12,31 +12,31 @@ import java.nio.file.Path;
 
 public class GmageEncoder {
 
-  public static void encode(Gmage gmage, CompressFormat format, Object object)
+  public static boolean encode(Gmage gmage, CompressFormat format, Object object)
       throws IOException {
     if (object instanceof Path) {
-      encode(gmage, format, (Path) object);
+      return encode(gmage, format, (Path) object);
     } else if (object instanceof File) {
-      encode(gmage, format, (File) object);
+      return encode(gmage, format, (File) object);
     } else if (object instanceof OutputStream) {
-      encode(gmage, format, (OutputStream) object);
+      return encode(gmage, format, (OutputStream) object);
     }
     throw new IllegalArgumentException("Cannot encode gmage in " + object);
   }
 
-  public static void encode(Gmage gmage, CompressFormat format, Path path) throws IOException {
-    encode(gmage, format, path.toFile());
+  public static boolean encode(Gmage gmage, CompressFormat format, Path path) throws IOException {
+    return encode(gmage, format, path.toFile());
   }
 
-  public static void encode(Gmage gmage, CompressFormat format, File file) throws IOException {
+  public static boolean encode(Gmage gmage, CompressFormat format, File file) throws IOException {
     try (FileOutputStream fos = new FileOutputStream(file)) {
-      encode(gmage, format, fos);
+      return encode(gmage, format, fos);
     }
   }
 
-  public static void encode(Gmage gmage, CompressFormat format, OutputStream outputStream) throws IOException {
-    BufferedImage image = BufferedImageUtils.toBufferedImage(gmage);
-    ImageIO.write(image, format.getFormatName(), outputStream);
+  public static boolean encode(Gmage gmage, CompressFormat format, OutputStream outputStream) throws IOException {
+    BufferedImage image = format.supportsAlpha() ? BufferedImageUtils.toBufferedImage(gmage, BufferedImage.TYPE_INT_RGB) : BufferedImageUtils.toBufferedImage(gmage);
+    return ImageIO.write(image, format.getFormatName(), outputStream);
   }
 
 }

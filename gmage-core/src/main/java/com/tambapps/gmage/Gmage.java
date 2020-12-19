@@ -41,6 +41,14 @@ public class Gmage {
     Arrays.fill(pixels, defaultColor);
   }
 
+  public Color getAt(Number i) {
+    return getAt(i.intValue());
+  }
+
+  public Color getAt(int i) {
+    return pixels[checkedIndex(i)];
+  }
+
   public Color getAt(Number x, Number y) {
     return pixels[checkedIndex(x.intValue(), y.intValue())];
   }
@@ -77,10 +85,7 @@ public class Gmage {
   }
 
   public void setAt(int oneDIndex, Color value) {
-    if (oneDIndex < 0 || oneDIndex >= pixels.length) {
-      throw new IllegalArgumentException(String.format("Index %d is not within bounds (length=%d)", oneDIndex, pixels.length));
-    }
-    pixels[oneDIndex] = value;
+    pixels[checkedIndex(oneDIndex)] = value;
   }
 
   public void putAt(List<Number> xy, Number value) {
@@ -95,9 +100,7 @@ public class Gmage {
     if (width != gmage.width || height != gmage.height) {
       throw new IllegalArgumentException("Cannot set from gmage with different size");
     }
-    for (int i = 0; i < pixels.length; i++) {
-      pixels[i] = gmage.pixels[i];
-    }
+    System.arraycopy(gmage.pixels, 0, pixels, 0, pixels.length);
   }
 
   public void apply(ColorTransformer transformer) {
@@ -119,6 +122,13 @@ public class Gmage {
       throw new IllegalArgumentException("Indexes are not within bounds");
     }
     return getIndex(x, y);
+  }
+
+  private int checkedIndex(int i) {
+    if (i < 0 || i >= pixels.length) {
+      throw new IllegalArgumentException(String.format("Index %d is not within bounds (length=%d)", i, pixels.length));
+    }
+    return i;
   }
 
   public Gmage padded(Number padLeft, Number padTop, Number padRight, Number padBottom) {
