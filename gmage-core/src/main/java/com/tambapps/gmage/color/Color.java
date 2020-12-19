@@ -17,10 +17,9 @@ public class Color {
   public static final Color BLACK  = new Color(0);
   public static final Color WHITE  = new Color(0xffffff);
   public static final Color CLEAR  = new Color(0L);
-
-  public static Color copy(Color color) {
-    return new Color(color.rgb, color.alpha);
-  }
+  public static final Color RED  = new Color(255, 0, 0);
+  public static final Color GREEN  = new Color(0, 255, 0);
+  public static final Color BLUE  = new Color(0, 0, 255);
 
   public static int toRgb(int red, int green, int blue) {
     int color = 0;
@@ -55,13 +54,13 @@ public class Color {
     this(255, red, green, blue);
   }
 
-  public Color(long rgb) {
-    this.alpha = (int) ((rgb >> 24L) & 255L);
-    this.rgb = (int) (rgb & 0xffffff);
+  public Color(long argb) {
+    this.alpha = (int) ((argb >> 24L) & 255L);
+    this.rgb = (int) (argb & 0xffffff);
   }
 
-  public Color(Number rgb) {
-    this(rgb.longValue());
+  public Color(Number argb) {
+    this(argb.longValue());
   }
 
   public Color(Integer rgb) {
