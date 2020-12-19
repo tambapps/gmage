@@ -2,6 +2,7 @@ package com.tambapps.gmage;
 
 import com.tambapps.gmage.color.Color;
 import com.tambapps.gmage.transformer.ColorTransformer;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.util.Arrays;
@@ -10,6 +11,7 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 // TODO add scaled and padded functions
+@EqualsAndHashCode
 public class Gmage {
 
   @Getter
@@ -143,5 +145,10 @@ public class Gmage {
 
   public UndoRedoGmage toUndoRedo(int windowSize) {
     return new UndoRedoGmage(this, windowSize);
+  }
+
+  @Override
+  public String toString() {
+    return String.format("Gmage (%d * %d)", width, height);
   }
 }

@@ -2,6 +2,7 @@ package com.tambapps.gmage;
 
 import com.tambapps.gmage.color.Color;
 import com.tambapps.gmage.transformer.ColorTransformer;
+import lombok.EqualsAndHashCode;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  * This Gmage listens to all operations modifying itself to keep track
  * of any change, allowing to undo/redo an operation
  */
+@EqualsAndHashCode(callSuper = true)
 public class UndoRedoGmage extends Gmage {
 
   private final LinkedList<Gmage> history;
