@@ -13,6 +13,7 @@
   <modules>
     <module>gmage-core</module>
     <module>gmage-desktop</module>
+    <module>gmage-android</module>
     <module>gmage-tests</module>
   </modules>
 
