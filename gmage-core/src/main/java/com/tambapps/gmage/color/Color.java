@@ -2,6 +2,7 @@ package com.tambapps.gmage.color;
 
 import lombok.Value;
 
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -188,6 +189,14 @@ public class Color {
   public float distance2(Color color) {
     return pow2(color.getAlpha() - getAlpha()) +
         pow2(color.getRed() - getRed()) + pow2(color.getGreen() - getGreen()) + pow2(color.getBlue() - getBlue());
+  }
+
+  public Color rgbTransformed(Function<Integer, Integer> transformer) {
+    return new Color(getAlpha(), transformer.apply(getRed()), transformer.apply(getGreen()), transformer.apply(getBlue()));
+  }
+
+  public Color argbTransformed(Function<Integer, Integer> transformer) {
+    return new Color(transformer.apply(getAlpha()), transformer.apply(getRed()), transformer.apply(getGreen()), transformer.apply(getBlue()));
   }
 
   private float pow2(float a) {
