@@ -100,6 +100,10 @@ public class Gmage {
     pixels[checkedIndex(oneDIndex)] = value;
   }
 
+  public void putPixel(int x, int y, Color value) {
+    pixels[checkedIndex(x, y)] = value;
+  }
+
   // used when there is 2 arguments
   public void putAt(List<Number> xy, Number value) {
     putAt(xy, new Color(value));
