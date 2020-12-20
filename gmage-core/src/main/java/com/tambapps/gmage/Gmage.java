@@ -174,9 +174,29 @@ public class Gmage {
 
   public Gmage rotated180() {
     Gmage gmage = new Gmage(width, height);
-    for (int y = 0; y < gmage.height; y++) {
-      for (int x = 0; x < gmage.width; x++) {
+    for (int y = 0; y < height; y++) {
+      for (int x = 0; x < width; x++) {
         gmage.putAt(gmage.getIndex(x,y), getAt(width - 1 - x, height - 1 - y));
+      }
+    }
+    return gmage;
+  }
+
+  public Gmage mirrorX() {
+    Gmage gmage = new Gmage(width, height);
+    for (int y = 0; y < height; y++) {
+      for (int x = 0; x < width; x++) {
+        gmage.putAt(gmage.getIndex(x,y), getAt(width - 1 - x, y));
+      }
+    }
+    return gmage;
+  }
+
+  public Gmage mirrorY() {
+    Gmage gmage = new Gmage(width, height);
+    for (int y = 0; y < height; y++) {
+      for (int x = 0; x < width; x++) {
+        gmage.putAt(gmage.getIndex(x,y), getAt(x, height - 1 - y));
       }
     }
     return gmage;
