@@ -240,6 +240,12 @@ public class Gmage {
     return gmage;
   }
 
+  public Gmage negative() {
+    Gmage gmage = copy();
+    gmage.apply(Color::negative);
+    return gmage;
+  }
+
   public Gmage toUndoRedo() {
     return toUndoRedo(10);
   }

@@ -10,6 +10,13 @@ import java.util.stream.Stream;
  * Alpha, red, green, blue value go from 0 to 255 included
  * Default Integer values are interpreted as RGB values (alpha is considered as its maximum by default)
  * other Number values are considered as ARGB
+ *
+ * Careful! int/Integer values represent RGB Color but other Numbers represents ARGB values!
+ * This can sometimes be tricky in Groovy:
+ * 0xffffffff is Long, so not Integer
+ * 0x00ffffff is Integer
+ * 0xffffff is Integer
+ * cast explicitly if you want to be sure to have the desired constructor
  */
 @Value
 public class Color {
@@ -129,8 +136,15 @@ public class Color {
     return plus(new Color(number));
   }
 
+  /**
+   * Returns the result of the rgb channels substract by the channels of the argument.
+   * Alpha channel is not modified
+   *
+   * @param color the operand
+   * @return this - color
+   */
   public Color minus(Color color) {
-    return new Color(Math.max(0, getAlpha() - color.getAlpha()),
+    return new Color(Math.max(0, getAlpha()),
         Math.max(0, getRed() - color.getRed()),
         Math.max(0, getGreen() - color.getGreen()),
         Math.max(0, getBlue() - color.getBlue()));
@@ -142,6 +156,10 @@ public class Color {
 
   public Color minus(Integer number) {
     return minus(new Color(number));
+  }
+
+  public Color negative() {
+    return new Color(getAlpha(), 255 - getRed(), 255 - getGreen(), 255 - getBlue());
   }
 
   @Override

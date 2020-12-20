@@ -139,6 +139,15 @@ class GmageTest {
             }
     }
 
+    @Test
+    void testNegative() {
+        Gmage gmage = - new Gmage(10, 10, new Color(0x0f00f0))
+        Color color = new Color(0xf0ff0f)
+        gmage.forEachPixel { Color pixel ->
+            assertEquals(color, pixel)
+        }
+    }
+
     private static Gmage filledImage(int rgb) {
         int width = 64
         int height = 64

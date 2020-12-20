@@ -67,24 +67,53 @@ class ColorTest {
     }
 
     @Test
-    void testSetters() {
-        // test different constructors of Pixel
-        /*
-        Pixel pixel = Pixel.black()
-        pixel.red = 255
-        assertEquals(new Pixel(0xff0000), pixel)
-        pixel.green = 255
-        assertEquals(new Pixel(0xffff00), pixel)
-        pixel.blue = 255
-        assertEquals(new Pixel(0xffffff), pixel)
-        pixel.alpha = 0
-        assertEquals(new Pixel(0xffffff, 0), pixel)
-        pixel.rgb = 0x123456
-        assertEquals(new Pixel(0x123456, 0), pixel)
-        pixel.argb = 0x12345678
-        assertEquals(new Pixel(0x345678, 0x12), pixel)
+    void testConstructors() {
+        long value = 0xf0f0f0f0
+        Color color = new Color(value)
+        assertEquals(value, color.argb)
+        assertEquals(color, new Color(0xf0f0f0, 0xf0))
+        assertEquals(color, new Color(0xf0, 0xf0, 0xf0, 0xf0))
+    }
 
-         */
+    @Test
+    void testNegative() {
+        assertEquals(Color.WHITE, -Color.BLACK)
+        assertEquals(Color.BLACK, -Color.WHITE)
+        assertEquals(new Color(0xf0f0f0f0), -new Color(0xf00f0f0f))
+    }
+
+    @Test
+    void testPlus() {
+        assertEquals(Color.WHITE, Color.WHITE + Color.BLACK)
+        assertEquals(Color.WHITE, Color.BLACK + Color.WHITE)
+        assertEquals(Color.WHITE, Color.RED + Color.GREEN + Color.BLUE)
+        assertEquals(Color.WHITE, new Color(0xf0f0f0f0) + new Color(0x0f0f0f0f))
+        assertEquals(new Color(0xffff00), new Color(0xff0000) + new Color(0x00ff00))
+    }
+
+    @Test
+    void testMinus() {
+        assertEquals(Color.WHITE, Color.WHITE - Color.BLACK)
+        assertEquals(Color.BLACK, Color.BLACK - Color.WHITE)
+        assertEquals(Color.RED, Color.RED - Color.GREEN)
+        assertEquals(new Color(0xff00ff00), new Color(0xffffff00) - new Color(0x00ff0000))
+    }
+
+    @Test
+    void testOr() {
+        assertEquals(Color.WHITE, Color.WHITE | Color.BLACK)
+        assertEquals(Color.WHITE, Color.BLACK | Color.WHITE)
+        assertEquals(Color.WHITE, Color.RED | Color.GREEN | Color.BLUE)
+        assertEquals(Color.WHITE, new Color(0xf0f0f0f0) | new Color(0x0f0f0f0f))
+        assertEquals(new Color(0xffff00), new Color(0xff0000) | new Color(0x00ff00))
+    }
+
+    @Test
+    void testAnd() {
+        assertEquals(Color.BLACK, Color.WHITE & Color.BLACK)
+        assertEquals(Color.BLACK, Color.BLACK & Color.WHITE)
+        assertEquals(Color.BLACK, Color.RED & Color.GREEN)
+        assertEquals(new Color(0x00ff0000L), new Color(0xffffff00L) & new Color(0x00ff0000L))
     }
 
 }
