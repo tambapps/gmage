@@ -2,8 +2,6 @@ package com.tambapps.gmage
 
 
 import com.tambapps.gmage.color.Color
-import com.tambapps.gmage.scaling.Scaling
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 import java.nio.file.Files
@@ -78,28 +76,6 @@ class GmageEncoderTest {
       assertEquals(gmage[i], gmage1[i])
     }
     assertEquals(gmage, gmage1)
-  }
-
-  // test by seeing the output file
-  @Test
-  @Disabled
-  void testScalingBigger() {
-    Gmage gmage = GmageDecoder.decode(GmageDecoderTest.class.getResource("/ronflex.jpg"))
-    def scaled = gmage.scaleBy(Scaling.NEAREST_NEIGHBOR, 1.5, 2)
-    GmageEncoder.encode(scaled, CompressFormat.PNG, new File("test.png"))
-    assertEquals((gmage.width * 1.5f) as int, scaled.width)
-    assertEquals((gmage.height * 2f) as int, scaled.height)
-  }
-
-  @Test
-  @Disabled
-  void testScalingSmaller() {
-    Gmage gmage = GmageDecoder.decode(GmageDecoderTest.class.getResource("/ronflex.jpg"))
-    def scaled = gmage.scaleBy(Scaling.NEAREST_NEIGHBOR, 0.75, 0.5)
-    GmageEncoder.encode(scaled,
-        CompressFormat.PNG, new File("test.png"))
-    assertEquals((gmage.width * 0.75f) as int, scaled.width)
-    assertEquals((gmage.height * 0.5f) as int, scaled.height)
   }
 
   private static void assertAlmostEquals(Color c1, Color c2) {
