@@ -1,5 +1,6 @@
 package com.tambapps.gmage;
 
+import com.tambapps.gmage.blur.Blur;
 import com.tambapps.gmage.color.Color;
 import com.tambapps.gmage.scaling.Scaling;
 import com.tambapps.gmage.transformer.ColorTransformer;
@@ -195,6 +196,10 @@ public class Gmage {
         gmage.pixels[gmage.getIndex(x + startX, y + startY)] = getAt(x, y);
       }
     }
+  }
+
+  public Gmage blurred(Blur blur) {
+    return blur.apply(this);
   }
 
   public void forEachPixel(Consumer<Color> consumer) {
