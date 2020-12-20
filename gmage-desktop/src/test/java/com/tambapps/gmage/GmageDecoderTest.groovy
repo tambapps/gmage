@@ -1,8 +1,6 @@
-package com.tambapps.gmage.desktop
+package com.tambapps.gmage
 
-import com.tambapps.gmage.AbstractGmageTest
-import com.tambapps.gmage.Gmage
-import com.tambapps.gmage.GmageDecoder
+
 import org.junit.jupiter.api.Test
 
 import java.awt.Color

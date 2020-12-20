@@ -1,9 +1,6 @@
-package com.tambapps.gmage.desktop
+package com.tambapps.gmage
 
-import com.tambapps.gmage.CompressFormat
-import com.tambapps.gmage.Gmage
-import com.tambapps.gmage.GmageDecoder
-import com.tambapps.gmage.GmageEncoder
+
 import com.tambapps.gmage.color.Color
 import com.tambapps.gmage.scaling.Scaling
 import org.junit.jupiter.api.Disabled
