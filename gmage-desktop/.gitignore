@@ -25,3 +25,4 @@ volumes/
 /nbdist/
 /.nb-gradle/
 /build/
+/*.png
