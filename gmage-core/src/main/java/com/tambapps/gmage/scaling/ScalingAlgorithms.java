@@ -5,6 +5,7 @@ import com.tambapps.gmage.color.Color;
 
 class ScalingAlgorithms {
 
+  // thanks https://tech-algorithm.com/articles/nearest-neighbor-image-scaling/
   public static Gmage nearestNeighbour(Gmage source, int targetWidth, int targetHeight) {
     Color[] pixels = new Color[targetWidth * targetHeight];
     int sourceWidth = source.getWidth();
@@ -27,6 +28,7 @@ class ScalingAlgorithms {
     return new Gmage(targetWidth, targetHeight, pixels);
   }
 
+  // thanks http://tech-algorithm.com/articles/bilinear-image-scaling/
   public static Gmage bilinearInterpolation(Gmage source, int targetWidth, int targetHeight) {
     Color[] pixels = new Color[targetWidth*targetHeight];
     int sourceWidth = source.getWidth();
