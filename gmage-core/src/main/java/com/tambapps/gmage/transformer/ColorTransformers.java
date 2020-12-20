@@ -16,6 +16,8 @@ public final class ColorTransformers {
 
   private static final ColorTransformer BLUE_FILTER = Color.BLUE::and;
 
+  private static final ColorTransformer NEGATIVE_TRANSFORMER = Color::negative;
+
   public static ColorTransformer grayScale() {
     return GRAY_SCALE;
   }
@@ -32,9 +34,14 @@ public final class ColorTransformers {
     return BLUE_FILTER;
   }
 
+  public static ColorTransformer negative() {
+    return NEGATIVE_TRANSFORMER;
+  }
+
   public static ColorTransformer duoTone(Color color) {
     return (c) -> c.grayScale().and(color);
   }
+
   public static ColorTransformer biColor() {
     return biColor(Color.BLACK, Color.WHITE);
   }
