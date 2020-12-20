@@ -105,10 +105,4 @@ public class BoxBlur implements Blur {
     }
   }
 
-  private float[] checkedKernel(float[] kernel) {
-    if (kernel.length < 3) {
-      throw new IllegalArgumentException("Kernel must be have at a length of 9 (3 * 3)");
-    }
-    return kernel;
-  }
 }
