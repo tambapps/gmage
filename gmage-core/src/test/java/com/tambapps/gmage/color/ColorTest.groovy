@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals
 
 import org.junit.jupiter.api.Test
 
+import static org.junit.jupiter.api.Assertions.assertTrue
+
 class ColorTest {
 
     @Test
@@ -116,4 +118,23 @@ class ColorTest {
         assertEquals(new Color(0x00ff0000L), new Color(0xffffff00L) & new Color(0x00ff0000L))
     }
 
+    @Test
+    void testDistance() {
+        assertEquals(0, Color.BLACK.distance2(Color.BLACK))
+        assertEquals(0, Color.BLACK.distance(Color.BLACK))
+
+        assertEquals(Color.MAX_DISTANCE_2, Color.BLACK.distance2(Color.WHITE))
+        assertApproximatelyEquals(Math.sqrt(Color.MAX_DISTANCE_2), Color.BLACK.distance(Color.WHITE))
+
+        assertEquals(255 * 255 * 2, Color.RED.distance2(Color.GREEN))
+        assertApproximatelyEquals(Math.sqrt(255 * 255 * 2), Color.RED.distance(Color.GREEN))
+        assertEquals(255 * 255 * 2, Color.RED.distance2(Color.BLUE))
+        assertApproximatelyEquals(Math.sqrt(255 * 255 * 2), Color.RED.distance(Color.BLUE))
+        assertEquals(255 * 255 * 2, Color.BLUE.distance2(Color.GREEN))
+        assertApproximatelyEquals(Math.sqrt(255 * 255 * 2), Color.BLUE.distance(Color.GREEN))
+    }
+
+    private static void assertApproximatelyEquals(double expected, double actual) {
+        assertTrue(Math.abs(expected - actual) < 0.001, "Expected $expected but got $actual")
+    }
 }

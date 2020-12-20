@@ -28,6 +28,8 @@ public class Color {
   public static final Color GREEN  = new Color(0, 255, 0);
   public static final Color BLUE  = new Color(0, 0, 255);
 
+  public static float MAX_DISTANCE_2 = BLACK.distance2(WHITE);
+
   public static int toRgb(int red, int green, int blue) {
     int color = 0;
     color |= (red & 255) << 16;
@@ -160,6 +162,47 @@ public class Color {
 
   public Color negative() {
     return new Color(getAlpha(), 255 - getRed(), 255 - getGreen(), 255 - getBlue());
+  }
+
+  public Color grayScale() {
+    int gray = (getRed() + getGreen() + getBlue()) / 3;
+    return new Color(getAlpha(), gray, gray, gray);
+  }
+
+  public float distance2(Number value) {
+    return distance2(new Color(value));
+  }
+
+  public float distance2(Integer value) {
+    return distance2(new Color(value));
+  }
+
+  public float distance2(int value) {
+    return distance2(new Color(value));
+  }
+
+  public float distance2(Color color) {
+    return pow2(color.getAlpha() - getAlpha()) +
+        pow2(color.getRed() - getRed()) + pow2(color.getGreen() - getGreen()) + pow2(color.getBlue() - getBlue());
+  }
+
+  private float pow2(float a) {
+    return a * a;
+  }
+  public float distance(Number value) {
+    return distance(new Color(value));
+  }
+
+  public float distance(Integer value) {
+    return distance(new Color(value));
+  }
+
+  public float distance(int value) {
+    return distance(new Color(value));
+  }
+
+  public float distance(Color color) {
+    return (float) Math.sqrt(distance2(color));
   }
 
   @Override
