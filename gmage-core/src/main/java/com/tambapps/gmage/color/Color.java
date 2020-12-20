@@ -191,6 +191,74 @@ public class Color {
         pow2(color.getRed() - getRed()) + pow2(color.getGreen() - getGreen()) + pow2(color.getBlue() - getBlue());
   }
 
+  public Color diff(Color color) {
+    return new Color(color.getAlpha() - getAlpha(), color.getRed() - getRed(), color.getGreen() - getGreen(), color.getBlue() - getBlue());
+  }
+
+  public float differencePercentage2(Number value) {
+    return differencePercentage2(new Color(value));
+  }
+
+  public float differencePercentage2(Integer value) {
+    return differencePercentage2(new Color(value));
+  }
+
+  public float differencePercentage2(int value) {
+    return differencePercentage2(new Color(value));
+  }
+
+  public float differencePercentage2(Color color) {
+    return distance2(color) / MAX_DISTANCE_2;
+  }
+
+  public float differencePercentage(Number value) {
+    return differencePercentage(new Color(value));
+  }
+
+  public float differencePercentage(Integer value) {
+    return differencePercentage(new Color(value));
+  }
+
+  public float differencePercentage(int value) {
+    return differencePercentage(new Color(value));
+  }
+
+  public float differencePercentage(Color color) {
+    return (float) Math.sqrt(differencePercentage2(color));
+  }
+
+  public float similarityPercentage2(Number value) {
+    return similarityPercentage2(new Color(value));
+  }
+
+  public float similarityPercentage2(Integer value) {
+    return similarityPercentage2(new Color(value));
+  }
+
+  public float similarityPercentage2(int value) {
+    return similarityPercentage2(new Color(value));
+  }
+
+  public float similarityPercentage2(Color color) {
+    return MAX_DISTANCE_2 - differencePercentage2(color);
+  }
+
+  public float similarityPercentage(Number value) {
+    return similarityPercentage(new Color(value));
+  }
+
+  public float similarityPercentage(Integer value) {
+    return similarityPercentage(new Color(value));
+  }
+
+  public float similarityPercentage(int value) {
+    return similarityPercentage(new Color(value));
+  }
+
+  public float similarityPercentage(Color color) {
+    return (float) Math.sqrt(similarityPercentage2(color));
+  }
+
   public Color rgbTransformed(Function<Integer, Integer> transformer) {
     return new Color(getAlpha(), transformer.apply(getRed()), transformer.apply(getGreen()), transformer.apply(getBlue()));
   }

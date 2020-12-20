@@ -60,4 +60,23 @@ public final class ColorTransformers {
   public static ColorTransformer biColor(Color blackColor, Color whiteColor, int threshold) {
     return (c) -> c.grayLevel() < threshold ? blackColor : whiteColor;
   }
+
+  public static ColorTransformer replaceColor(Color targetColor, Color replacedColor, float similarityPercentage) {
+    if (similarityPercentage < 0 || similarityPercentage > 100) {
+      throw new IllegalArgumentException("The similarityPercentage should be between 0 and 100 (included)");
+    }
+    final float similarityPercentage2 = similarityPercentage * similarityPercentage;
+    return (c) -> c.similarityPercentage2(targetColor) <= similarityPercentage2 ? replacedColor : c;
+  }
+
+
+  // should replaced matching colors with the provided targetColor,
+  // for each pixel, the diffs between the original color and the pixel will be applied to the replaced color
+  public static ColorTransformer replaceColorIncludingDiffs(Color targetColor, Color replacedColor, float similarityPercentage) {
+    if (similarityPercentage < 0 || similarityPercentage > 100) {
+      throw new IllegalArgumentException("The similarityPercentage should be between 0 and 100 (included)");
+    }
+    final float similarityPercentage2 = similarityPercentage * similarityPercentage;
+    return (c) -> c.similarityPercentage2(targetColor) <= similarityPercentage2 ? replacedColor.plus(targetColor.diff(c)) : c;
+  }
 }
