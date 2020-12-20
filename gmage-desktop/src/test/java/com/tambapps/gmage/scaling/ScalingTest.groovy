@@ -36,7 +36,7 @@ class ScalingTest {
 
   private static void testScalingBigger(Scaling scaling) {
     Gmage gmage = GmageDecoder.decode(GmageDecoderTest.class.getResource("/ronflex.jpg"))
-    def scaled = gmage.scaleBy(scaling, 1.5, 2)
+    def scaled = gmage.scaledBy(scaling, 1.5, 2)
     GmageEncoder.encode(scaled, CompressFormat.PNG, new File("test_${scaling.name().toLowerCase()}_bigger.png"))
     assertEquals((gmage.width * 1.5f) as int, scaled.width)
     assertEquals((gmage.height * 2f) as int, scaled.height)
@@ -44,7 +44,7 @@ class ScalingTest {
 
   private static void testScalingSmaller(Scaling scaling) {
     Gmage gmage = GmageDecoder.decode(GmageDecoderTest.class.getResource("/ronflex.jpg"))
-    def scaled = gmage.scaleBy(scaling, 0.75, 0.5)
+    def scaled = gmage.scaledBy(scaling, 0.75, 0.5)
     GmageEncoder.encode(scaled,
         CompressFormat.PNG, new File("test_${scaling.name().toLowerCase()}_smaller.png"))
     assertEquals((gmage.width * 0.75f) as int, scaled.width)

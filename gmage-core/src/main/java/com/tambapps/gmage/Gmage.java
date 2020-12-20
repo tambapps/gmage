@@ -136,24 +136,28 @@ public class Gmage {
     }
   }
 
-  public Gmage scaleBy(Scaling scaling, Float factor) {
-    return scaleBy(scaling, factor.floatValue());
+  public Gmage scaledBy(Scaling scaling, Float factor) {
+    return scaledBy(scaling, factor.floatValue());
   }
 
-  public Gmage scaleBy(Scaling scaling, float factor) {
-    return scaleBy(scaling, factor, factor);
+  public Gmage scaledBy(Scaling scaling, float factor) {
+    return scaledBy(scaling, factor, factor);
   }
 
-  public Gmage scaleBy(Scaling scaling, Number widthFactor, Number heightFactor) {
-    return scaleBy(scaling, widthFactor.floatValue(), heightFactor.floatValue());
+  public Gmage scaledBy(Scaling scaling, Number widthFactor, Number heightFactor) {
+    return scaledBy(scaling, widthFactor.floatValue(), heightFactor.floatValue());
   }
 
-  public Gmage scaleBy(Scaling scaling, float widthFactor, float heightFactor) {
-    return scale(scaling, (int) (widthFactor * width), (int) (heightFactor * height));
+  public Gmage scaledBy(Scaling scaling, float widthFactor, float heightFactor) {
+    return scaled(scaling, (int) (widthFactor * width), (int) (heightFactor * height));
   }
 
-  public Gmage scale(Scaling scaling, Number newWidth, Number newHeight) {
-    return scale(scaling, newWidth.intValue(), newHeight.intValue());
+  public Gmage scaled(Scaling scaling, Number newWidth, Number newHeight) {
+    return scaled(scaling, newWidth.intValue(), newHeight.intValue());
+  }
+
+  public Gmage scaled(Scaling scaling, int newWidth, int newHeight) {
+    return scaling.scale(this, newWidth, newHeight);
   }
 
   public Gmage rotated90ClockWise() {
@@ -226,10 +230,6 @@ public class Gmage {
       }
     }
     return gmage;
-  }
-
-  public Gmage scale(Scaling scaling, int newWidth, int newHeight) {
-    return scaling.scale(this, newWidth, newHeight);
   }
 
   static int getIndex(int x, int y, int width) {
