@@ -2,6 +2,7 @@ package com.tambapps.gmage;
 
 import com.tambapps.gmage.blur.Blur;
 import com.tambapps.gmage.color.Color;
+import com.tambapps.gmage.region.Region;
 import com.tambapps.gmage.scaling.Scaling;
 import com.tambapps.gmage.transformer.ColorTransformer;
 import lombok.EqualsAndHashCode;
@@ -121,6 +122,15 @@ public class Gmage {
     }
   }
 
+  public void apply(ColorTransformer transformer, Region region) {
+    for (int y = 0; y < height; y++) {
+      for (int x = 0; x < width; x++) {
+        if (region.contains(x, y)) {
+          this.pixels[getIndex(x, y)] = transformer.apply(getAt(x, y));
+        }
+      }
+    }
+  }
 
   public Gmage scaleBy(Scaling scaling, Float factor) {
     return scaleBy(scaling, factor.floatValue());
@@ -205,6 +215,16 @@ public class Gmage {
   public void forEachPixel(Consumer<Color> consumer) {
     for (int i = 0; i < pixels.length; i++) {
       consumer.accept(pixels[i]);
+    }
+  }
+
+  public void forEachPixel(Consumer<Color> consumer, Region region) {
+    for (int y = 0; y < height; y++) {
+      for (int x = 0; x < width; x++) {
+        if (region.contains(x, y)) {
+          consumer.accept(getAt(x, y));
+        }
+      }
     }
   }
 

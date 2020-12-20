@@ -1,6 +1,7 @@
 package com.tambapps.gmage;
 
 import com.tambapps.gmage.color.Color;
+import com.tambapps.gmage.region.Region;
 import com.tambapps.gmage.transformer.ColorTransformer;
 import lombok.EqualsAndHashCode;
 
@@ -34,6 +35,12 @@ public class UndoRedoGmage extends Gmage {
   public void apply(ColorTransformer transformer) {
     pushHistory();
     super.apply(transformer);
+  }
+
+  @Override
+  public void apply(ColorTransformer transformer, Region region) {
+    pushHistory();
+    super.apply(transformer, region);
   }
 
   private void pushHistory() {
