@@ -182,7 +182,29 @@ public class Gmage {
     return gmage;
   }
 
-  public Gmage mirrorX() {
+  public void swap(int x1, int y1, int x2, int y2) {
+    Color color = getAt(x1, y1);
+    pixels[getIndex(x1, y1)] = getAt(x2, y2);
+    pixels[getIndex(x2, y2)] = color;
+  }
+
+  public void mirrorX() {
+    for (int y = 0; y < height; y++) {
+      for (int x = 0; x < width / 2; x++) {
+        swap(x, y, width - 1 - x, y);
+      }
+    }
+  }
+
+  public void mirrorY() {
+    for (int y = 0; y < height / 2; y++) {
+      for (int x = 0; x < width; x++) {
+        swap(x, y, x, height - 1 - y);
+      }
+    }
+  }
+
+  public Gmage mirroredX() {
     Gmage gmage = new Gmage(width, height);
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width; x++) {
@@ -192,7 +214,7 @@ public class Gmage {
     return gmage;
   }
 
-  public Gmage mirrorY() {
+  public Gmage mirroredY() {
     Gmage gmage = new Gmage(width, height);
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width; x++) {
