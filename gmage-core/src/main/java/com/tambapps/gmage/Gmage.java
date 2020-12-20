@@ -152,6 +152,36 @@ public class Gmage {
     return scale(scaling, newWidth.intValue(), newHeight.intValue());
   }
 
+  public Gmage rotated90ClockWise() {
+    Gmage gmage = new Gmage(height, width);
+    for (int y = 0; y < gmage.height; y++) {
+      for (int x = 0; x < gmage.width; x++) {
+        gmage.putAt(gmage.getIndex(x,y), getAt(y, gmage.width - 1 - x));
+      }
+    }
+    return gmage;
+  }
+
+  public Gmage rotated90CounterClockWise() {
+    Gmage gmage = new Gmage(height, width);
+    for (int y = 0; y < gmage.height; y++) {
+      for (int x = 0; x < gmage.width; x++) {
+        gmage.putAt(gmage.getIndex(x,y), getAt(gmage.height - 1 - y, x));
+      }
+    }
+    return gmage;
+  }
+
+  public Gmage rotated180() {
+    Gmage gmage = new Gmage(width, height);
+    for (int y = 0; y < gmage.height; y++) {
+      for (int x = 0; x < gmage.width; x++) {
+        gmage.putAt(gmage.getIndex(x,y), getAt(width - 1 - x, height - 1 - y));
+      }
+    }
+    return gmage;
+  }
+
   public Gmage scale(Scaling scaling, int newWidth, int newHeight) {
     return scaling.scale(this, newWidth, newHeight);
   }
