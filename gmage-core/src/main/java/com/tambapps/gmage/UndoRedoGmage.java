@@ -80,6 +80,10 @@ public class UndoRedoGmage extends Gmage {
     return new UndoRedoGmage(this, windowSize);
   }
 
+  public UndoRedoGmage copy(int windowSize) {
+    return new UndoRedoGmage(this, windowSize);
+  }
+
   @Override
   public void putAt(List<Number> xy, Color value) {
     pushHistory();
