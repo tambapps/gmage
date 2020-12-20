@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Undo/Redo Gmage
@@ -18,6 +19,7 @@ public class UndoRedoGmage extends Gmage {
   private final LinkedList<Gmage> history;
   private final int windowSize;
   private int currentIndex = 0;
+  private boolean storeHistory;
   UndoRedoGmage(Gmage gmage, int windowSize) {
     super(gmage.width, gmage.height, gmage.pixels);
     this.windowSize = windowSize;
@@ -25,6 +27,7 @@ public class UndoRedoGmage extends Gmage {
       throw new IllegalArgumentException("Window size should be greater than 0");
     }
     this.history = new LinkedList<>();
+    storeHistory = true;
   }
 
   @Override
@@ -34,6 +37,9 @@ public class UndoRedoGmage extends Gmage {
   }
 
   private void pushHistory() {
+    if (!storeHistory) {
+      return;
+    }
     history.add(super.copy());
     if (history.size() > windowSize) {
       this.history.removeFirst();
@@ -55,6 +61,19 @@ public class UndoRedoGmage extends Gmage {
     }
     this.set(history.get(--currentIndex));
     return true;
+  }
+
+  /**
+   * Allow to perform multiple modifications to this UndoRedoGmage and get only one change containing all
+   * the actions performed in the history
+   * Note that nested calls of this functions are not handled
+   *
+   * @param gmageConsumer the consumer in which the action should be performed
+   */
+  public void runOperation(Consumer<Gmage> gmageConsumer) {
+    storeHistory = false;
+    gmageConsumer.accept(this);
+    storeHistory = true;
   }
 
   public UndoRedoGmage copy() {
