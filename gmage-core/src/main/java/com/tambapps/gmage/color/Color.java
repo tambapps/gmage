@@ -164,8 +164,12 @@ public class Color {
     return new Color(getAlpha(), 255 - getRed(), 255 - getGreen(), 255 - getBlue());
   }
 
+  public int grayLevel() {
+    return (getRed() + getGreen() + getBlue()) / 3;
+  }
+
   public Color grayScale() {
-    int gray = (getRed() + getGreen() + getBlue()) / 3;
+    int gray = grayLevel();
     return new Color(getAlpha(), gray, gray, gray);
   }
 
