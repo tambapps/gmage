@@ -5,7 +5,7 @@
 ## Examples
 ### Java
 
-```java
+```groovy
 // TODO
 ```
 ### Groovy
@@ -14,20 +14,19 @@
 ```
 
 ## Project architecture
-The project has different module
+The project has different modules
 
 ### core
-This module is where the magic happens. It holds all the classes and functions used for image
-processing
+This module is where the magic happens. It holds all the classes used for image processing
 
 ### desktop
-It provides a `GmageEncoder` and `GmageEncoder` allowing to read/write images, converting them from/to Gmage/
+It provides a `GmageEncoder` and `GmageEncoder` allowing to read/write images, converting them from/to Gmage.
 
-The image handling is backed by java `BufferedImage`
+The decoding/encoding is backed by Java `BufferedImage`
 ### android
 It provides the same capabilities of the desktop module, but for android.
 
-Since android don't have the JDK `BufferedImage`, it is backed by Android SDK `Bitmap`
+Since android don't have the JDK `BufferedImage`, encoding/decoding is backed by Android SDK `Bitmap`
 
 
 ## Features
@@ -54,7 +53,7 @@ And android supports:
 here are some examples
 
 ### Java
-```java
+```groovy
 Gmage gmage = GmageDecoder.decode(new File("image.jpg"));
 doSomething(gmage);
 GmageEncoder.encode(gmage, CompressFormat.PNG, new File("output.png"));
@@ -71,11 +70,11 @@ You can access pixels by their (x,y) indexes, or a 1-D index. The name `getAt` a
 chosen to allow Groovy operator overloading
 
 ### Java
-```java
+```groovy
 Gmage gmage = GmageDecoder.decode(new File("image.jpg"));
 gmage.putPixel(1, 2, Color.RED);
 gmage.apply((color) -> color.and(0xff00ff00));
-Color c = gmage.getAt(1, 2);
+Color c1 = gmage.getAt(1, 2);
 Color c2 = gmage.getAt(3);
 gmage.forEachPixel((c) -> System.out.println(c));
 // operate on a region
@@ -109,7 +108,7 @@ talk about operators?
 You can scale an image with different algorithms.
 
 ### Java
-```java
+```groovy
 Gmage scaled = gmage.scaledBy(Scaling.BILINEAR_INTERPOLATION, 1.5, 2);
 ```
 
@@ -122,7 +121,7 @@ def scaled = gmage.scaledBy(Scaling.NEAREST_NEIGHBOR, 1.5, 2)
 You can blur an image with different algorithms.
 
 ### Java
-```java
+```groovy
 Blur blur = new BoxBlur(BoxBlur.SMOOTHING_KERNEL);
 Gmage blurred = gmage.blurred(blur);
 ```
