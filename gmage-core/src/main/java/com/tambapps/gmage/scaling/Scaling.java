@@ -9,8 +9,14 @@ public enum Scaling {
     public Gmage scale(Gmage original, int newWidth, int newHeight) {
       return ScalingAlgorithms.nearestNeighbour(original, newWidth, newHeight);
     }
+  },
+  // better than nearest neighbor in result
+  BILINEAR_INTERPOLATION {
+    @Override
+    public Gmage scale(Gmage original, int newWidth, int newHeight) {
+      return ScalingAlgorithms.bilinearInterpolation(original, newWidth, newHeight);
+    }
   }
-  // Bilinear, better than nearest neighbor
 
   // Bicubic interpolation, much slower but better
   ;
