@@ -21,13 +21,18 @@ public class UndoRedoGmage extends Gmage {
   private final int windowSize;
   private int currentIndex = 0;
   private boolean storeHistory;
+
   UndoRedoGmage(Gmage gmage, int windowSize) {
+    this(gmage, windowSize, new LinkedList<>());
+  }
+
+  private UndoRedoGmage(Gmage gmage, int windowSize, LinkedList<Gmage> history) {
     super(gmage.width, gmage.height, gmage.pixels);
     this.windowSize = windowSize;
     if (windowSize <= 0) {
       throw new IllegalArgumentException("Window size should be greater than 0");
     }
-    this.history = new LinkedList<>();
+    this.history = history;
     storeHistory = true;
   }
 
@@ -41,6 +46,12 @@ public class UndoRedoGmage extends Gmage {
   public void apply(ColorTransformer transformer, Region region) {
     pushHistory();
     super.apply(transformer, region);
+  }
+
+  @Override
+  public void applyOutside(ColorTransformer transformer, Region region) {
+    pushHistory();
+    super.applyOutside(transformer, region);
   }
 
   private void pushHistory() {
@@ -84,7 +95,7 @@ public class UndoRedoGmage extends Gmage {
   }
 
   public UndoRedoGmage copy() {
-    return new UndoRedoGmage(this, windowSize);
+    return new UndoRedoGmage(this, windowSize, new LinkedList<>(history));
   }
 
   public UndoRedoGmage copy(int windowSize) {
@@ -95,6 +106,30 @@ public class UndoRedoGmage extends Gmage {
   public void putAt(List<Number> xy, Color value) {
     pushHistory();
     super.putAt(xy, value);
+  }
+
+  @Override
+  public void putAt(int oneDIndex, Color value) {
+    pushHistory();
+    super.putAt(oneDIndex, value);
+  }
+
+  @Override
+  public void putPixel(int x, int y, Color value) {
+    pushHistory();
+    super.putPixel(x, y, value);
+  }
+
+  @Override
+  public void mirrorX() {
+    pushHistory();
+    super.mirrorX();
+  }
+
+  @Override
+  public void mirrorY() {
+    pushHistory();
+    super.mirrorY();
   }
 
   @Override
