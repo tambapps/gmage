@@ -136,6 +136,16 @@ public class Gmage {
     }
   }
 
+  public void applyOutside(ColorTransformer transformer, Region region) {
+    for (int y = 0; y < height; y++) {
+      for (int x = 0; x < width; x++) {
+        if (!region.contains(x, y)) {
+          this.pixels[getIndex(x, y)] = transformer.apply(getAt(x, y));
+        }
+      }
+    }
+  }
+
   public Gmage scaledBy(Scaling scaling, Float factor) {
     return scaledBy(scaling, factor.floatValue());
   }
