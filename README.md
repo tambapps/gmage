@@ -6,11 +6,24 @@
 ### Java
 
 ```groovy
-// TODO
+Gmage gmage = GmageDecoder.decode('image.jpg');
+gmage.apply(ColorTransformers.duoTone(Color.BLUE));
+gmage.apply((color) -> color.and(0xff00ff0f));
+gmage.apply(ColorTransformers.replaceColor(Color.BLUE, Color.CLEAR, 0.25f));
+def blurred = gmage.blurred(new BoxBlur(BoxBlur.SHARPENING_KERNEL));
+def resized = blurred.scaledBy(0.8f, 0.8f);
+GmageEncoder.encode(resized, CompressFormat.PNG, new File("output.jpg"));
 ```
+
 ### Groovy
 ```groovy
-// TODO
+Gmage gmage = GmageDecoder.decode('image.jpg')
+gmage.apply(ColorTransformers.duoTone(Color.BLUE))
+gmage.apply { Color color -> color | 0xff00ff0f }
+gmage.apply(ColorTransformers.replaceColor(Color.BLUE, Color.CLEAR, 0.25f))
+def blurred = gmage.blurred(new BoxBlur(BoxBlur.SHARPENING_KERNEL))
+def resized = blurred.scaledBy(0.8f, 0.8f)
+GmageEncoder.encode(resized, CompressFormat.PNG, new File("output.jpg"))
 ```
 
 ## Project architecture
