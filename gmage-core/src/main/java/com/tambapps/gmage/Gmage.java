@@ -146,6 +146,14 @@ public class Gmage {
     }
   }
 
+  public Gmage scaledBy(Number factor) {
+    return scaledBy(Scaling.BILINEAR_INTERPOLATION, factor, factor);
+  }
+
+  public Gmage scaledBy(float factor) {
+    return scaledBy(Scaling.BILINEAR_INTERPOLATION, factor, factor);
+  }
+
   public Gmage scaledBy(Scaling scaling, Float factor) {
     return scaledBy(scaling, factor.floatValue());
   }
@@ -154,12 +162,28 @@ public class Gmage {
     return scaledBy(scaling, factor, factor);
   }
 
+  public Gmage scaledBy(float widthFactor, float heightFactor) {
+    return scaled(Scaling.BILINEAR_INTERPOLATION, (int) (widthFactor * width), (int) (heightFactor * height));
+  }
+
+  public Gmage scaledBy(Number widthFactor, Number heightFactor) {
+    return scaledBy(Scaling.BILINEAR_INTERPOLATION, widthFactor.floatValue(), heightFactor.floatValue());
+  }
+
   public Gmage scaledBy(Scaling scaling, Number widthFactor, Number heightFactor) {
     return scaledBy(scaling, widthFactor.floatValue(), heightFactor.floatValue());
   }
 
   public Gmage scaledBy(Scaling scaling, float widthFactor, float heightFactor) {
     return scaled(scaling, (int) (widthFactor * width), (int) (heightFactor * height));
+  }
+
+  public Gmage scaled(Number newWidth, Number newHeight) {
+    return scaled(Scaling.BILINEAR_INTERPOLATION, newWidth.intValue(), newHeight.intValue());
+  }
+
+  public Gmage scaled(int newWidth, int newHeight) {
+    return Scaling.BILINEAR_INTERPOLATION.scale(this, newWidth, newHeight);
   }
 
   public Gmage scaled(Scaling scaling, Number newWidth, Number newHeight) {
