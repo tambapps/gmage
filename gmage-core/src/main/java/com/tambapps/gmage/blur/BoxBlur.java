@@ -15,11 +15,8 @@ public class BoxBlur implements Blur {
 
   public static class Kernel {
     private final float[] floats;
-    public Kernel(float... floats) {
-      if (floats.length != 9) {
-        throw new IllegalArgumentException("Box Bluer kernel should have 9 elements (3 * 3)");
-      }
-      this.floats = new float[floats.length];
+    public Kernel(float f0, float f1, float f2, float f3, float f4, float f5, float f6, float f7, float f8) {
+      this.floats = new float[] {f0, f1, f2, f3, f4, f5, f6, f7, f8};
       System.arraycopy(floats, 0, this.floats, 0, floats.length);
     }
     private float getDenominator() {
