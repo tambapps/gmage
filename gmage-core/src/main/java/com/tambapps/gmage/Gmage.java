@@ -1,6 +1,7 @@
 package com.tambapps.gmage;
 
 import com.tambapps.gmage.blur.Blur;
+import com.tambapps.gmage.blur.PixelationBlur;
 import com.tambapps.gmage.color.Color;
 import com.tambapps.gmage.region.Region;
 import com.tambapps.gmage.scaling.Scaling;
@@ -298,6 +299,22 @@ public class Gmage {
 
   public Gmage padded(int padLeft, int padTop, int padRight, int padBottom) {
     return padded(padLeft, padTop, padRight, padBottom, Color.BLACK);
+  }
+
+  public void pixelize(Number pixelSize) {
+    pixelize(pixelSize.intValue());
+  }
+
+  public void pixelize(int pixelSize) {
+    new PixelationBlur(pixelSize).applyOn(this);
+  }
+
+  public void pixelize(Number pixelSize, Region region) {
+    pixelize(pixelSize.intValue(), region);
+  }
+
+  public void pixelize(int pixelSize, Region region) {
+    new PixelationBlur(pixelSize).applyOn(this, region);
   }
 
   public Gmage padded(int padLeft, int padTop, int padRight, int padBottom, Color backgroundColor) {
