@@ -46,6 +46,17 @@ class BlurTest {
     testBoxBlur(BoxBlur.EDGE_DETECTION_KERNEL, "Edge_Detection")
   }
 
+  @Test
+  void testPixelationBlur() {
+    Gmage gmage = GmageDecoder.decode(GmageDecoderTest.class.getResource("/ronflex.jpg"))
+    int pixelSize = gmage.width.intdiv(10)
+    def blur = new PixelationBlur(pixelSize)
+    Gmage gmage1 = gmage.copy()
+    blur.applyOn(gmage1)
+    assertEquals(gmage1, blur.apply(gmage))
+    GmageEncoder.encode(gmage1, CompressFormat.PNG, new File("test_pixelation_${pixelSize}.png"))
+  }
+
   private static void testBoxBlur(Kernel kernel, String blurName) {
     Gmage gmage = GmageDecoder.decode(GmageDecoderTest.class.getResource("/ronflex.jpg"))
     def blur = new BoxBlur(kernel)
