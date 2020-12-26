@@ -1,6 +1,7 @@
 package com.tambapps.gmage.blur;
 
 import com.tambapps.gmage.Gmage;
+import com.tambapps.gmage.region.Region;
 
 // TODO implement Gaussian Blur
 // TODO allow blurring on a surface
@@ -26,6 +27,18 @@ public interface Blur {
    */
   default void applyOn(Gmage gmage) {
     throw new UnsupportedOperationException(getClass().getSimpleName() +
-            "Cannot directly apply the blur on a gmage. (Use the apply function)");
+        "Cannot directly apply the blur on a gmage. (Use the apply function)");
+  }
+
+  /**
+   * Apply directly the blur on the supplied gmage, in the given region
+   * Note that not all Blur supports this operation
+   *
+   * @param gmage the gmage to apply the blur on
+   * @param region the region in which to apply the blur
+   */
+  default void applyOn(Gmage gmage, Region region) {
+    throw new UnsupportedOperationException(getClass().getSimpleName() +
+        "Cannot directly apply the blur on a gmage. (Use the apply function)");
   }
 }

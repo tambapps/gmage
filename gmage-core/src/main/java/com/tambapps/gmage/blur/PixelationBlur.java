@@ -2,6 +2,7 @@ package com.tambapps.gmage.blur;
 
 import com.tambapps.gmage.Gmage;
 import com.tambapps.gmage.color.Color;
+import com.tambapps.gmage.region.Region;
 
 public class PixelationBlur implements Blur {
 
@@ -52,6 +53,19 @@ public class PixelationBlur implements Blur {
     }
   }
 
+  @Override
+  public void applyOn(Gmage gmage, Region region) {
+    int width = gmage.getWidth();
+    int height = gmage.getHeight();
+    for (int y = 0; y < height; y += pixelSize) {
+      for (int x = 0; x < width; x += pixelSize) {
+        if (region.contains(x, y)) {
+          put(gmage, region, x, y);
+        }
+      }
+    }
+  }
+
   private void put(Gmage gmage, int startX, int startY) {
     Color color = gmage.getAt(startX, startY);
     for (int y = 0; startY + y < gmage.getHeight() && y < pixelSize; y++) {
@@ -66,6 +80,17 @@ public class PixelationBlur implements Blur {
     for (int y = 0; startY + y < gmage.getHeight() && y < pixelSize; y++) {
       for (int x = 0; startX + x < gmage.getWidth() && x < pixelSize; x++) {
         pixels[ (startY + y) * gmage.getWidth() + startX + x] = color;
+      }
+    }
+  }
+
+  private void put(Gmage gmage, Region region, int startX, int startY) {
+    Color color = gmage.getAt(startX, startY);
+    for (int y = 0; startY + y < gmage.getHeight() && y < pixelSize; y++) {
+      for (int x = 0; startX + x < gmage.getWidth() && x < pixelSize; x++) {
+        if (region.contains(startX + x, startY + y)) {
+          gmage.putPixel(startX + x, startY + y, color);
+        }
       }
     }
   }
