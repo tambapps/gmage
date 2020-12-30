@@ -117,11 +117,9 @@ gmage.apply { Color color ->
 }
 Color c = gmage[1, 2]
 Color c2 = gmage[3]
-gmage.forEachPixel {
-  System.out.println(it)
-}
+gmage.forEachPixel(System.out.&println)
 // operate on a region
-gmage.apply({ - it }, new BoxRegion(0, 0, gmage.width / 2,  gmage.height / 2));
+gmage.apply({ - it }, new BoxRegion(0, 0, gmage.width / 2,  gmage.height / 2))
 ```
 
 ### Predefined operations
@@ -130,15 +128,12 @@ You can find some predefined `ColorTransformer` in the `ColorTransformers` class
 ## Scaling
 You can scale an image with different algorithms.
 
-### Java
+Example:
 ```groovy
 Gmage scaled = gmage.scaledBy(Scaling.BILINEAR_INTERPOLATION, 1.5, 2);
+Gmage scaled2 = gmage.scaled(Scaling.NEAREST_NEIGHBOR, 512, 512);
 ```
 
-### Groovy
-```groovy
-def scaled = gmage.scaledBy(Scaling.NEAREST_NEIGHBOR, 1.5, 2)
-```
 
 ## Blur
 You can blur an image with different algorithms (for now only box blur is supported).
