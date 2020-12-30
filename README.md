@@ -41,6 +41,27 @@ It provides the same capabilities of the desktop module, but for android.
 
 Since android don't have the JDK `BufferedImage`, encoding/decoding is backed by Android SDK `Bitmap`
 
+## Colors
+Before presenting features, let's talk about the representation of a `Color` in **Gmage**.
+A `Color` has 4 channels: alpha, red, green, blue. Each channel have its value between 0 and 255.
+
+You can create a Color from numbers (e.g `0xffffff`) but be careful,
+**the type of the provided number (Integer, Long, etc...) is significant for the color conversion**.
+
+int/Integer values are interpreted as RGB. The default alpha is always 255
+```groovy
+Color white = new Color(0xffffff)
+```
+
+Other values are interpreted as ARGB values
+```groovy
+Color white = new Color(0xffffffffL)
+// note that in Groovy, divisions produce BigDecimal numbers
+Color white2 = new Color(0xffffffff / 1)
+```
+
+This choice was made because in Groovy, `0xffffff` (RGB white) is interpreted as an Integer whereas
+`0xffffffff` (ARGB white) is interpreted as a Long.
 
 ## Features
 
@@ -113,10 +134,6 @@ gmage.apply({ Color color -> - color}, new BoxRegion(0, 0, gmage.width / 2,  gma
 ### Predefined operations
 You can find some predefined `ColorTransformer` in the `ColorTransformers` class.
 
-## Colors
-// TODO talk about int and number colors, rgb/argb
-talk about operators?
-
 ## Scaling
 You can scale an image with different algorithms.
 
@@ -131,7 +148,7 @@ def scaled = gmage.scaledBy(Scaling.NEAREST_NEIGHBOR, 1.5, 2)
 ```
 
 ## Blur
-You can blur an image with different algorithms.
+You can blur an image with different algorithms (for now only box blur is supported).
 
 ### Java
 ```groovy
