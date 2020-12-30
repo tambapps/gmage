@@ -80,7 +80,7 @@ As seen in the `CompressFormat` enums, desktop supports:
 
 And android supports:
 - JPG
-- JPG
+- PNG
 - WEBP
 
 
