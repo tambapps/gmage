@@ -1,6 +1,6 @@
 # Gmage
 
-**Gmage** is a Groovy-friendly image processing library, written in Java.
+**Gmage** is a Groovy-friendly image processing library, written in Java 8.
 
 ## Examples
 ### Java
@@ -84,19 +84,12 @@ And android supports:
 - WEBP
 
 
-here are some examples
+here is an example:
 
-### Java
 ```groovy
 Gmage gmage = GmageDecoder.decode(new File("image.jpg"));
 doSomething(gmage);
 GmageEncoder.encode(gmage, CompressFormat.PNG, new File("output.png"));
-```
-### Groovy
-```groovy
-Gmage gmage = GmageDecoder.decode(new File("image.jpg"))
-doSomething(gmage)
-GmageEncoder.encode(gmage, CompressFormat.PNG, new File("output.png"))
 ```
 
 ## Modify pixels
@@ -128,7 +121,7 @@ gmage.forEachPixel {
   System.out.println(it)
 }
 // operate on a region
-gmage.apply({ Color color -> - color}, new BoxRegion(0, 0, gmage.width / 2,  gmage.height / 2));
+gmage.apply({ - it }, new BoxRegion(0, 0, gmage.width / 2,  gmage.height / 2));
 ```
 
 ### Predefined operations
@@ -150,14 +143,8 @@ def scaled = gmage.scaledBy(Scaling.NEAREST_NEIGHBOR, 1.5, 2)
 ## Blur
 You can blur an image with different algorithms (for now only box blur is supported).
 
-### Java
+Example:
 ```groovy
 Blur blur = new BoxBlur(BoxBlur.SMOOTHING_KERNEL);
 Gmage blurred = gmage.blurred(blur);
-```
-
-### Groovy
-```groovy
-def blur = new BoxBlur(BoxBlur.SMOOTHING_KERNEL)
-def blurred = gmage.blurred(blur)
 ```
