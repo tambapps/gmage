@@ -3,8 +3,6 @@ package com.tambapps.gmage.color;
 import lombok.Value;
 
 import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Represents a color
@@ -30,6 +28,20 @@ public class Color {
   public static final Color BLUE  = new Color(0, 0, 255);
 
   public static float MAX_DISTANCE_2 = BLACK.distance2(WHITE);
+
+  public static Color fromHexString(String hex) {
+    if (hex.startsWith("#")) {
+      hex = hex.substring(1);
+    }
+    switch (hex.length()) {
+      case 6:
+        return new Color(Integer.parseInt(hex.substring(0, 2), 16), Integer.parseInt(hex.substring(2, 4), 16), Integer.parseInt(hex.substring(4, 6), 16));
+      case 8:
+        return new Color(Integer.parseInt(hex.substring(0, 2), 16), Integer.parseInt(hex.substring(2, 4), 16), Integer.parseInt(hex.substring(4, 6), 16), Integer.parseInt(hex.substring(6, 8), 16));
+      default:
+        throw new IllegalArgumentException("Hex String must contain rgb or argb values");
+    }
+  }
 
   public static int toRgb(int red, int green, int blue) {
     int color = 0;
@@ -291,10 +303,12 @@ public class Color {
     return String.format("Color(A=%d, R=%d, G=%d, B=%d)", getAlpha(), getRed(), getGreen(), getBlue());
   }
 
-  public String toHexString() {
-    return "#" + Stream.of(getAlpha(), getRed(), getGreen(), getBlue())
-        .map(this::componentString)
-        .collect(Collectors.joining());
+  public String toArgbHexString() {
+    return "#" + componentString(getAlpha()) + componentString(getRed()) + componentString(getGreen()) + componentString(getBlue());
+  }
+
+  public String toRgbHexString() {
+    return "#" + componentString(getRed()) + componentString(getGreen()) + componentString(getBlue());
   }
 
   private String componentString(int value) {
