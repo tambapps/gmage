@@ -35,7 +35,7 @@ public class GmageEncoder {
   }
 
   public static boolean encode(Gmage gmage, CompressFormat format, OutputStream outputStream) throws IOException {
-    BufferedImage image = format.supportsAlpha() ? BufferedImageUtils.toBufferedImage(gmage, BufferedImage.TYPE_INT_RGB) : BufferedImageUtils.toBufferedImage(gmage);
+    BufferedImage image = format.supportsAlpha() ? BufferedImageUtils.fromGmage(gmage, BufferedImage.TYPE_INT_RGB) : BufferedImageUtils.fromGmage(gmage);
     return ImageIO.write(image, format.getFormatName(), outputStream);
   }
 

@@ -1,11 +1,10 @@
 package com.tambapps.gmage;
 
+import com.tambapps.gmage.bi.BufferedImageUtils;
 import com.tambapps.gmage.exception.GmageDecodingException;
-import com.tambapps.gmage.color.Color;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.awt.image.Raster;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -41,38 +40,7 @@ public final class GmageDecoder {
   }
 
   public static Gmage decode(BufferedImage image) {
-    Raster raster = image.getData();
-    int nbChannels = raster.getNumDataElements();
-    if (nbChannels == 4) {
-      return decodeRGBAImage(image.getData());
-    }
-    return decodeRGBImage(image);
-  }
-
-  private static Gmage decodeRGBImage(BufferedImage image) {
-    int width = image.getWidth();
-    int height = image.getHeight();
-    Color[] colors = new Color[width * height];
-    for (int y = 0; y < height; y++) {
-      for (int x = 0; x < width; x++) {
-        colors[Gmage.getIndex(x, y, width)] = new Color(image.getRGB(x, y));
-      }
-    }
-    return new Gmage(width, height, colors);
-  }
-
-  private static Gmage decodeRGBAImage(Raster raster) {
-    int[] pixel = new int[4];
-    int width = raster.getWidth();
-    int height = raster.getHeight();
-    Color[] colors = new Color[width * height];
-    for (int y = 0; y < height; y++) {
-      for (int x = 0; x < width; x++) {
-        raster.getPixel(x, y, pixel);
-        colors[Gmage.getIndex(x, y, width)] = new Color(pixel[3], pixel[0], pixel[1], pixel[2]);
-      }
-    }
-    return new Gmage(width, height, colors);
+    return BufferedImageUtils.toGmage(image);
   }
 
   public static Gmage decode(String string) {
