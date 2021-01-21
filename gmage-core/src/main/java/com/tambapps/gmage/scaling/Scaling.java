@@ -2,6 +2,9 @@ package com.tambapps.gmage.scaling;
 
 import com.tambapps.gmage.Gmage;
 
+/**
+ * Scaling algorithms
+ */
 public enum Scaling {
   // fast and simple
   NEAREST_NEIGHBOR {
@@ -21,6 +24,13 @@ public enum Scaling {
   // Bicubic interpolation, much slower but better
   ;
 
+  /**
+   * returned a scaled copy of the original image
+   * @param original the original image
+   * @param newWidth the width to use when scaling
+   * @param newHeight the height to use when scaling
+   * @return a scaling image having dimension (newWidth, newHeight)
+   */
   public Gmage scale(Gmage original, int newWidth, int newHeight) {
     throw new RuntimeException("The dev didn't override the method :(");
   }

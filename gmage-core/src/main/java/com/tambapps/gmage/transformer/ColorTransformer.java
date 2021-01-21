@@ -7,6 +7,11 @@ import com.tambapps.gmage.color.Color;
  */
 public interface ColorTransformer {
 
+  /**
+   * Transforms a Color
+   * @param color a color
+   * @return the non-null transformed color
+   */
   Color apply(Color color);
 
 }
