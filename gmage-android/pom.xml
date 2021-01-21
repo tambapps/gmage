@@ -24,10 +24,10 @@
     </dependency>
     <dependency>
       <groupId>android</groupId>
-      <artifactId>android-sdk</artifactId>
+      <artifactId>android-fake-sdk</artifactId>
       <version>1.0</version>
       <scope>system</scope>
-      <systemPath>${project.basedir}/android-sdk.jar</systemPath>
+      <systemPath>${project.basedir}/android-fake-sdk.jar</systemPath>
     </dependency>
 
     <dependency>
