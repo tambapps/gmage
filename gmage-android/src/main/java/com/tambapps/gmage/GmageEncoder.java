@@ -20,7 +20,7 @@ public class GmageEncoder {
    * @param gmage  the gmage to encode
    * @param format the format in which to encode
    * @param object the object in which to encode to
-   * @return whether the encoding succedded or not
+   * @return whether the encoding succeeded or not
    * @throws IOException                   in case of I/O error
    * @throws UnsupportedOperationException in case the object is not supported
    */

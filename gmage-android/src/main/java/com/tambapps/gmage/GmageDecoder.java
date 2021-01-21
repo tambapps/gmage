@@ -90,7 +90,7 @@ public final class GmageDecoder {
       return decode(bytes);
     } catch (IllegalArgumentException ignored) {
     }
-    throw new IllegalArgumentException("Couldn't decode \"" + string + "\"");
+    throw new GmageDecodingException("Couldn't decode \"" + string + "\"");
   }
 
   /**

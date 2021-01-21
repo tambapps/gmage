@@ -10,8 +10,21 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Path;
 
+/**
+ * Class providing functions to encode a Gmage
+ */
 public class GmageEncoder {
 
+  /**
+   * tries to encode a Gmage in the given object if supported
+   *
+   * @param gmage  the gmage to encode
+   * @param format the format in which to encode
+   * @param object the object in which to encode to
+   * @return whether the encoding succeeded or not
+   * @throws IOException                   in case of I/O error
+   * @throws UnsupportedOperationException in case the object is not supported
+   */
   public static boolean encode(Gmage gmage, CompressFormat format, Object object)
       throws IOException {
     if (object instanceof Path) {
@@ -24,18 +37,47 @@ public class GmageEncoder {
     throw new IllegalArgumentException("Cannot encode gmage in " + object);
   }
 
+  /**
+   * encode a Gmage in the given path
+   *
+   * @param gmage  the gmage to encode
+   * @param format the format in which to encode
+   * @param path   the path in which to encode to
+   * @return whether the encoding succeeded or not
+   * @throws IOException in case of I/O error
+   */
   public static boolean encode(Gmage gmage, CompressFormat format, Path path) throws IOException {
     return encode(gmage, format, path.toFile());
   }
 
+  /**
+   * encode a Gmage in the file
+   *
+   * @param gmage  the gmage to encode
+   * @param format the format in which to encode
+   * @param file   the file in which to encode to
+   * @return whether the encoding succeeded or not
+   * @throws IOException in case of I/O error
+   */
   public static boolean encode(Gmage gmage, CompressFormat format, File file) throws IOException {
     try (FileOutputStream fos = new FileOutputStream(file)) {
       return encode(gmage, format, fos);
     }
   }
 
-  public static boolean encode(Gmage gmage, CompressFormat format, OutputStream outputStream) throws IOException {
-    BufferedImage image = format.supportsAlpha() ? BufferedImageUtils.fromGmage(gmage, BufferedImage.TYPE_INT_RGB) : BufferedImageUtils.fromGmage(gmage);
+  /**
+   * encode a Gmage in the output stream
+   *
+   * @param gmage        the gmage to encode
+   * @param format       the format in which to encode
+   * @param outputStream the output stream in which to encode to
+   * @return whether the encoding succeeded or not
+   */
+  public static boolean encode(Gmage gmage, CompressFormat format, OutputStream outputStream)
+      throws IOException {
+    BufferedImage image = format.supportsAlpha() ?
+        BufferedImageUtils.fromGmage(gmage, BufferedImage.TYPE_INT_RGB) :
+        BufferedImageUtils.fromGmage(gmage);
     return ImageIO.write(image, format.getFormatName(), outputStream);
   }
 
