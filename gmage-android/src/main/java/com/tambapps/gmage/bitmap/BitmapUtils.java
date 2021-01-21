@@ -20,4 +20,19 @@ public final class BitmapUtils {
     }
     return bmp;
   }
+
+  public static Gmage toGmage(Bitmap image) {
+    int width = image.getWidth();
+    int height = image.getHeight();
+    Color[] colors = new Color[width * height];
+    for (int y = 0; y < height; y++) {
+      for (int x = 0; x < width; x++) {
+        int argb = image.getPixel(x, y);
+        int alpha = argb >>> 24;
+        int rgb = argb & 0xffffff;
+        colors[y * width + x] = new Color(rgb, alpha);
+      }
+    }
+    return new Gmage(width, height, colors);
+  }
 }

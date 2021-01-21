@@ -2,6 +2,7 @@ package com.tambapps.gmage;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import com.tambapps.gmage.bitmap.BitmapUtils;
 import com.tambapps.gmage.exception.GmageDecodingException;
 import com.tambapps.gmage.color.Color;
 
@@ -40,23 +41,12 @@ public final class GmageDecoder {
     throw new IllegalArgumentException("Cannot decode " + object);
   }
 
-  public static Gmage decode(Bitmap image) {
+  public static Gmage decode(Bitmap bitmap) {
     // result of BitmapFactory.decodeSomething() is null if an error occurred
-    if (image == null) {
+    if (bitmap == null) {
       throw new GmageDecodingException("Couldn't decode image");
     }
-    int width = image.getWidth();
-    int height = image.getHeight();
-    Color[] colors = new Color[width * height];
-    for (int y = 0; y < height; y++) {
-      for (int x = 0; x < width; x++) {
-        int argb = image.getPixel(x, y);
-        int alpha = argb >>> 24;
-        int rgb = argb & 0xffffff;
-        colors[Gmage.getIndex(x, y, width)] = new Color(rgb, alpha);
-      }
-    }
-    return new Gmage(width, height, colors);
+    return BitmapUtils.toGmage(bitmap);
   }
 
   public static Gmage decode(String string) {
