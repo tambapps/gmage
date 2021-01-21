@@ -4,14 +4,27 @@ import com.tambapps.gmage.Gmage;
 import com.tambapps.gmage.color.Color;
 import com.tambapps.gmage.region.Region;
 
+/**
+ * Implementation of a pixelation effect blur
+ */
 public class PixelationBlur implements Blur {
 
   private final int pixelSize;
 
+  /**
+   * Construct a PixelationBlur with the given pixel size
+   *
+   * @param pixelSize the size of the pixels when blurring
+   */
   public PixelationBlur(Number pixelSize) {
     this(pixelSize.intValue());
   }
 
+  /**
+   * Construct a PixelationBlur with the given pixel size
+   *
+   * @param pixelSize the size of the pixels when blurring
+   */
   public PixelationBlur(int pixelSize) {
     if (pixelSize < 1) {
       throw new IllegalArgumentException("The pixel size must be greater than 0");
@@ -19,6 +32,12 @@ public class PixelationBlur implements Blur {
     this.pixelSize = pixelSize;
   }
 
+  /**
+   * Apply on a new gmage this blur
+   *
+   * @param gmage the gmage to blur
+   * @return the blurred gmage
+   */
   @Override
   public Gmage apply(Gmage gmage) {
     int width = gmage.getWidth();
@@ -79,7 +98,7 @@ public class PixelationBlur implements Blur {
     Color color = gmage.getAt(startX, startY);
     for (int y = 0; startY + y < gmage.getHeight() && y < pixelSize; y++) {
       for (int x = 0; startX + x < gmage.getWidth() && x < pixelSize; x++) {
-        pixels[ (startY + y) * gmage.getWidth() + startX + x] = color;
+        pixels[(startY + y) * gmage.getWidth() + startX + x] = color;
       }
     }
   }

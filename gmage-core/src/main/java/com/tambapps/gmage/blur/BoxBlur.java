@@ -4,21 +4,35 @@ import com.tambapps.gmage.Gmage;
 import com.tambapps.gmage.color.Color;
 
 // thanks https://tech-algorithm.com/articles/boxfiltering/
+
+
+/**
+ * Implementation of a box blur
+ */
 public class BoxBlur implements Blur {
 
-  public static final Kernel UNFILTERED_KERNEL = new Kernel(0f, 0f, 0f, 0f, 1f, 0f, 0f ,0f, 0f);
+  public static final Kernel UNFILTERED_KERNEL = new Kernel(0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f);
   public static final Kernel SMOOTHING_KERNEL = new Kernel(1f, 1f, 1f, 1f, 2f, 1f, 1f, 1f, 1f);
-  public static final Kernel SHARPENING_KERNEL = new Kernel(-1f, -1f, -1f, -1f, 9f, -1f, -1f, -1f, -1f);
+  public static final Kernel SHARPENING_KERNEL =
+      new Kernel(-1f, -1f, -1f, -1f, 9f, -1f, -1f, -1f, -1f);
   public static final Kernel RAISED_KERNEL = new Kernel(0f, 0f, -2f, 0f, 2f, 0f, 1f, 0f, 0f);
   public static final Kernel MOTION_BLUR_KERNEL = new Kernel(0f, 0f, -2f, 0f, 2f, 0f, 1f, 0f, 0f);
-  public static final Kernel EDGE_DETECTION_KERNEL = new Kernel(-1f, -1f, -1f, -1f, 8f, -1f, -1f, -1f, -1f);
+  public static final Kernel EDGE_DETECTION_KERNEL =
+      new Kernel(-1f, -1f, -1f, -1f, 8f, -1f, -1f, -1f, -1f);
 
+
+  /**
+   * A 3 x 3 Matrix representing the kernel of the box blur
+   */
   public static class Kernel {
     private final float[] floats;
-    public Kernel(float f0, float f1, float f2, float f3, float f4, float f5, float f6, float f7, float f8) {
+
+    public Kernel(float f0, float f1, float f2, float f3, float f4, float f5, float f6, float f7,
+        float f8) {
       this.floats = new float[] {f0, f1, f2, f3, f4, f5, f6, f7, f8};
       System.arraycopy(floats, 0, this.floats, 0, floats.length);
     }
+
     private float getDenominator() {
       float denominator = 0.0f;
       for (int i = 0; i < floats.length; i++) {
@@ -30,29 +44,43 @@ public class BoxBlur implements Blur {
     private float get(int i) {
       return floats[i];
     }
+
     private int size() {
       return floats.length;
     }
   }
+
+
   private final Kernel kernel;
 
+  /**
+   * Constructs a BoxBlur with the given kernel
+   *
+   * @param kernel the kernel to use when blurring
+   */
   public BoxBlur(Kernel kernel) {
     this.kernel = kernel;
   }
 
+  /**
+   * Apply on a new gmage this blur
+   *
+   * @param gmage the gmage to blur
+   * @return the blurred gmage
+   */
   @Override
   public Gmage apply(Gmage gmage) {
     int width = gmage.getWidth();
     int height = gmage.getHeight();
-    Color[] pixels = new Color[width*height];
+    Color[] pixels = new Color[width * height];
     float denominator = kernel.getDenominator();
     float red, green, blue, alpha;
     int indexOffset;
     Color color;
     int[] indices = {
-        -(width + 1),  -width,     -(width - 1),
-        -1,                0,           +1,
-        width - 1,      width,      width + 1
+        -(width + 1), -width, -(width - 1),
+        -1, 0, +1,
+        width - 1, width, width + 1
     };
 
     // this algorithm doesn't initialize borders, so we have to do it ourself
@@ -60,7 +88,7 @@ public class BoxBlur implements Blur {
       // fill first row
       pixels[x] = gmage.getAt(x);
       // fill last row
-      pixels[(height-1) * width + x] = gmage.getAt((height-1) * width + x);
+      pixels[(height - 1) * width + x] = gmage.getAt((height - 1) * width + x);
     }
 
     for (int y = 0; y < height; y++) {
@@ -70,23 +98,24 @@ public class BoxBlur implements Blur {
       pixels[y * width + width - 1] = gmage.getAt(y * width + width - 1);
     }
 
-    for (int y = 1; y < height-1; y++) {
-      for (int x = 1; x < width-1; x++) {
+    for (int y = 1; y < height - 1; y++) {
+      for (int x = 1; x < width - 1; x++) {
         alpha = 0f;
         red = 0f;
         green = 0f;
-        blue = 0f ;
-        indexOffset = (y*width)+x ;
-        for (int k = 0; k < kernel.size() ; k++) {
-          color = gmage.getAt(indexOffset+indices[k]);
+        blue = 0f;
+        indexOffset = (y * width) + x;
+        for (int k = 0; k < kernel.size(); k++) {
+          color = gmage.getAt(indexOffset + indices[k]);
           float kernelValue = kernel.get(k);
-          alpha+= color.getAlpha() * kernelValue;
-          red+= color.getRed() * kernelValue;
-          green+= color.getGreen() * kernelValue;
-          blue+= color.getBlue() * kernelValue;
+          alpha += color.getAlpha() * kernelValue;
+          red += color.getRed() * kernelValue;
+          green += color.getGreen() * kernelValue;
+          blue += color.getBlue() * kernelValue;
         }
         pixels[indexOffset] =
-            new Color(bounded(alpha / denominator), bounded(red / denominator), bounded(green / denominator), bounded(blue / denominator)) ;
+            new Color(bounded(alpha / denominator), bounded(red / denominator),
+                bounded(green / denominator), bounded(blue / denominator));
       }
     }
     return new Gmage(width, height, pixels);
@@ -94,7 +123,7 @@ public class BoxBlur implements Blur {
 
   private int bounded(float value) {
     if (value > 0xff) {
-      return  0xff;
+      return 0xff;
     } else if (value < 0) {
       return 0;
     } else {

@@ -1,5 +1,9 @@
 package com.tambapps.gmage.region;
 
+/**
+ * Represents a box region from the left top corner (startX, startY) to the right bottom corner
+ * (startX + width, startY + height)
+ */
 public class BoxRegion extends Region {
 
   private final int startX;
@@ -7,6 +11,14 @@ public class BoxRegion extends Region {
   private final int width;
   private final int height;
 
+  /**
+   * Constructs a box region from the left top corner (startX, startY) to the right bottom corner
+   * (startX + width, startY + height)
+   * @param startX the startX
+   * @param startY the startY
+   * @param width the width
+   * @param height the height
+   */
   public BoxRegion(int startX, int startY, int width, int height) {
     this.startX = startX;
     this.startY = startY;

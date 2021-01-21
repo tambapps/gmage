@@ -6,6 +6,7 @@ import com.tambapps.gmage.region.Region;
 // TODO implement Gaussian Blur
 // TODO allow blurring on a surface
 
+
 /**
  * Interface representing a bluring operation
  */
