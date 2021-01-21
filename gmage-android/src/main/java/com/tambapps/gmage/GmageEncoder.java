@@ -34,7 +34,7 @@ public class GmageEncoder {
   }
 
   public static boolean encode(Gmage gmage, CompressFormat format, OutputStream outputStream) {
-    Bitmap bitmap = BitmapUtils.toBitmap(gmage);
+    Bitmap bitmap = BitmapUtils.fromGmage(gmage);
     return bitmap.compress(format.getBitmapFormat(), 100, outputStream);
   }
 

@@ -16,7 +16,7 @@ public final class BitmapUtils {
    * @param gmage the Gmage to convert
    * @return the converted Bitmap
    */
-  public static Bitmap toBitmap(Gmage gmage) {
+  public static Bitmap fromGmage(Gmage gmage) {
     int width = gmage.getWidth();
     int height = gmage.getHeight();
     Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
