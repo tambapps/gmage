@@ -24,4 +24,5 @@ mv README.temp.md README.md
 rm -r -f gmage-*
 
 git add README.md javadoc/
-echo "Now commit me!"
+git commit -m 'updated doc'
+echo "Now push me!"
