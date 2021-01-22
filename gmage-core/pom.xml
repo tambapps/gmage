@@ -27,10 +27,5 @@
       <artifactId>groovy-all</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.codehaus.groovy</groupId>
-      <artifactId>groovy-all</artifactId>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
 </project>
