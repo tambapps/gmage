@@ -1,5 +1,5 @@
 #!/bin/bash
-git checkout main || exit 1 > /dev/null
+git checkout main > /dev/null || exit 1
 mvn javadoc:javadoc || exit 1
 
 mkdir -p javadoc-temp/gmage-core/
@@ -12,7 +12,7 @@ cp -r gmage-desktop/target/site/apidocs/* javadoc-temp/gmage-desktop/
 
 cp README.md README.temp.md
 
-git checkout gh-pages || exit 1 > /dev/null
+git checkout gh-pages > /dev/null || exit 1
 
 rm -r javadoc/
 mv javadoc-temp/ javadoc/
