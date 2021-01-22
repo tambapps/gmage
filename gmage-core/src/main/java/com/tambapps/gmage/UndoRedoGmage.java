@@ -5,6 +5,7 @@ import com.tambapps.gmage.region.Region;
 import com.tambapps.gmage.transformer.ColorTransformer;
 import lombok.EqualsAndHashCode;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -65,6 +66,10 @@ public class UndoRedoGmage extends Gmage {
     currentIndex = history.size() - 1;
   }
 
+  /**
+   * Redo the last undone operation if any
+   * @return whether it did redo or there weren't any operation to redo
+   */
   public boolean redo() {
     if (history.isEmpty() || currentIndex >= history.size() - 1) {
       return false;
@@ -73,6 +78,10 @@ public class UndoRedoGmage extends Gmage {
     return true;
   }
 
+  /**
+   * Undo the last done operation if any
+   * @return whether it did undo or not
+   */
   public boolean undo() {
     if (history.isEmpty() || currentIndex <= 0) {
       return false;
@@ -115,9 +124,9 @@ public class UndoRedoGmage extends Gmage {
   }
 
   @Override
-  public void putPixel(int x, int y, Color value) {
+  public void putColor(int x, int y, Color value) {
     pushHistory();
-    super.putPixel(x, y, value);
+    super.putColor(x, y, value);
   }
 
   @Override
@@ -143,8 +152,18 @@ public class UndoRedoGmage extends Gmage {
     }
   }
 
+  /**
+   * Clear the history
+   */
   public void clearHistory() {
     history.clear();
   }
 
+  /**
+   * Returns the history of this gmage
+   * @return the history of this gmage
+   */
+  public List<Gmage> getHistory() {
+    return Collections.unmodifiableList(history);
+  }
 }

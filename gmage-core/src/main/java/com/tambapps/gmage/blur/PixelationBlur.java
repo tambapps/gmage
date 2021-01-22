@@ -89,7 +89,7 @@ public class PixelationBlur implements Blur {
     Color color = gmage.getAt(startX, startY);
     for (int y = 0; startY + y < gmage.getHeight() && y < pixelSize; y++) {
       for (int x = 0; startX + x < gmage.getWidth() && x < pixelSize; x++) {
-        gmage.putPixel(startX + x, startY + y, color);
+        gmage.putColor(startX + x, startY + y, color);
       }
     }
   }
@@ -108,7 +108,7 @@ public class PixelationBlur implements Blur {
     for (int y = 0; startY + y < gmage.getHeight() && y < pixelSize; y++) {
       for (int x = 0; startX + x < gmage.getWidth() && x < pixelSize; x++) {
         if (region.contains(startX + x, startY + y)) {
-          gmage.putPixel(startX + x, startY + y, color);
+          gmage.putColor(startX + x, startY + y, color);
         }
       }
     }
