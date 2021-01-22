@@ -9,10 +9,12 @@ import com.tambapps.gmage.color.Color;
  */
 public final class BitmapUtils {
 
-  private BitmapUtils() {}
+  private BitmapUtils() {
+  }
 
   /**
    * Converts a Gmage to a Bitmap
+   *
    * @param gmage the Gmage to convert
    * @return the converted Bitmap
    */
@@ -31,6 +33,7 @@ public final class BitmapUtils {
 
   /**
    * Converts a Bitmap to a Gmage
+   *
    * @param bitmap the Bitmap to convert
    * @return the converted Gmage
    */

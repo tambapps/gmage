@@ -1,10 +1,8 @@
 package com.tambapps.gmage
 
-
 import org.junit.jupiter.api.Test
 
-import java.awt.Color
-import java.awt.Graphics2D
+import java.awt.*
 import java.awt.image.BufferedImage
 
 import static org.junit.jupiter.api.Assertions.assertEquals
@@ -16,7 +14,7 @@ class GmageDecoderTest extends AbstractGmageTest {
   void testParseStream() {
     Gmage gmage = GmageDecoder.decode(GmageDecoderTest.class.getResource("/ronflex.jpg"))
     assertNotNull(gmage)
-    com.tambapps.gmage.color.Color pixel = gmage[0,0]
+    com.tambapps.gmage.color.Color pixel = gmage[0, 0]
     assertNotNull(pixel)
     assertEquals(0xff, pixel.alpha, "alpha test")
     assertEquals(0xff, pixel.red, "red test")

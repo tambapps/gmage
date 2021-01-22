@@ -68,6 +68,7 @@ public class UndoRedoGmage extends Gmage {
 
   /**
    * Redo the last undone operation if any
+   *
    * @return whether it did redo or there weren't any operation to redo
    */
   public boolean redo() {
@@ -80,6 +81,7 @@ public class UndoRedoGmage extends Gmage {
 
   /**
    * Undo the last done operation if any
+   *
    * @return whether it did undo or not
    */
   public boolean undo() {
@@ -161,6 +163,7 @@ public class UndoRedoGmage extends Gmage {
 
   /**
    * Returns the history of this gmage
+   *
    * @return the history of this gmage
    */
   public List<Gmage> getHistory() {

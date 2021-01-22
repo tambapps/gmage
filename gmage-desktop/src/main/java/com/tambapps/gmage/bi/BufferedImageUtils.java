@@ -45,6 +45,7 @@ public class BufferedImageUtils {
 
   /**
    * Converts a BufferedImage to a Gmage
+   *
    * @param image the buffered image to convert
    * @return the converted gmage
    */
@@ -77,7 +78,8 @@ public class BufferedImageUtils {
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width; x++) {
         raster.getPixel(x, y, pixel);
-        colors[y * width + x] = new com.tambapps.gmage.color.Color(pixel[3], pixel[0], pixel[1], pixel[2]);
+        colors[y * width + x] =
+            new com.tambapps.gmage.color.Color(pixel[3], pixel[0], pixel[1], pixel[2]);
       }
     }
     return new Gmage(width, height, colors);

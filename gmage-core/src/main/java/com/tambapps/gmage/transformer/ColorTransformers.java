@@ -23,6 +23,7 @@ public final class ColorTransformers {
 
   /**
    * A gray scale transformer
+   *
    * @return a gray scale transformer
    */
   public static ColorTransformer grayScale() {
@@ -31,6 +32,7 @@ public final class ColorTransformers {
 
   /**
    * A red filtering transformer
+   *
    * @return a red filtering transformer
    */
   public static ColorTransformer redFilter() {
@@ -39,6 +41,7 @@ public final class ColorTransformers {
 
   /**
    * A green filtering transformer
+   *
    * @return a green filtering transformer
    */
   public static ColorTransformer greenFilter() {
@@ -47,6 +50,7 @@ public final class ColorTransformers {
 
   /**
    * A blue filtering transformer
+   *
    * @return a blue filtering transformer
    */
   public static ColorTransformer blueFilter() {
@@ -55,6 +59,7 @@ public final class ColorTransformers {
 
   /**
    * A negative transformer
+   *
    * @return a negative transformer
    */
   public static ColorTransformer negative() {
@@ -74,6 +79,7 @@ public final class ColorTransformers {
 
   /**
    * A bi-color transformer. Each gmage transformed will have pixels either black or white
+   *
    * @return a bi-color transformer
    */
   public static ColorTransformer biColor() {
@@ -82,6 +88,7 @@ public final class ColorTransformers {
 
   /**
    * A bi-color transformer. Each gmage transformed will have pixels either black or white
+   *
    * @param threshold the threshold (between 0 and 255 included) applied each pixel
    *                  (using gray scale) to decide whether the color should be black or white
    * @return a bi-color transformer
@@ -92,6 +99,7 @@ public final class ColorTransformers {
 
   /**
    * A bi-color transformer. Each gmage transformed will have pixels either black color or white color
+   *
    * @param blackColor the color to used instead of black
    * @param whiteColor the color to used instead of white
    * @return a bi-color transformer
@@ -107,7 +115,7 @@ public final class ColorTransformers {
    *
    * @param blackColor the color used for averages below the threshold
    * @param whiteColor the color used for averages equal or above the threshold
-   * @param threshold the threshold
+   * @param threshold  the threshold
    * @return a bi-color transformer
    */
   public static ColorTransformer biColor(Color blackColor, Color whiteColor, int threshold) {
@@ -116,7 +124,8 @@ public final class ColorTransformers {
 
   /**
    * A transformer replacing the targetColor pixels to the replacedColor
-   * @param targetColor the target color
+   *
+   * @param targetColor   the target color
    * @param replacedColor the replace color
    * @return a replacing color transformer
    */
@@ -126,14 +135,17 @@ public final class ColorTransformers {
 
   /**
    * A transformer replacing the targetColor pixels to the replacedColor
-   * @param targetColor the target color
-   * @param replacedColor the replace color
+   *
+   * @param targetColor             the target color
+   * @param replacedColor           the replace color
    * @param maxDifferencePercentage the max difference percentage to consider when deciding to replace color or not (between 0 and 100)
    * @return a replacing color transformer
    */
-  public static ColorTransformer replaceColor(Color targetColor, Color replacedColor, float maxDifferencePercentage) {
+  public static ColorTransformer replaceColor(Color targetColor, Color replacedColor,
+      float maxDifferencePercentage) {
     if (maxDifferencePercentage < 0 || maxDifferencePercentage > 100) {
-      throw new IllegalArgumentException("The differencePercentage should be between 0 and 100 (included)");
+      throw new IllegalArgumentException(
+          "The differencePercentage should be between 0 and 100 (included)");
     }
     final float differencePercentage2 = maxDifferencePercentage * maxDifferencePercentage;
     return (c) -> c.differencePercentage2(targetColor) <= differencePercentage2 ? replacedColor : c;
@@ -143,16 +155,21 @@ public final class ColorTransformers {
    * A transformer replacing the targetColor pixels to the replacedColor. For each pixel,
    * The difference between the pixel and the targetColor will be echoed when replacing color with
    * the target color
-   * @param targetColor the target color
-   * @param replacedColor the replace color
+   *
+   * @param targetColor             the target color
+   * @param replacedColor           the replace color
    * @param maxDifferencePercentage the max difference percentage to consider when deciding to replace color or not (between 0 and 100)
    * @return a replacing color transformer
    */
-  public static ColorTransformer replaceColorIncludingDiffs(Color targetColor, Color replacedColor, float maxDifferencePercentage) {
+  public static ColorTransformer replaceColorIncludingDiffs(Color targetColor, Color replacedColor,
+      float maxDifferencePercentage) {
     if (maxDifferencePercentage < 0 || maxDifferencePercentage > 100) {
-      throw new IllegalArgumentException("The differencePercentage should be between 0 and 100 (included)");
+      throw new IllegalArgumentException(
+          "The differencePercentage should be between 0 and 100 (included)");
     }
     final float differencePercentage2 = maxDifferencePercentage * maxDifferencePercentage;
-    return (c) -> c.differencePercentage2(targetColor) <= differencePercentage2 ? replacedColor.plus(targetColor.diff(c)) : c;
+    return (c) -> c.differencePercentage2(targetColor) <= differencePercentage2 ?
+        replacedColor.plus(targetColor.diff(c)) :
+        c;
   }
 }

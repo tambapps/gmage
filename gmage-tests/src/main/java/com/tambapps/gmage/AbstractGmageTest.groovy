@@ -1,10 +1,9 @@
 package com.tambapps.gmage
 
 import com.tambapps.gmage.color.Color
+import org.junit.jupiter.api.Test
 
 import static org.junit.jupiter.api.Assertions.assertEquals
-
-import org.junit.jupiter.api.Test
 
 abstract class AbstractGmageTest {
 

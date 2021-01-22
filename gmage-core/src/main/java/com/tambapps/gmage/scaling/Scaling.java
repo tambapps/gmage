@@ -26,8 +26,9 @@ public enum Scaling {
 
   /**
    * returned a scaled copy of the original image
-   * @param original the original image
-   * @param newWidth the width to use when scaling
+   *
+   * @param original  the original image
+   * @param newWidth  the width to use when scaling
    * @param newHeight the height to use when scaling
    * @return a scaling image having dimension (newWidth, newHeight)
    */

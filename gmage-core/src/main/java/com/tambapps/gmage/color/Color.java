@@ -2,14 +2,12 @@ package com.tambapps.gmage.color;
 
 import lombok.Value;
 
-import java.util.function.Function;
-
 /**
  * Represents a color
  * Alpha, red, green, blue value go from 0 to 255 included
  * Default Integer values are interpreted as RGB values (alpha is considered as its maximum by default)
  * other Number values are considered as ARGB
- *
+ * <p>
  * Careful! int/Integer values represent RGB Color but other Numbers represents ARGB values!
  * This can sometimes be tricky in Groovy:
  * 0xffffffff is Long, so not Integer
@@ -20,18 +18,19 @@ import java.util.function.Function;
 @Value
 public class Color {
 
-  public static final Color BLACK  = new Color(0);
-  public static final Color WHITE  = new Color(0xffffff);
-  public static final Color CLEAR  = new Color(0L);
-  public static final Color RED  = new Color(255, 0, 0);
-  public static final Color GREEN  = new Color(0, 255, 0);
-  public static final Color BLUE  = new Color(0, 0, 255);
+  public static final Color BLACK = new Color(0);
+  public static final Color WHITE = new Color(0xffffff);
+  public static final Color CLEAR = new Color(0L);
+  public static final Color RED = new Color(255, 0, 0);
+  public static final Color GREEN = new Color(0, 255, 0);
+  public static final Color BLUE = new Color(0, 0, 255);
 
   public static float MAX_DISTANCE_2 = CLEAR.distance2(WHITE);
 
   /**
    * Constructs a Color from the supplied hexadecimal string. The string can start with a '#'.
    * It can represent a ARGB or RGB color
+   *
    * @param hex the hexadecimal string to decode
    * @return the decoded color
    */
@@ -41,9 +40,12 @@ public class Color {
     }
     switch (hex.length()) {
       case 6:
-        return new Color(Integer.parseInt(hex.substring(0, 2), 16), Integer.parseInt(hex.substring(2, 4), 16), Integer.parseInt(hex.substring(4, 6), 16));
+        return new Color(Integer.parseInt(hex.substring(0, 2), 16),
+            Integer.parseInt(hex.substring(2, 4), 16), Integer.parseInt(hex.substring(4, 6), 16));
       case 8:
-        return new Color(Integer.parseInt(hex.substring(0, 2), 16), Integer.parseInt(hex.substring(2, 4), 16), Integer.parseInt(hex.substring(4, 6), 16), Integer.parseInt(hex.substring(6, 8), 16));
+        return new Color(Integer.parseInt(hex.substring(0, 2), 16),
+            Integer.parseInt(hex.substring(2, 4), 16), Integer.parseInt(hex.substring(4, 6), 16),
+            Integer.parseInt(hex.substring(6, 8), 16));
       default:
         throw new IllegalArgumentException("Hex String must contain rgb or argb values");
     }
@@ -51,9 +53,10 @@ public class Color {
 
   /**
    * Useful function to convert red, green, blue values to a RGB int
-   * @param red red channel (between 0 and 255 included)
+   *
+   * @param red   red channel (between 0 and 255 included)
    * @param green green channel (between 0 and 255 included)
-   * @param blue blue channel (between 0 and 255 included)
+   * @param blue  blue channel (between 0 and 255 included)
    * @return the rgb int
    */
   public static int toRgb(int red, int green, int blue) {
@@ -66,10 +69,11 @@ public class Color {
 
   /**
    * Useful function to convert alpha, red, green, blue values to an ARGB int
+   *
    * @param alpha alpha channel (between 0 and 255 included)
-   * @param red red channel (between 0 and 255 included)
+   * @param red   red channel (between 0 and 255 included)
    * @param green green channel (between 0 and 255 included)
-   * @param blue blue channel (between 0 and 255 included)
+   * @param blue  blue channel (between 0 and 255 included)
    * @return the rgb int
    */
   public static long toArgb(int alpha, int red, int green, int blue) {
@@ -86,6 +90,7 @@ public class Color {
 
   /**
    * Construct a color from a RGB int value
+   *
    * @param rgb the rgb value
    */
   public Color(int rgb) {
@@ -94,10 +99,11 @@ public class Color {
 
   /**
    * Construct a color from alpha red, green and blue values
+   *
    * @param alpha alpha channel (between 0 and 255 included)
-   * @param red red channel (between 0 and 255 included)
+   * @param red   red channel (between 0 and 255 included)
    * @param green green channel (between 0 and 255 included)
-   * @param blue blue channel (between 0 and 255 included)
+   * @param blue  blue channel (between 0 and 255 included)
    */
   public Color(int alpha, int red, int green, int blue) {
     this.rgb = toRgb(red, green, blue);
@@ -106,9 +112,10 @@ public class Color {
 
   /**
    * Construct a color from red, green and blue values
-   * @param red red channel (between 0 and 255 included)
+   *
+   * @param red   red channel (between 0 and 255 included)
    * @param green green channel (between 0 and 255 included)
-   * @param blue blue channel (between 0 and 255 included)
+   * @param blue  blue channel (between 0 and 255 included)
    */
   public Color(int red, int green, int blue) {
     this(255, red, green, blue);
@@ -116,6 +123,7 @@ public class Color {
 
   /**
    * Construct a color from a ARGB int value
+   *
    * @param argb the argb value
    */
   public Color(long argb) {
@@ -125,6 +133,7 @@ public class Color {
 
   /**
    * Construct a color from a ARGB int value
+   *
    * @param argb the argb value
    */
   public Color(Number argb) {
@@ -133,6 +142,7 @@ public class Color {
 
   /**
    * Construct a color from a RGB int value
+   *
    * @param rgb the rgb value
    */
   public Color(Integer rgb) {
@@ -141,7 +151,8 @@ public class Color {
 
   /**
    * Construct a color from a RGB int value
-   * @param rgb the rgb value
+   *
+   * @param rgb   the rgb value
    * @param alpha the alpha channel (between 0 and 255 included)
    */
   public Color(int rgb, int alpha) {
@@ -151,6 +162,7 @@ public class Color {
 
   /**
    * The red channel
+   *
    * @return the red channel
    */
   public int getRed() {
@@ -159,6 +171,7 @@ public class Color {
 
   /**
    * The green channel
+   *
    * @return the green channel
    */
   public int getGreen() {
@@ -167,6 +180,7 @@ public class Color {
 
   /**
    * The blue channel
+   *
    * @return the blue channel
    */
   public int getBlue() {
@@ -175,16 +189,18 @@ public class Color {
 
   /**
    * The ARGB value of this color
+   *
    * @return the ARGB value
    */
   public long getArgb() {
     long argb = this.rgb;
-    argb |= ((long)alpha) << 24L;
+    argb |= ((long) alpha) << 24L;
     return argb;
   }
 
   /**
    * Computes a binary AND
+   *
    * @param color a color
    * @return a color resulting of a binary AND between this and the color
    */
@@ -194,6 +210,7 @@ public class Color {
 
   /**
    * Computes a binary AND
+   *
    * @param number a ARGB number
    * @return a color resulting of a binary AND between this and the ARGB number
    */
@@ -203,6 +220,7 @@ public class Color {
 
   /**
    * Computes a binary AND
+   *
    * @param number a RGB number
    * @return a color resulting of a binary AND between this and the RGB number
    */
@@ -212,6 +230,7 @@ public class Color {
 
   /**
    * Computes a binary OR
+   *
    * @param color a color
    * @return a color resulting of a binary OR between this and the color
    */
@@ -221,6 +240,7 @@ public class Color {
 
   /**
    * Computes a binary OR
+   *
    * @param number a ARGB number
    * @return a color resulting of a binary OR between this and the ARGB number
    */
@@ -230,6 +250,7 @@ public class Color {
 
   /**
    * Computes a binary OR
+   *
    * @param number a RGB number
    * @return a color resulting of a binary OR between this and the RGB number
    */
@@ -240,6 +261,7 @@ public class Color {
   /**
    * Computes a color that is the sum of this and the argument (for all channels). All values
    * are bounded between 0 and 255 included
+   *
    * @param color a color
    * @return the bounded sum of this and the color
    */
@@ -253,6 +275,7 @@ public class Color {
   /**
    * Computes a color that is the sum of this and the argument (for all channels). All values
    * are bounded between 0 and 255 included
+   *
    * @param number a ARGB number
    * @return the bounded sum of this and the ARGB number
    */
@@ -263,6 +286,7 @@ public class Color {
   /**
    * Computes a color that is the sum of this and the argument (for all channels). All values
    * are bounded between 0 and 255 included
+   *
    * @param number a RGB number
    * @return the bounded sum of this and the RGB number
    */
@@ -273,6 +297,7 @@ public class Color {
   /**
    * Computes a color that is the difference between this and the argument (for all channels).
    * All values are bounded between 0 and 255 included
+   *
    * @param color a color
    * @return the bounded difference of this and the color
    */
@@ -286,6 +311,7 @@ public class Color {
   /**
    * Computes a color that is the difference between this and the argument (for all channels).
    * All values are bounded between 0 and 255 included
+   *
    * @param number a ARGB number
    * @return the bounded difference of this and the ARGB number
    */
@@ -296,6 +322,7 @@ public class Color {
   /**
    * Computes a color that is the difference between this and the argument (for all channels).
    * All values are bounded between 0 and 255 included
+   *
    * @param number a RGB number
    * @return the bounded difference of this and the RGB number
    */
@@ -305,6 +332,7 @@ public class Color {
 
   /**
    * Returns the negative color (alpha unmodified).
+   *
    * @return the negative color (alpha unmodified)
    */
   public Color negative() {
@@ -313,6 +341,7 @@ public class Color {
 
   /**
    * Returns the gray level, that is the some of the RGB channels divided by 3
+   *
    * @return the gray level
    */
   public int grayLevel() {
@@ -321,6 +350,7 @@ public class Color {
 
   /**
    * Returns the gray scale of this color
+   *
    * @return the gray scale
    */
   public Color grayScale() {
@@ -330,16 +360,19 @@ public class Color {
 
   /**
    * Computes the four dimensional (ARGB) squared distance between this and the argument.
+   *
    * @param color a color
    * @return the squared distance
    */
   public float distance2(Color color) {
     return pow2(color.getAlpha() - getAlpha()) +
-        pow2(color.getRed() - getRed()) + pow2(color.getGreen() - getGreen()) + pow2(color.getBlue() - getBlue());
+        pow2(color.getRed() - getRed()) + pow2(color.getGreen() - getGreen()) + pow2(
+        color.getBlue() - getBlue());
   }
 
   /**
    * Computes the four dimensional (ARGB) squared distance between this and the argument.
+   *
    * @param number a ARGB number
    * @return the squared distance
    */
@@ -349,6 +382,7 @@ public class Color {
 
   /**
    * Computes the four dimensional (RGB) squared distance between this and the argument.
+   *
    * @param number a RGB number
    * @return the squared distance
    */
@@ -358,6 +392,7 @@ public class Color {
 
   /**
    * Computes the four dimensional (ARGB) distance between this and the argument.
+   *
    * @param color a color
    * @return the distance
    */
@@ -367,6 +402,7 @@ public class Color {
 
   /**
    * Computes the four dimensional (ARGB) distance between this and the argument.
+   *
    * @param number a ARGB number
    * @return the distance
    */
@@ -376,6 +412,7 @@ public class Color {
 
   /**
    * Computes the four dimensional (RGB) squared distance between this and the argument.
+   *
    * @param number a RGB number
    * @return the squared distance
    */
@@ -385,15 +422,18 @@ public class Color {
 
   /**
    * Computes the difference Color (every channels) between this and the argument
+   *
    * @param color a color
    * @return the difference color
    */
   public Color diff(Color color) {
-    return new Color(color.getAlpha() - getAlpha(), color.getRed() - getRed(), color.getGreen() - getGreen(), color.getBlue() - getBlue());
+    return new Color(color.getAlpha() - getAlpha(), color.getRed() - getRed(),
+        color.getGreen() - getGreen(), color.getBlue() - getBlue());
   }
 
   /**
    * Computes the difference Color (every channels) between this and the argument
+   *
    * @param number a ARGB number
    * @return the difference color
    */
@@ -403,6 +443,7 @@ public class Color {
 
   /**
    * Computes the difference Color (every channels) between this and the argument
+   *
    * @param number a RGB number
    * @return the difference color
    */
@@ -414,6 +455,7 @@ public class Color {
    * Computes the squared difference percentage between this and the argument.
    * This percentage is the squared of ( the distance between the two colors divided by
    * the maximum distance possible between two colors )
+   *
    * @param color a color
    * @return the squared difference percentage
    */
@@ -425,6 +467,7 @@ public class Color {
    * Computes the squared difference percentage between this and the argument.
    * This percentage is the squared of ( the distance between the two colors divided by
    * the maximum distance possible between two colors )
+   *
    * @param number a ARGB number
    * @return the squared difference percentage
    */
@@ -436,6 +479,7 @@ public class Color {
    * Computes the squared difference percentage between this and the argument.
    * This percentage is the squared of ( the distance between the two colors divided by
    * the maximum distance possible between two colors )
+   *
    * @param number a RGB number
    * @return the squared difference percentage
    */
@@ -449,23 +493,28 @@ public class Color {
 
   @Override
   public String toString() {
-    return String.format("Color(A=%d, R=%d, G=%d, B=%d)", getAlpha(), getRed(), getGreen(), getBlue());
+    return String
+        .format("Color(A=%d, R=%d, G=%d, B=%d)", getAlpha(), getRed(), getGreen(), getBlue());
   }
 
   /**
    * Returns the ARGB hexadecimal (prefixed by '#') representation of this color
+   *
    * @return the hexadecimal representation of this color
    */
   public String toArgbHexString() {
-    return "#" + componentString(getAlpha()) + componentString(getRed()) + componentString(getGreen()) + componentString(getBlue());
+    return "#" + componentString(getAlpha()) + componentString(getRed()) + componentString(
+        getGreen()) + componentString(getBlue());
   }
 
   /**
    * Returns the RGB hexadecimal (prefixed by '#') representation of this color
+   *
    * @return the hexadecimal representation of this color
    */
   public String toRgbHexString() {
-    return "#" + componentString(getRed()) + componentString(getGreen()) + componentString(getBlue());
+    return "#" + componentString(getRed()) + componentString(getGreen()) + componentString(
+        getBlue());
   }
 
   private String componentString(int value) {

@@ -14,9 +14,10 @@ public class BoxRegion extends Region {
   /**
    * Constructs a box region from the left top corner (startX, startY) to the right bottom corner
    * (startX + width, startY + height)
+   *
    * @param startX the startX
    * @param startY the startY
-   * @param width the width
+   * @param width  the width
    * @param height the height
    */
   public BoxRegion(int startX, int startY, int width, int height) {

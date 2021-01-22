@@ -11,9 +11,10 @@ public class CircleRegion extends Region {
 
   /**
    * Constructs a circle region from origin (centerX, centerY) and the radius
+   *
    * @param centerX the centerX
    * @param centerY the centerY
-   * @param radius the radius
+   * @param radius  the radius
    */
   public CircleRegion(int centerX, int centerY, float radius) {
     this.centerX = centerX;
