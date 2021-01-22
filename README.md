@@ -21,7 +21,7 @@ GmageEncoder.encode(resized, CompressFormat.PNG, new File("output.jpg"));
 ```groovy
 Gmage gmage = GmageDecoder.decode('image.jpg')
 gmage.apply(ColorTransformers.duoTone(Color.BLUE))
-gmage.apply { Color color -> color | 0xff00ff0f }
+gmage.apply { Color color -> color & 0xff00ff0f }
 gmage.apply(ColorTransformers.replaceColor(Color.BLUE, Color.CLEAR, 0.25f))
 def blurred = gmage.blurred(new BoxBlur(BoxBlur.SHARPENING_KERNEL))
 def resized = blurred.scaledBy(0.8f, 0.8f)
@@ -104,12 +104,12 @@ doSomething(gmage);
 GmageEncoder.encode(gmage, CompressFormat.PNG, new File("output.png"));
 ```
 
-## Modify pixels
+### Modify pixels
 
 You can access pixels by their (x,y) indexes, or a 1-D index. The name `getAt` and `putAt` were
 chosen to allow Groovy operator overloading
 
-### Java
+#### Java
 
 ```groovy
 Gmage gmage = GmageDecoder.decode(new File("image.jpg"));
@@ -122,7 +122,7 @@ gmage.forEachPixel((c) -> System.out.println(c));
 gmage.apply(Color::negative, new BoxRegion(0, 0, gmage.getWidth() / 2,  gmage.getHeight() / 2));
 ```
 
-### Groovy
+#### Groovy
 
 ```groovy
 Gmage gmage = GmageDecoder.decode(new File("image.jpg"))
@@ -141,7 +141,7 @@ gmage.apply({ - it }, new BoxRegion(0, 0, gmage.width / 2,  gmage.height / 2))
 
 You can find some predefined `ColorTransformer` in the `ColorTransformers` class.
 
-## Scaling
+### Scaling
 
 You can scale an image with different algorithms.
 
@@ -152,7 +152,7 @@ Gmage scaled = gmage.scaledBy(Scaling.BILINEAR_INTERPOLATION, 1.5, 2);
 Gmage scaled2 = gmage.scaled(Scaling.NEAREST_NEIGHBOR, 512, 512);
 ```
 
-## Blur
+### Blur
 
 You can blur an image with different algorithms (for now only box blur is supported).
 
@@ -162,3 +162,8 @@ Example:
 Blur blur = new BoxBlur(BoxBlur.SMOOTHING_KERNEL);
 Gmage blurred = gmage.blurred(blur);
 ```
+
+## Javadoc
+- core [javadoc](https://tambapps.github.io/gmage/javadoc/gmage-core)
+- desktop [javadoc](https://tambapps.github.io/gmage/javadoc/gmage-desktop)
+- android [javadoc](https://tambapps.github.io/gmage/javadoc/gmage-android)
