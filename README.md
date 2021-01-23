@@ -164,6 +164,6 @@ Gmage blurred = gmage.blurred(blur);
 ```
 
 ## Javadoc
-- core [javadoc](https://tambapps.github.io/gmage/javadoc/gmage-core)
-- desktop [javadoc](https://tambapps.github.io/gmage/javadoc/gmage-desktop)
-- android [javadoc](https://tambapps.github.io/gmage/javadoc/gmage-android)
+- core [javadoc](https://tambapps.github.io/gmage/javadoc/gmage-core/)
+- desktop [javadoc](https://tambapps.github.io/gmage/javadoc/gmage-desktop/)
+- android [javadoc](https://tambapps.github.io/gmage/javadoc/gmage-android/)
