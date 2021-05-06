@@ -114,7 +114,7 @@ public class Gmage {
 
   /**
    * Modify the pixel at coordinates (xy[0], xy[1]). A list was used for xy coordinates to make this
-   * method groovy friendly => gmage[x,y] = 0xffffff
+   * method groovy friendly e.g: gmage[x,y] = 0xffffff
    *
    * @param xy    a list of two elements: x and y coordinates
    * @param value the color to put at this coordinate
@@ -125,7 +125,7 @@ public class Gmage {
 
   /**
    * Modify the pixel at coordinates (xy[0], xy[1]). A list was used for xy coordinates to make this
-   * method groovy friendly => gmage[x,y] = 0xffffff
+   * method groovy friendly e.g: gmage[x,y] = 0xffffff
    *
    * @param xy    a list of two elements: x and y coordinates
    * @param value the ARGB color to put at this coordinate
@@ -136,7 +136,7 @@ public class Gmage {
 
   /**
    * Modify the pixel at coordinates (xy[0], xy[1]). A list was used for xy coordinates to make this
-   * method groovy friendly => gmage[x,y] = 0xffffff
+   * method groovy friendly e.g: gmage[x,y] = 0xffffff
    *
    * @param xy    a list of two elements: x and y coordinates
    * @param value the RGB color to put at this coordinate
