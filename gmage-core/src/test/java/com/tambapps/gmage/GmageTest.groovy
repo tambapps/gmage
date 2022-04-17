@@ -10,7 +10,7 @@ class GmageTest {
 
   @Test
   void testRedImage() {
-    Gmage gmage = filledImage(0xff0000)
+    AbstractGmage gmage = filledImage(0xff0000)
     gmage.forEachPixel { Color pixel ->
       assertEquals(255, pixel.getAlpha())
       assertEquals(255, pixel.getRed())
@@ -24,7 +24,7 @@ class GmageTest {
 
   @Test
   void testGreenImage() {
-    Gmage gmage = filledImage(0x00ff00)
+    AbstractGmage gmage = filledImage(0x00ff00)
     gmage.forEachPixel { Color pixel ->
       assertEquals(255, pixel.getAlpha())
       assertEquals(0, pixel.getRed())
@@ -38,7 +38,7 @@ class GmageTest {
 
   @Test
   void testBlueImage() {
-    Gmage gmage = filledImage(0x0000ff)
+    AbstractGmage gmage = filledImage(0x0000ff)
     gmage.forEachPixel { Color pixel ->
       assertEquals(255, pixel.getAlpha())
       assertEquals(0, pixel.getRed())
@@ -52,27 +52,27 @@ class GmageTest {
 
   @Test
   void testPut() {
-    Gmage gmage = new Gmage(8, 8)
+    AbstractGmage gmage = new BaseGmage(8, 8)
     gmage[0] = Color.WHITE
     assertEquals(gmage[0], Color.WHITE)
     assertEquals(gmage[0], gmage[0, 0])
 
-    Gmage gmage1 = new Gmage(gmage.width, gmage.height)
+    AbstractGmage gmage1 = new BaseGmage(gmage.width, gmage.height)
     gmage.set(gmage1)
     assertEquals(gmage, gmage1)
 
     assertThrows(IllegalArgumentException) {
-      gmage.set(new Gmage(gmage.width, gmage.height + 1))
+      gmage.set(new BaseGmage(gmage.width, gmage.height + 1))
     }
     assertThrows(IllegalArgumentException) {
-      gmage.set(new Gmage(gmage.width + 1, gmage.height))
+      gmage.set(new BaseGmage(gmage.width + 1, gmage.height))
     }
   }
 
   @Test
   void testPixelStream() {
     Color color = new Color(0xff00ff48)
-    Gmage gmage = new Gmage(4, 6, color)
+    AbstractGmage gmage = new BaseGmage(4, 6, color)
     gmage.pixels().forEach {
       assertEquals(color, it)
     }
@@ -80,8 +80,8 @@ class GmageTest {
 
   @Test
   void testPadded() {
-    Gmage gmage = new Gmage(10, 10)
-    Gmage paddedGmage = gmage.padded(1, 2, 3, 4, Color.WHITE)
+    AbstractGmage gmage = new BaseGmage(10, 10)
+    AbstractGmage paddedGmage = gmage.padded(1, 2, 3, 4, Color.WHITE)
     assertEquals(gmage.width + 1 + 3, paddedGmage.width)
     assertEquals(gmage.height + 2 + 4, paddedGmage.height)
 
@@ -101,7 +101,7 @@ class GmageTest {
 
   @Test
   void testColorTransformer() {
-    Gmage gmage = new Gmage(10, 10)
+    AbstractGmage gmage = new BaseGmage(10, 10)
     gmage << {
       Color.WHITE
     }
@@ -119,7 +119,7 @@ class GmageTest {
 
   @Test
   void testAnd() {
-    Gmage gmage = new Gmage(10, 10, new Color(0x00ffff))
+    AbstractGmage gmage = new BaseGmage(10, 10, new Color(0x00ffff))
     Color green = new Color(0x00ff00)
     for (result in [gmage & new Color(0xffff00), gmage & 0xffff00, gmage & 0xffffff00])
       result.forEachPixel { Color pixel ->
@@ -129,7 +129,7 @@ class GmageTest {
 
   @Test
   void testOr() {
-    Gmage gmage = new Gmage(10, 10, new Color(0x0f00f0))
+    AbstractGmage gmage = new BaseGmage(10, 10, new Color(0x0f00f0))
     Color purple = new Color(0xff00ff)
     for (result in [gmage | new Color(0xf0000f), gmage | 0xf0000f, gmage | 0xfff0000f])
       result.forEachPixel { Color pixel ->
@@ -139,16 +139,16 @@ class GmageTest {
 
   @Test
   void testNegative() {
-    Gmage gmage = -new Gmage(10, 10, new Color(0x0f00f0))
+    AbstractGmage gmage = -new BaseGmage(10, 10, new Color(0x0f00f0))
     Color color = new Color(0xf0ff0f)
     gmage.forEachPixel { Color pixel ->
       assertEquals(color, pixel)
     }
   }
 
-  private static Gmage filledImage(int rgb) {
+  private static AbstractGmage filledImage(int rgb) {
     int width = 64
     int height = 64
-    return new Gmage(width, height, new Color(rgb))
+    return new BaseGmage(width, height, new Color(rgb))
   }
 }

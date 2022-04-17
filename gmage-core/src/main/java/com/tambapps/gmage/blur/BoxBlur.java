@@ -1,6 +1,6 @@
 package com.tambapps.gmage.blur;
 
-import com.tambapps.gmage.Gmage;
+import com.tambapps.gmage.AbstractGmage;
 import com.tambapps.gmage.color.Color;
 
 // thanks https://tech-algorithm.com/articles/boxfiltering/
@@ -69,7 +69,7 @@ public class BoxBlur implements Blur {
    * @return the blurred gmage
    */
   @Override
-  public Gmage apply(Gmage gmage) {
+  public AbstractGmage apply(AbstractGmage gmage) {
     int width = gmage.getWidth();
     int height = gmage.getHeight();
     Color[] pixels = new Color[width * height];
@@ -118,7 +118,7 @@ public class BoxBlur implements Blur {
                 bounded(green / denominator), bounded(blue / denominator));
       }
     }
-    return new Gmage(width, height, pixels);
+    return gmage.newInstance(width, height, pixels);
   }
 
   private int bounded(float value) {

@@ -12,7 +12,7 @@ class GmageDecoderTest extends AbstractGmageTest {
 
   @Test
   void testParseStream() {
-    Gmage gmage = GmageDecoder.decode(GmageDecoderTest.class.getResource("/ronflex.jpg"))
+    AbstractGmage gmage = GmageDecoder.decode(GmageDecoderTest.class.getResource("/ronflex.jpg"))
     assertNotNull(gmage)
     com.tambapps.gmage.color.Color pixel = gmage[0, 0]
     assertNotNull(pixel)
@@ -23,7 +23,7 @@ class GmageDecoderTest extends AbstractGmageTest {
   }
 
   @Override
-  protected Gmage filledImage(int rgb) {
+  protected AbstractGmage filledImage(int rgb) {
     int width = 64
     int height = 64
     BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB)

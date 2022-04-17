@@ -1,12 +1,12 @@
 package com.tambapps.gmage.scaling;
 
-import com.tambapps.gmage.Gmage;
+import com.tambapps.gmage.AbstractGmage;
 import com.tambapps.gmage.color.Color;
 
 class ScalingAlgorithms {
 
   // thanks https://tech-algorithm.com/articles/nearest-neighbor-image-scaling/
-  public static Gmage nearestNeighbour(Gmage source, int targetWidth, int targetHeight) {
+  public static AbstractGmage nearestNeighbour(AbstractGmage source, int targetWidth, int targetHeight) {
     Color[] pixels = new Color[targetWidth * targetHeight];
     int sourceWidth = source.getWidth();
     int sourceHeight = source.getHeight();
@@ -25,11 +25,11 @@ class ScalingAlgorithms {
         pixels[y * targetWidth + x] = source.getAt(electedX, electedY);
       }
     }
-    return new Gmage(targetWidth, targetHeight, pixels);
+    return source.newInstance(targetWidth, targetHeight, pixels);
   }
 
   // thanks http://tech-algorithm.com/articles/bilinear-image-scaling/
-  public static Gmage bilinearInterpolation(Gmage source, int targetWidth, int targetHeight) {
+  public static AbstractGmage bilinearInterpolation(AbstractGmage source, int targetWidth, int targetHeight) {
     Color[] pixels = new Color[targetWidth * targetHeight];
     int sourceWidth = source.getWidth();
     int sourceHeight = source.getHeight();
@@ -59,7 +59,7 @@ class ScalingAlgorithms {
             bilinearTransform(a.getBlue(), b.getBlue(), c.getBlue(), d.getBlue(), xDiff, yDiff));
       }
     }
-    return new Gmage(targetWidth, targetHeight, pixels);
+    return source.newInstance(targetWidth, targetHeight, pixels);
   }
 
   private static int bilinearTransform(int a, int b, int c, int d, float x_diff, float y_diff) {

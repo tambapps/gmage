@@ -9,7 +9,7 @@ abstract class AbstractGmageTest {
 
   @Test
   void testRedImage() {
-    Gmage gmage = filledImage(0xff0000)
+    AbstractGmage gmage = filledImage(0xff0000)
     gmage.forEachPixel { Color pixel ->
       assertEquals(255, pixel.getAlpha())
       assertEquals(255, pixel.getRed())
@@ -22,7 +22,7 @@ abstract class AbstractGmageTest {
 
   @Test
   void testGreenImage() {
-    Gmage gmage = filledImage(0x00ff00)
+    AbstractGmage gmage = filledImage(0x00ff00)
     gmage.forEachPixel { Color pixel ->
       assertEquals(255, pixel.getAlpha())
       assertEquals(0, pixel.getRed())
@@ -35,7 +35,7 @@ abstract class AbstractGmageTest {
 
   @Test
   void testBlueImage() {
-    Gmage gmage = filledImage(0x0000ff)
+    AbstractGmage gmage = filledImage(0x0000ff)
     gmage.forEachPixel { Color pixel ->
       assertEquals(255, pixel.getAlpha())
       assertEquals(0, pixel.getRed())
@@ -46,6 +46,6 @@ abstract class AbstractGmageTest {
     }
   }
 
-  protected abstract Gmage filledImage(int rgb);
+  protected abstract AbstractGmage filledImage(int rgb);
 
 }

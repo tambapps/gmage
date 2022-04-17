@@ -1,7 +1,7 @@
 package com.tambapps.gmage.scaling
 
 import com.tambapps.gmage.CompressFormat
-import com.tambapps.gmage.Gmage
+import com.tambapps.gmage.AbstractGmage
 import com.tambapps.gmage.GmageDecoder
 import com.tambapps.gmage.GmageDecoderTest
 import com.tambapps.gmage.GmageEncoder
@@ -35,7 +35,7 @@ class ScalingTest {
   }
 
   private static void testScalingBigger(Scaling scaling) {
-    Gmage gmage = GmageDecoder.decode(GmageDecoderTest.class.getResource("/ronflex.jpg"))
+    AbstractGmage gmage = GmageDecoder.decode(GmageDecoderTest.class.getResource("/ronflex.jpg"))
     def scaled = gmage.scaledBy(scaling, 1.5, 2)
     GmageEncoder.encode(scaled, CompressFormat.PNG, new File("test_${scaling.name().toLowerCase()}_bigger.png"))
     assertEquals((gmage.width * 1.5f) as int, scaled.width)
@@ -43,7 +43,7 @@ class ScalingTest {
   }
 
   private static void testScalingSmaller(Scaling scaling) {
-    Gmage gmage = GmageDecoder.decode(GmageDecoderTest.class.getResource("/ronflex.jpg"))
+    AbstractGmage gmage = GmageDecoder.decode(GmageDecoderTest.class.getResource("/ronflex.jpg"))
     def scaled = gmage.scaledBy(scaling, 0.75, 0.5)
     GmageEncoder.encode(scaled,
         CompressFormat.PNG, new File("test_${scaling.name().toLowerCase()}_smaller.png"))

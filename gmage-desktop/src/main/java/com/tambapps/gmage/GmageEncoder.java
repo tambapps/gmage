@@ -25,7 +25,7 @@ public class GmageEncoder {
    * @throws IOException                   in case of I/O error
    * @throws UnsupportedOperationException in case the object is not supported
    */
-  public static boolean encode(Gmage gmage, CompressFormat format, Object object)
+  public static boolean encode(AbstractGmage gmage, CompressFormat format, Object object)
       throws IOException {
     if (object instanceof Path) {
       return encode(gmage, format, (Path) object);
@@ -46,7 +46,7 @@ public class GmageEncoder {
    * @return whether the encoding succeeded or not
    * @throws IOException in case of I/O error
    */
-  public static boolean encode(Gmage gmage, CompressFormat format, Path path) throws IOException {
+  public static boolean encode(AbstractGmage gmage, CompressFormat format, Path path) throws IOException {
     return encode(gmage, format, path.toFile());
   }
 
@@ -59,7 +59,7 @@ public class GmageEncoder {
    * @return whether the encoding succeeded or not
    * @throws IOException in case of I/O error
    */
-  public static boolean encode(Gmage gmage, CompressFormat format, File file) throws IOException {
+  public static boolean encode(AbstractGmage gmage, CompressFormat format, File file) throws IOException {
     try (FileOutputStream fos = new FileOutputStream(file)) {
       return encode(gmage, format, fos);
     }
@@ -73,7 +73,7 @@ public class GmageEncoder {
    * @param outputStream the output stream in which to encode to
    * @return whether the encoding succeeded or not
    */
-  public static boolean encode(Gmage gmage, CompressFormat format, OutputStream outputStream)
+  public static boolean encode(AbstractGmage gmage, CompressFormat format, OutputStream outputStream)
       throws IOException {
     BufferedImage image = format.supportsAlpha() ?
         BufferedImageUtils.fromGmage(gmage, BufferedImage.TYPE_INT_RGB) :

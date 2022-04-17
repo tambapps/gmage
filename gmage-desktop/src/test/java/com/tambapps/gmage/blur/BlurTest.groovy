@@ -1,7 +1,7 @@
 package com.tambapps.gmage.blur
 
 import com.tambapps.gmage.CompressFormat
-import com.tambapps.gmage.Gmage
+import com.tambapps.gmage.AbstractGmage
 import com.tambapps.gmage.GmageDecoder
 import com.tambapps.gmage.GmageDecoderTest
 import com.tambapps.gmage.GmageEncoder
@@ -48,17 +48,17 @@ class BlurTest {
 
   @Test
   void testPixelationBlur() {
-    Gmage gmage = GmageDecoder.decode(GmageDecoderTest.class.getResource("/ronflex.jpg"))
+    AbstractGmage gmage = GmageDecoder.decode(GmageDecoderTest.class.getResource("/ronflex.jpg"))
     int pixelSize = gmage.width.intdiv(10)
     def blur = new PixelationBlur(pixelSize)
-    Gmage gmage1 = gmage.copy()
+    AbstractGmage gmage1 = gmage.copy()
     blur.applyOn(gmage1)
     assertEquals(gmage1, blur.apply(gmage))
     GmageEncoder.encode(gmage1, CompressFormat.PNG, new File("test_pixelation_${pixelSize}.png"))
   }
 
   private static void testBoxBlur(Kernel kernel, String blurName) {
-    Gmage gmage = GmageDecoder.decode(GmageDecoderTest.class.getResource("/ronflex.jpg"))
+    AbstractGmage gmage = GmageDecoder.decode(GmageDecoderTest.class.getResource("/ronflex.jpg"))
     def blur = new BoxBlur(kernel)
     def blurred = gmage.blurred(blur)
     GmageEncoder.encode(blurred, CompressFormat.PNG, new File("test_box_blur_${blurName}.png"))

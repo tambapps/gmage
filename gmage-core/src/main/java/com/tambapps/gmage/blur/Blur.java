@@ -1,6 +1,6 @@
 package com.tambapps.gmage.blur;
 
-import com.tambapps.gmage.Gmage;
+import com.tambapps.gmage.AbstractGmage;
 import com.tambapps.gmage.region.Region;
 
 // TODO implement Gaussian Blur
@@ -19,7 +19,7 @@ public interface Blur {
    * @param gmage the gmage to blur
    * @return the blurred copy
    */
-  Gmage apply(Gmage gmage);
+  AbstractGmage apply(AbstractGmage gmage);
 
   /**
    * Apply directly the blur on the supplied gmage
@@ -27,7 +27,7 @@ public interface Blur {
    *
    * @param gmage the gmage to apply the blur on
    */
-  default void applyOn(Gmage gmage) {
+  default void applyOn(AbstractGmage gmage) {
     throw new UnsupportedOperationException(getClass().getSimpleName() +
         "Cannot directly apply the blur on a gmage. (Use the apply function)");
   }
@@ -39,7 +39,7 @@ public interface Blur {
    * @param gmage  the gmage to apply the blur on
    * @param region the region in which to apply the blur
    */
-  default void applyOn(Gmage gmage, Region region) {
+  default void applyOn(AbstractGmage gmage, Region region) {
     throw new UnsupportedOperationException(getClass().getSimpleName() +
         "Cannot directly apply the blur on a gmage. (Use the apply function)");
   }

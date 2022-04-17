@@ -16,11 +16,11 @@ class GmageEncoderTest {
 
   @Test
   void testJpgEncoding() {
-    Gmage gmage = GmageDecoder.decode(GmageEncoderTest.class.getResource("/ronflex.jpg"))
+    AbstractGmage gmage = GmageDecoder.decode(GmageEncoderTest.class.getResource("/ronflex.jpg"))
     File f = Files.createTempFile("image", ".jpg").toFile()
     f.deleteOnExit()
     assertTrue(GmageEncoder.encode(gmage, CompressFormat.JPG, f))
-    Gmage gmage1 = GmageDecoder.decode(f)
+    AbstractGmage gmage1 = GmageDecoder.decode(f)
     assertEquals(gmage.width, gmage1.width)
     assertEquals(gmage.height, gmage1.height)
 
@@ -33,11 +33,11 @@ class GmageEncoderTest {
 
   @Test
   void testGifEncoding() {
-    Gmage gmage = GmageDecoder.decode(GmageEncoderTest.class.getResource("/ronflex.jpg"))
+    AbstractGmage gmage = GmageDecoder.decode(GmageEncoderTest.class.getResource("/ronflex.jpg"))
     File f = Files.createTempFile("image", ".gif").toFile()
     f.deleteOnExit()
     assertTrue(GmageEncoder.encode(gmage, CompressFormat.GIF, f))
-    Gmage gmage1 = GmageDecoder.decode(f)
+    AbstractGmage gmage1 = GmageDecoder.decode(f)
     assertEquals(gmage.width, gmage1.width)
     assertEquals(gmage.height, gmage1.height)
     // same here, precision lost
@@ -49,11 +49,11 @@ class GmageEncoderTest {
   // 100% accurate
   @Test
   void testBmpEncoding() {
-    Gmage gmage = GmageDecoder.decode(GmageEncoderTest.class.getResource("/ronflex.jpg"))
+    AbstractGmage gmage = GmageDecoder.decode(GmageEncoderTest.class.getResource("/ronflex.jpg"))
     File f = Files.createTempFile("image", ".bmp").toFile()
     f.deleteOnExit()
     assertTrue(GmageEncoder.encode(gmage, CompressFormat.BMP, f))
-    Gmage gmage1 = GmageDecoder.decode(f)
+    AbstractGmage gmage1 = GmageDecoder.decode(f)
     assertEquals(gmage.width, gmage1.width)
     assertEquals(gmage.height, gmage1.height)
     for (i in 0..<gmage.width * gmage.height) {
@@ -65,11 +65,11 @@ class GmageEncoderTest {
   // 100% accurate
   @Test
   void testPngEncoding() {
-    Gmage gmage = GmageDecoder.decode(GmageEncoderTest.class.getResource("/ronflex.jpg"))
+    AbstractGmage gmage = GmageDecoder.decode(GmageEncoderTest.class.getResource("/ronflex.jpg"))
     File f = Files.createTempFile("image", ".png").toFile()
     f.deleteOnExit()
     assertTrue(GmageEncoder.encode(gmage, CompressFormat.PNG, f))
-    Gmage gmage1 = GmageDecoder.decode(f)
+    AbstractGmage gmage1 = GmageDecoder.decode(f)
     assertEquals(gmage.width, gmage1.width)
     assertEquals(gmage.height, gmage1.height)
     for (i in 0..<gmage.width * gmage.height) {

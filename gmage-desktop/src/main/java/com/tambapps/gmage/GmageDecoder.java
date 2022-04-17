@@ -31,7 +31,7 @@ public final class GmageDecoder {
    * @throws UnsupportedOperationException in case the object could not be converted
    * @throws GmageDecodingException        in case an error occurred during the decoding
    */
-  public static Gmage decode(Object object) {
+  public static Gmage decodeFrom(Object object) {
     if (object instanceof InputStream) {
       return decode((InputStream) object);
     } else if (object instanceof File) {

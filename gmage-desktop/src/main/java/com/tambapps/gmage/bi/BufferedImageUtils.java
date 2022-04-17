@@ -1,5 +1,6 @@
 package com.tambapps.gmage.bi;
 
+import com.tambapps.gmage.AbstractGmage;
 import com.tambapps.gmage.Gmage;
 
 import java.awt.*;
@@ -17,7 +18,7 @@ public class BufferedImageUtils {
    * @param gmage the gmage to converted
    * @return the converted buffered image
    */
-  public static BufferedImage fromGmage(Gmage gmage) {
+  public static BufferedImage fromGmage(AbstractGmage gmage) {
     return fromGmage(gmage, BufferedImage.TYPE_INT_RGB);
   }
 
@@ -28,7 +29,7 @@ public class BufferedImageUtils {
    * @param imageType the BufferedImage image type
    * @return the converted buffered image
    */
-  public static BufferedImage fromGmage(Gmage gmage, int imageType) {
+  public static BufferedImage fromGmage(AbstractGmage gmage, int imageType) {
     int width = gmage.getWidth();
     int height = gmage.getHeight();
     BufferedImage image = new BufferedImage(width, height, imageType);
