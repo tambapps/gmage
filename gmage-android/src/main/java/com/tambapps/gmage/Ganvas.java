@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Locale;
 import java.util.function.BiConsumer;
 
 public class Ganvas extends AbstractGmage {
@@ -102,7 +103,18 @@ public class Ganvas extends AbstractGmage {
   }
 
   public void rightShift(File file) throws IOException {
-    encode(file, CompressFormat.PNG);
+    CompressFormat format;
+    // to ignore case
+    String name = file.getName().toLowerCase(Locale.ENGLISH);
+    if (name.endsWith(".jpg") || name.endsWith(".jpeg")) {
+      format = CompressFormat.JPG;
+    } else if (name.endsWith(".webp")) {
+      format = CompressFormat.WEBP;
+    } else {
+      format = CompressFormat.PNG;
+    }
+    encode(file, format);
+    encode(file, format);
   }
 
   public void encode(OutputStream os, CompressFormat format) throws IOException {
