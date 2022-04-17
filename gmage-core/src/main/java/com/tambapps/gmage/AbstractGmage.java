@@ -7,12 +7,9 @@ import com.tambapps.gmage.region.Region;
 import com.tambapps.gmage.scaling.Scaling;
 import com.tambapps.gmage.transformer.ColorTransformer;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.stream.Stream;
 
 /**
  * Represent an image
