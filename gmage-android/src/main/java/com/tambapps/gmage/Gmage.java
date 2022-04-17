@@ -1,5 +1,7 @@
 package com.tambapps.gmage;
 
+import android.graphics.Bitmap;
+import com.tambapps.gmage.bitmap.BitmapUtils;
 import com.tambapps.gmage.color.Color;
 
 import java.io.File;
@@ -38,6 +40,10 @@ public class Gmage extends BaseGmage {
 
   public void encode(File file, CompressFormat format) throws IOException {
     GmageEncoder.encode(this, format, file);
+  }
+
+  public Bitmap toBitmap() {
+    return BitmapUtils.fromGmage(this);
   }
 
   @Override

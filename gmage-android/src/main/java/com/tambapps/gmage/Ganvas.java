@@ -12,6 +12,7 @@ import android.graphics.RenderNode;
 import android.graphics.text.MeasuredText;
 import com.tambapps.gmage.bitmap.BitmapUtils;
 import com.tambapps.gmage.color.Color;
+import lombok.Getter;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -21,6 +22,7 @@ import java.util.function.BiConsumer;
 
 public class Ganvas extends AbstractGmage {
 
+  @Getter
   private final Bitmap bitmap;
   private final Canvas canvas;
 
@@ -56,6 +58,10 @@ public class Ganvas extends AbstractGmage {
   @Override
   public Color getAt(int x, int y) {
     return BitmapUtils.toColor(bitmap.getPixel(x, y));
+  }
+
+  public Bitmap toBitmap() {
+    return BitmapUtils.fromGmage(this);
   }
 
   @Override
